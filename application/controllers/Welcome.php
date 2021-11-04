@@ -29,7 +29,9 @@ class Welcome extends CI_Controller {
 
 		// $data['AbsensiPusat']=$this->dashboardmod->get_data('AbsenHarian')->result();
 
-				$this->load->view('templates/header');
+	$data['judul'] = 'Dashboard';
+	
+	$this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view("dashboard",$data);
         $this->load->view('templates/footer');

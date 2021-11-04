@@ -249,18 +249,57 @@
                               </div>
                               <div class="modal-body">
                                 <input type="text" name="NIK" class="form-control" value="<?= $this->session->userdata('MIS_LOGGED_NIK'); ?>">
+                                <label>Jenis Data Identitas</label>
+                                <select class="form-control" name="JenisIdentitas">
+                                  <option value="">--Pilih Data Identitas--</option>
+                                  <option value="KTP">KTP</option>
+                                  <option value="PASSPORT">PASSPORT</option>
+                                  <option value="NPWP">NPWP</option>
+                                  <option value="KARTU KELUARGA">KARTU KELUARGA</option>
+                                  <option value="SIM A">SIM A</option>
+                                  <option value="SIM B">SIM B</option>
+                                  <option value="SIM C">SIM C</option>                                  
+                                </select>
+                                <label>No Identitas</label>
+                                <input type="text" name="NoIdentitas" id="NoIdentitas" class="form-control">
+                                <label>Berlaku Mulai</label>
+                                <input type="date" name="Berlaku1" class="form-control">
+                                <label>Berlaku Sampai</label>
+                                <input type="date" name="Berlaku2" class="form-control">
+                                <label>Diterbitkan Oleh</label>
+                                <input type="text" name="Penerbit" class="form-control">
+                                <br>
+                                <div class="modal-header">
+                                  <label>Informasi Data Rekening</label>
+                                </div>
+                                <label>Nama Bank</label>
+                                <input type="text" name="NamaBank" class="form-control">
+                                <label>Atas Nama</label>
+                                <input type="text" name="AtasNama" class="form-control">
+                                <label>No Rekening</label>
+                                <input type="text" name="NoRek" class="form-control">
+
+                                <div class="modal-footer">
+                                  <button type="submit" class="btn btn-success">SIMPAN</button>
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
                         <div class="box-body table-responsive no-padding">
                           <table class="table table-hover">
-                            <tr style="background-color: dodgerblue;">
+                            <tr style="background-color: deepskyblue;">
                               <th>Jenis Identitas</th>
                               <th>Berlaku Mulai</th>
                               <th>Berlaku Sampai Dengan</th>
                               <th>Diterbitkan Oleh</th>
+                            </tr>
 
+                            <tr>
+                              <td></td>
+                              <td></td>
+                              <td></td>
+                              <td></td>
                             </tr>
                           </table>
                         </div>

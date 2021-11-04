@@ -96,6 +96,20 @@ class Job extends CI_Controller
         $RekPengeluaranProyek    =$this->input->post('RekPengeluaranProyek');
         $BankPengeluaranProyek   =$this->input->post('BankPengeluaranProyek');
 
+		$Logo					 =$_FILES['Logo']['name'];
+		if ($Logo=''){}else{
+			$config['upload_path'] = './assets/doc';
+			$config['allowed_types'] = 'png';
+			$this->load->library('upload',$config);
+			$this->upload->initialize($config);
+			if (!$this->upload->do_upload('Logo')) {
+				print_r($this->upload->display_errors());
+				die;
+			}else {
+				$Logo=$this->upload->data('file_name');
+			}
+		}
+
         $data = array(
             'JobNm'                         => $JobNm,
             'Lokasi'                        => $Lokasi,
@@ -108,7 +122,9 @@ class Job extends CI_Controller
             'BankPengeluaranPusat'          => $BankPengeluaranPusat,
             'RekPengeluaranProyek'          => $RekPengeluaranProyek,
             'BankPengeluaranProyek'         => $BankPengeluaranProyek,
+			'Logo'							=> $Logo,
         );
+
         $where = array(
             'JobNo' => $JobNo
         );
@@ -122,6 +138,9 @@ class Job extends CI_Controller
         $this->load->model('m_job');
         $datakontrak = $this->m_job->datakontrak($JobNo);        
         $data['datakontrak'] = $datakontrak;
+
+		$addendum = $this->m_job->addendum($JobNo);
+		$data['addendum'] = $addendum;
 
         $JaminanPelaksanaan = $this->m_job->JaminanPelaksanaan($JobNo);
         $data['JaminanPelaksanaan'] = $JaminanPelaksanaan;
@@ -140,11 +159,23 @@ class Job extends CI_Controller
 
 
         $data['judul'] = 'Data Kontrak / Addendum';
+		$db = 'Kontrak,Dokumen Addendum';
+		$checked = explode(',', $db);
+		$data['checked'] = $checked;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view("content/jobentry/datakontrak", $data);
         $this->load->view('templates/footer');
     }
+
+	public function checklistAction()
+	{
+		echo "<pre>";
+		// print_r($this->input->post());
+		foreach($this->input->post('Ceklist') as $row => $value) {
+			print_r($value);
+		}
+	}
 
     public function UpdateFHO()
     {
@@ -167,7 +198,6 @@ class Job extends CI_Controller
 
 	public function TambahRekNPWP()
 	{
-
 		$JobNo 			=$this->input->post('JobNo');
 		$JobNm         	=$this->input->post('JobNm');
 		$NPWPName       =$this->input->post('NPWPName');
@@ -236,20 +266,21 @@ class Job extends CI_Controller
         $NoJaminan          =$this->input->post('NoJaminan');
         $NilaiJaminan       =$this->input->post('NilaiJaminan');
         $MasaBerlaku        =$this->input->post('MasaBerlaku');
-        $FileJaminan        =$this->input->post('FileJaminan');
+        $Filejaminan        =$this->input->post('FileJaminan');
         $UserEntry         =$this->session->userdata('MIS_LOGGED_NAME');
         $TimeEntry           =date("Y-m-d H:i:s");
 
-
-        $Filejaminan        =$_FILES['Filejaminan'];
+        $Filejaminan        =$_FILES['Filejaminan']['name'];
         if ($Filejaminan=''){}else{
             $config['upload_path']          ='./asset/filejaminan';
             $config['allowed_types']        ='pdf';
             $config['max_size']             = 2000;
 
             $this->load->library('upload',$config);
+			$this->upload->initialize($config);
             if(!$this->upload->do_upload('Filejaminan')){
-                // echo "Upload Gagal"; die();             
+				print_r($this->upload->display_errors());
+				die;            
             }else{
                 $Filejaminan=$this->upload->data('file_name');
             }
@@ -315,8 +346,8 @@ class Job extends CI_Controller
     //     $data ['edit_Dipa'] = $this->db->query("SELECT * FROM DIPA Where id_Dipa = '$id_Dipa'")->result();
     // }
 
-     function DeleteDipa($id_Dipa)
-    {
+     function DeleteDipa($JobNo,$id_Dipa)
+    {	
         // $this->m_job->DeleteDipa($id_Dipa);
         $where = array('id_Dipa' => $id_Dipa);
         $this->M_job->DeleteDipa($where, 'DIPA');

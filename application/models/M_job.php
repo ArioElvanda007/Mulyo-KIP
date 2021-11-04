@@ -41,6 +41,12 @@ class M_job extends CI_Model
         return $query;
     }
 
+	public function addendum($JobNo=null)
+	{
+		$query = $this->db->get_where('Job', array('JobNo' => $JobNo))->result();
+        return $query;
+	}
+
 	public function updateDRP($table, $data, $where)
 	{
 		$this->db->update($table, $data, $where);
