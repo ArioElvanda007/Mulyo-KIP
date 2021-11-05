@@ -55,11 +55,11 @@
 
     <header class="main-header ">
       <!-- Logo -->
-      <a href="../../index2.html" class="logo">
+      <a href="#" class="logo">
         <!-- mini logo for sidebar mini 50x50 pixels -->
         <span class="logo-mini"><b>M</b>DH</span>
         <!-- logo for regular state and mobile devices -->
-        <span class="logo-lg"><b>MINARTA DUTAHUTAMA</b></span>
+        <span class="logo-xs"><b>MINARTA DUTAHUTAMA</b></span>
       </a>
       <!-- Header Navbar: style can be found in header.less -->
       <nav class="navbar navbar-static-top">
