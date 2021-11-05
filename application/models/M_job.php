@@ -4,9 +4,14 @@ class M_job extends CI_Model
 {
     public function data_job()
     {
-        $query = $this->db->query("SELECT * From Job WHERE Company='KIP' AND TipeJob='Project' ORDER BY JobNo DESC");
+        $query = $this->db->query("SELECT * From Job WHERE Company='MDH' AND TipeJob='Project' ORDER BY JobNo DESC");
         return $query;
     }
+
+	public function SimpanData($table, $data)
+	{
+		$this->db->insert($table, $data);
+	}
 
     public function edit_data($where, $table)
     {
@@ -34,12 +39,25 @@ class M_job extends CI_Model
 
     //end Data Proyek
 
-
     public function datakontrak($JobNo = null)
     {
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();        
         return $query;
     }
+
+	public function dataAddendum($JobNo = null)
+	{
+		$query = $this->db->query("SELECT TOP 1 * FROM Job WHERE JobNo='$JobNo'")->result_object();
+		return $query;
+	}
+
+	public function ceklistDoc($JobNo = null)
+	{
+		return $this->db->select('*')
+				->from('CeklistDok')
+				->where('JobNo', $JobNo)
+				->get()->row_array();
+	}
 
 	public function addendum($JobNo=null)
 	{
@@ -93,6 +111,8 @@ class M_job extends CI_Model
          //return $this->db->get_where($table,$where);
     }
 
+	//CLuster DIPA TERMIN
+
     public function dipa($JobNo = null)
     {
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();
@@ -117,6 +137,20 @@ class M_job extends CI_Model
         $this->db->where($where);
         $this->db->delete($table);
     }
+
+	public function getRtermin ($JobNo = null)
+	{
+		$query = "SELECT * FROM RencanaTermin WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
+
+	public function GetBruto($JobNo)
+	{
+		$query = "SELECT TOP 1 Persentase FROM RencanaTermin WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
 
     public function tatakelola($JobNo = null)
     {
@@ -178,4 +212,41 @@ class M_job extends CI_Model
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();
         return $query;
     }
+
+	public function checkProjectFieldTeam($JobNo = null)
+    {
+		$query="select item from
+		dbo.SplitString(
+		(select CeklistLapangan from CeklistDok where JobNo = $JobNo and id = (select max(id) from CeklistDok where JobNo = $JobNo))
+		, ',')";
+		return $this->db->query($query)->result_object();		
+	}
+
+	public function checkProjectPCTeam($JobNo = null)
+    {
+		$query="select item from
+		dbo.SplitString(
+		(select CeklistPC from CeklistDok where JobNo = $JobNo and id = (select max(id) from CeklistDok where JobNo = $JobNo))
+		, ',')";
+		return $this->db->query($query)->result_object();		
+	}
+
+	public function checkPHO1($JobNo = null)
+    {
+		$query="select item from
+		dbo.SplitString(
+		(select chkdokpho1 from job where JobNo = '$JobNo')
+		, ',')";
+		return $this->db->query($query)->result_object();		
+	}
+
+	public function checkPHO2($JobNo = null)
+    {
+		$query="select item from
+		dbo.SplitString(
+		(select chkdokpho2 from job where JobNo = '$JobNo')
+		, ',')";
+		return $this->db->query($query)->result_object();		
+	}
+
 }

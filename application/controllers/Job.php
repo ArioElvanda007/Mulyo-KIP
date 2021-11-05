@@ -42,9 +42,6 @@ class Job extends CI_Controller
 
 
 
-	
-
-
     public function index()
     {
         $data['judul'] = 'List Data Job';
@@ -154,12 +151,27 @@ class Job extends CI_Controller
         $JaminanPemeliharaan = $this->m_job->JaminanPemeliharaan($JobNo);
         $data['JaminanPemeliharaan'] = $JaminanPemeliharaan;
 
-        // $where = array('JobNo' => $JobNo);
-        // $data['FHO'] = $this->M_job->updateFHO($where,'Job')->result();
+		// $where = array('JobNo' => $JobNo);
+		// $data['FHO'] = $this->M_job->updateFHO($where,'Job')->result();
+		$dataAddendum = $this->m_job->dataAddendum($JobNo);
+		$data['dataAddendum'] = $dataAddendum;
 
+		$checkProjectFieldTeam = $this->m_job->checkProjectFieldTeam($JobNo);
+		// print_r($checkProject);
+		$data['checkProjectFieldTeam'] = $checkProjectFieldTeam;
+
+		$checkProjectPCTeam = $this->m_job->checkProjectPCTeam($JobNo);
+		$data['checkProjectPCTeam'] = $checkProjectPCTeam;
+
+		$checkPHO1 = $this->m_job->checkPHO1($JobNo);
+		$data['checkPHO1'] = $checkPHO1;
+
+		$checkPHO2 = $this->m_job->checkPHO2($JobNo);
+		$data['checkPHO2'] = $checkPHO2;
 
         $data['judul'] = 'Data Kontrak / Addendum';
-		$db = 'Kontrak,Dokumen Addendum';
+		// $db = $this->m_job->ceklistDoc['$JobNo'];
+		$db = 'Kontrak';
 		$checked = explode(',', $db);
 		$data['checked'] = $checked;
         $this->load->view('templates/header', $data);
@@ -170,11 +182,67 @@ class Job extends CI_Controller
 
 	public function checklistAction()
 	{
-		echo "<pre>";
+		// echo "<pre>";
 		// print_r($this->input->post());
-		foreach($this->input->post('Ceklist') as $row => $value) {
-			print_r($value);
+
+		$JobNo 		= $this->input->post('JobNo');
+		$UserEntry 	= $this->session->userdata('MIS_LOGGED_NAME');
+		$TimeEntry	= date("Y-m-d H:i:s");
+
+		$data = array(
+			'JobNo'		=>$JobNo,
+			'CeklistLapangan'	=>implode(',',$this->input->post('Cekfield',TRUE)),
+			'CeklistPC'	=>implode(',',$this->input->post('Cekpc',TRUE)),
+			'UserEntry'	=>$UserEntry,
+			'TimeEntry' =>$TimeEntry,
+		);
+
+		// print_r($cekbox);
+
+		$this->M_job->SimpanData('CeklistDok',$data);
+		redirect('Job/datakontrak/'.$JobNo);
+
+		// foreach($this->input->post('Ceklist') as $row => $value) {
+		// 	// print_r($value);
+		// }
+	}
+
+	public function SimpanPHO($JobNo = null)
+	{
+		$JobNo		= $this->input->post('JobNo');
+		$NoPHO 		= $this->input->post('NoPHO');
+		$TglPHO		= $this->input->post('TglPHO');
+
+		$config['upload_path']   = './assets/FilePHO/';
+		$config['allowed_types'] = 'pdf';
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('FilePHO')) {
+			print_r($this->upload->display_errors());
+			die;
+		} else {
+			$FilePHO = $this->upload->data('file_name');
 		}
+
+		// $this->upload->do_upload('FilePHO');
+		// $FilePHO = $this->upload->data('file_name');
+
+		$data = array(
+			'NoPHO' 		=>$NoPHO,
+			'TglPHO'		=>$TglPHO,
+			'PHOFile'		=>$FilePHO,
+			'ChkDokPHO1'	=>implode(',',$this->input->post('CeklistPHO1',TRUE)),
+			'ChkDokPHO2'	=>implode(',',$this->input->post('CeklistPHO2',TRUE)),
+		);
+		$where = array(
+			'JobNo' => $JobNo
+		);
+		// print_r($data);
+		// die();
+
+		$this->M_job->UpdateDataProyek('Job', $data, $where);
+		redirect('Job/datakontrak/' .($JobNo));
 	}
 
     public function UpdateFHO()
@@ -182,17 +250,31 @@ class Job extends CI_Controller
         $JobNo      =$this->input->post('JobNo');
         $NoFHO      =$this->input->post('NoFHO');
         $TglFHO     =$this->input->post('TglFHO');
+		$EndNotification =$this->input->post('NotifLanjutTender');
+		$config['upload_path']   = './assets/FileFHO/';
+		$config['allowed_types'] = 'pdf';
+
+		$this->load->library('upload', $config);
+		$this->upload->initialize($config);
+		if (!$this->upload->do_upload('FileFHO')) {
+			print_r($this->upload->display_errors());
+			die;
+		} else {
+			$FileFHO = $this->upload->data('file_name');
+		}
 
         $data = array(
             'NoFHO'     => $NoFHO,
             'TglFHO'    => $TglFHO,
+			'FHOFile'	=> $FileFHO,
+			'EndNotification' =>$EndNotification,
         );
         $where = array(
             'JobNo' => $JobNo
         );
         
-        $this->M_job->updateFHO('Job',$data, $where);
-        redirect('Job/dataproyek/'.($JobNo));
+        $this->M_job->UpdateDataProyek('Job',$data, $where);
+        redirect('Job/datakontrak/'.($JobNo));
     }
 
 
@@ -298,7 +380,7 @@ class Job extends CI_Controller
         );
 
         $this->M_job->simpan_JaminanKontrak('JaminanKontrak',$data);
-        redirect('job/datakontrak/'.($JobNo));
+        redirect('Job/datakontrak/'.($JobNo));
     }       
 
     public function dipa($JobNo)
@@ -309,6 +391,12 @@ class Job extends CI_Controller
 
         $tbldipa = $this->m_job->tbldipa($JobNo);
         $data['tbldipa'] = $tbldipa;
+
+		$TblRencanaTermin = $this->m_job->getRtermin($JobNo);
+		$data['tblRtermin'] = $TblRencanaTermin;
+
+		$getBruto = $this->m_job->GetBruto($JobNo);
+		$data['GetBruto'] = $getBruto;
 
 
 		$data['judul'] = 'Dipa';
@@ -337,14 +425,29 @@ class Job extends CI_Controller
             'TimeEntry' =>$TimeEntry,
         );
         $this->M_job->TambahDipa('DIPA', $data);
-        redirect('job/dipa/'.($JobNo));
+        redirect('Job/dipa/'.($JobNo));
     }
 
-    // public function edit_dipa($id_Dipa)
-    // {
-    //     $where = array('id_Dipa' => $id_Dipa);
-    //     $data ['edit_Dipa'] = $this->db->query("SELECT * FROM DIPA Where id_Dipa = '$id_Dipa'")->result();
-    // }
+    public function editDipa()
+    {
+        $id_Dipa 	= $this->input->post('id_Dipa');
+		$JobNo		= $this->input->post('JobNo');
+		$Dipa 		= str_replace(',', '', $this->input->post('Dipa'));
+		$Tahun		= $this->input->post('Tahun');
+		$PaguBudget	= str_replace(',', '', $this->input->post('PaguBudget'));
+
+		$data = array(
+			'JobNo'			=> $JobNo,
+			'Budget'		=> $Dipa,
+			'Tahun'			=> $Tahun,
+			'PaguBudget'	=>$PaguBudget,
+		);
+		$where = array(
+			'id_Dipa'	=>$id_Dipa,
+		);
+		$this->M_job->UpdateDataProyek('DIPA', $data, $where);
+		redirect('Job/dipa/'.($JobNo));
+    }
 
      function DeleteDipa($JobNo,$id_Dipa)
     {	
@@ -354,6 +457,18 @@ class Job extends CI_Controller
         redirect('job/dipa/'.($JobNo));
     } 
 
+	function addDPtermin()
+	{
+		$JobNo 		= $this->input->post('JobNo');
+		$Jenis		= $this->input->post('JenisTermin');
+		$TglRencana	= $this->input->post('tglRencanaTermin');
+		$Uraian		= $this->input->post('UraianTermin');
+		$Persentase	= $this->input->post('TxtPersentase');
+		
+
+	}
+
+	
     public function tatakelola($JobNo)
     {
         $this->load->model('m_job');

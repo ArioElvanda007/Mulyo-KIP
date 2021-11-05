@@ -62,722 +62,635 @@
 	<!-- <Section class="content"> -->
 	<section class="content">
 		<div class="container-fluid">
+			<form action="" method="post">
 
-			<div class="box box-warning">
-				<div class="box-header with-border">
-					<h1 class="box-title">Data Kontrak/Addendum</h1>
+				<div class="box box-warning">
+					<div class="box-header with-border">
+						<h1 class="box-title">Data Kontrak/Addendum</h1>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+						<div class="box-tools pull-right">
+							<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+							<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+						</div>
 					</div>
-				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6">
-							<form action="" method="post">
-								<div class="form-group">
-									<label>No Kontrak / Addendum</label>
-									<input type="text" name="NoKontrak" value="<?php echo $datakontrak->NoKontrak ?>" id="NoKontrak" class="form-control">
-									<label>Tahun Anggaran</label>
-									<input type="text" name="JobNm" value="<?php echo $datakontrak->TahunAnggaran  ?>" id="TA" class="form-control">
-									<label>HPS (Rp)</label>
-									<!-- <input type="text" class="form-control" name="HPS" value="<?php echo $datakontrak->Hps ?>" id="HPS" onkeyup="toDecimal(this)"> -->
-									<input type="text" class="form-control" name="HPS" id="HPS" onkeyup="toDecimal(this)" value="<?= number_format($datakontrak->HPS) ?>">
-									<label>Nilai Kontrak</label>
-									<input type="text" class="form-control" name="NilaiKontrak" id="NilaiKontrak" onkeyup="toDecimal(this)" value="<?= number_format($datakontrak->Bruto)  ?>">
-									<label>Addendum Ke</label>
-									<input type="text" name="JobNm" value="<?php echo $datakontrak->AddendumKe ?>" id="Addendumke" class="form-control">
-									<label>Tgl Mulai Kontrak</label>
-									<input type="date" class="form-control" value="<?php echo $datakontrak->TglKontrak ?>" name="TglKontrak" id="TglKontrak">
-									<label>Masa Pelaksanaan</label>
-									<input type="spinner" class="form-control" name="MasaPelaksanaan" id="MasaPelaksanaan" value="<?php echo $datakontrak->Hari ?>">
-									<label>Masa Pemeliharaan</label>
-									<input type="spinner" class="form-control" name="MasaPemeliharaan" id="Instansi">
-
-									<label>Keterangan Addendum</label>
-									<textarea class="form-control" name="KeteranganAdd" rows="5"></textarea>
+					<div class="box-body">
+						<?php foreach ($dataAddendum as $da) : ?>
+							<div class="row">
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>No Kontrak / Addendum</label>
+										<input type="text" name="NoKontrak" value="<?php echo $da->NoKontrak ?>" id="NoKontrak" class="form-control" >
+										<label>Tahun Anggaran</label>
+										<input type="text" name="TA" value="<?php echo $da->TahunAnggaran  ?>" id="TA" class="form-control" readonly>
+										<label>HPS (Rp)</label>
+										<!-- <input type="text" class="form-control" name="HPS" value="<?php echo $da->Hps ?>" id="HPS" onkeyup="toDecimal(this)"> -->
+										<input type="text" class="form-control" name="HPS" id="HPS" onkeyup="toDecimal(this)" value="<?= number_format($da->HPS) ?>" readonly>
+										<label>Nilai Kontrak</label>
+										<input type="text" class="form-control" name="NilaiKontrak" id="NilaiKontrak" onkeyup="toDecimal(this)" value="<?= number_format($da->Bruto)  ?>" readonly>
+										<label>Addendum Ke</label>
+										<input type="text" name="JobNm" value="<?php echo $da->AddendumKe ?>" id="Addendumke" class="form-control" readonly>
+										<label>Tgl Mulai Kontrak</label>
+										<input type="date" class="form-control" value="<?php echo $da->TglKontrak ?>" name="TglKontrak" id="TglKontrak" readonly>
+										<label>Masa Pelaksanaan</label>
+										<input type="spinner" class="form-control" name="MasaPelaksanaan" id="MasaPelaksanaan" value="<?php echo $da->Hari ?>">
+										<label>Masa Pemeliharaan</label>
+										<input type="spinner" class="form-control" name="MasaPemeliharaan" id="MasaPemeliharaan" value="<?php echo $da->Minggu ?>">
+										<label>Keterangan Addendum</label>
+										<textarea class="form-control" name="KeteranganAdd" rows="5"><?php echo $da->RemarkAddendum ?></textarea>
 
 
+									</div>
 								</div>
-						</div>
 
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Tgl Kontrak / Addendum</label>
-								<input type="date" class="form-control" name="TglAddendum1" id="TglAddendum1" value="<?php echo $datakontrak->TglKontrak ?>">
-								<label>Tgl Selesai Kontrak</label>
-								<input type="date" class="form-control" name="TglAddendum2" id="TglAddendum2" value="<?php echo $datakontrak->TglKontrak ?>">
-								<label>Sumber Dana</label>
-								<input type="text" class="form-control" name="Sumberdana" id="Sumberdana" value="<?php echo $datakontrak->SumberDana ?>">
-								<label>Penawaran Netto (Rp) / Excl PPN</label>
-								<input type="text" class="form-control" name="PenawaranNetto" id="PenawaranNetto" value="<?= number_format($datakontrak->PenawaranBruto / 1.1) ?>" readonly>
-								<label>Netto Kontrak (Rp) / Excl PPN + PPH </label>
-								<input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($datakontrak->PenawaranBruto / 1.1 * 0.97) ?>" readonly>
-								<label>Ringkasan Lingkup Kerja</label>
-								<textarea class="form-control" rows="5" name="RingPek" id="RingPek"><?php echo $datakontrak->RingkasanPekerjaan ?></textarea>
-								<label>Nama PPK</label>
-								<input type="text" Class="form-control" name="NamaPPK" rows="5" id="NamaPPK" value="<?php echo $datakontrak->NamaPPK; ?>">
-								<label>Alamat Kantor PPK</label>
-								<textarea class="form-control" rows="5" name="AlamatPPK" id="AlamatPPK"><?php echo $datakontrak->AlamatPPK; ?></textarea>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label>Tgl Kontrak / Addendum</label>
+										<input type="date" class="form-control" name="TglAddendum1" id="TglAddendum1" value="<?php echo $da->PrdAwal ?>">
+										<label>Tgl Selesai Kontrak</label>
+										<input type="date" class="form-control" name="TglAddendum2" id="TglAddendum2" value="<?php echo $da->PrdAkhir ?>">
+										<label>Sumber Dana</label>
+										<input type="text" class="form-control" name="Sumberdana" id="Sumberdana" value="<?php echo $da->SumberDana ?>">
+										<label>Penawaran Netto (Rp) / Excl PPN</label>
+										<input type="text" class="form-control" name="PenawaranNetto" id="PenawaranNetto" value="<?= number_format($da->Bruto / 1.1) ?>" readonly>
+										<label>Netto Kontrak (Rp) / Excl PPN + PPH </label>
+										<input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Bruto / 1.1 * 0.97) ?>" readonly>
+										<label>Ringkasan Lingkup Kerja</label>
+										<textarea class="form-control" rows="5" name="RingPek" id="RingPek"><?php echo $da->RingkasanPekerjaan ?></textarea>
+										<label>Nama PPK</label>
+										<input type="text" Class="form-control" name="NamaPPK" rows="5" id="NamaPPK" value="<?php echo $da->NamaPPK; ?>">
+										<label>Alamat Kantor PPK</label>
+										<textarea class="form-control" rows="5" name="AlamatPPK" id="AlamatPPK"><?php echo $da->AlamatPPK; ?></textarea>
+									</div>
+								</div>
 							</div>
-							</form>
-						</div>
+						<?php endforeach; ?>
+					</div>
+					<div class="box-footer">
+						<button type="button" class="btn btn-success pull-right"><i class="fa fa-plus"> TAMBAH ADDENDUM </i></button>
+
+						<button type="button" class="btn btn-primary"><i class="fa fa-save"> &nbsp UPDATE</i></button>
 					</div>
 				</div>
-				<div class="box-footer">
-					<button type="button" class="btn btn-success pull-right"><i class="fa fa-plus"> TAMBAH ADDENDUM </i></button>
-
-					<button type="button" class="btn btn-primary"><i class="fa fa-save"> &nbsp UPDATE</i></button>
-				</div>
-			</div>
 			</form>
 
-			<br>
+	<br>
 
-			<div class="box box-primary">
-				<div class="box-header with-border">
-					<h3 class="box-title" style="font-size: larger;">HISTORY ADDENDUM</h3>
+<div class="box box-primary">
+	<div class="box-header with-border">
+		<h3 class="box-title" style="font-size: larger;">HISTORY ADDENDUM</h3>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-					</div>
-				</div>
-				<div class="box-body">
-					<!-- <div class="row"> -->
-					<!-- <div class="col-md-6"> -->
-					<div class="form-group">
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+		</div>
+	</div>
+	<div class="box-body">
+		<!-- <div class="row"> -->
+		<!-- <div class="col-md-6"> -->
+		<div class="form-group">
 
-						<div class="box-body table-responsive no-padding">
-							<table class="table table-hover" border="1" cellspacing="2" width="100%">
+			<div class="box-body table-responsive no-padding">
+				<table class="table table-hover" border="1" cellspacing="2" width="100%">
 
-								<tr style="background-color: coral;">
-									<th>No</th>
-									<th>No Kontrak/Addendum</th>
-									<th>Tgl Kontrak/Addendum</th>
-									<th>Addendum Ke</th>
-									<th>Pagu Bruto Kontrak (Rp)</th>
-									<th>Pagu Netto Kontrak (Rp)</th>
-									<th>Bruto Kontrak (Rp)</th>
-									<th>Netto Kontrak (Rp)</th>
-									<th>Tgl Mulai Kontrak</th>
-									<th>Tgl Selesai kontrak</th>
-									<th>Keterangan Addendum</th>
-								</tr>
+					<tr style="background-color: coral;">
+						<th>No</th>
+						<th>No Kontrak/Addendum</th>
+						<th>Tgl Kontrak/Addendum</th>
+						<th>Addendum Ke</th>
+						<th>Pagu Bruto Kontrak (Rp)</th>
+						<th>Pagu Netto Kontrak (Rp)</th>
+						<th>Bruto Kontrak (Rp)</th>
+						<th>Netto Kontrak (Rp)</th>
+						<th>Tgl Mulai Kontrak</th>
+						<th>Tgl Selesai kontrak</th>
+						<th>Keterangan Addendum</th>
+					</tr>
 
 
-								<?php $no = 1;
+					<?php $no = 1;
 
-										foreach ($addendum as $jb ) : ?>
-								<tr>
-									<td><?php echo $no++ ?></td>
-									<td><?php echo $jb->NoKontrak; ?></td>
-									<td><?php echo $jb->TglKontrak; ?></td>
-									<td><?php echo $jb->AddendumKe; ?></td>
-									<td><?php echo number_format($jb->PaguBruto) ; ?></td>
-									<td><?php echo number_format($jb->PaguNetto) ; ?></td>
-									<td><?php echo number_format($jb->Bruto) ; ?></td>
-									<td><?php echo number_format($jb->Netto) ; ?></td>
-									<td><?php echo $jb->PrdAwal; ?></td>
-									<td><?php echo $jb->PrdAkhir; ?></td>
-									<td><?php echo $jb->RemarkAddendum; ?></td>
-									<!-- <td style="width: 5%"> -->
-										<!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
+					foreach ($addendum as $jb) : ?>
+						<tr>
+							<td><?php echo $no++ ?></td>
+							<td><?php echo $jb->NoKontrak; ?></td>
+							<td><?php echo $jb->TglKontrak; ?></td>
+							<td><?php echo $jb->AddendumKe; ?></td>
+							<td><?php echo number_format($jb->PaguBruto); ?></td>
+							<td><?php echo number_format($jb->PaguNetto); ?></td>
+							<td><?php echo number_format($jb->Bruto); ?></td>
+							<td><?php echo number_format($jb->Netto); ?></td>
+							<td><?php echo $jb->PrdAwal; ?></td>
+							<td><?php echo $jb->PrdAkhir; ?></td>
+							<td><?php echo $jb->RemarkAddendum; ?></td>
+							<!-- <td style="width: 5%"> -->
+							<!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
                                     <a title="Detail" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
                                     </td> -->
-								<!-- </tr> -->
+							<!-- </tr> -->
 
 
-								<?php
-										endforeach;
+						<?php
+					endforeach;
 
-										?>
-							</table>
-						</div>
-
-					</div>
-					<!-- </div> -->
-					<!-- </div> -->
-				</div>
-				<div class="box-footer">
-					<!-- <button type="button" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button> -->
-				</div>
+						?>
+				</table>
 			</div>
 
+		</div>
+		<!-- </div> -->
+		<!-- </div> -->
+	</div>
+	<div class="box-footer">
+		<!-- <button type="button" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button> -->
+	</div>
+</div>
 
-			<div class="box box-success">
-				<div class="box-header with-border">
-					<h1 class="box-title">Data Rekening Proyek</h1>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-					</div>
+<div class="box box-success">
+	<div class="box-header with-border">
+		<h1 class="box-title">Data Rekening Proyek</h1>
+
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+		</div>
+	</div>
+
+
+	<div class="box-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Rekening Proyek</label>
+					<input type="text" class="form-control" name="RekPro" id="RekPro" value="<?php echo $datakontrak->RekeningProyek; ?>">
 				</div>
-
-
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Rekening Proyek</label>
-								<input type="text" class="form-control" name="RekPro" id="RekPro" value="<?php echo $datakontrak->RekeningProyek; ?>">
-							</div>
-
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>No. NPWP Proyek</label>
-								<input type="text" class="form-control" name="NpwpProyek" id="NpwpProyek" value="<?php echo $datakontrak->NPWPCompany ?>">
-							</div>
-						</div>
-					</div>
-				</div>
-				<div class="box-footer">
-					<button type="button" data-target="#modal-DRP" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-save"> Tambah Rekening / NPWP </i></button>
-				</div>
-			</div>
-
-
-			<div class="modal fade" id="modal-DRP">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Input Data Rekening Proyek Dan NPWP Proyek</h4>
-						</div>
-						<div class="modal-body">
-							<form action=" <?php echo base_url('Job/TambahRekNPWP') ?>" method="POST">
-								<label>Job No</label>
-								<input type="text" name="JobNo" id="JobNo" class="form-control" value="<?php echo $datakontrak->JobNo ?>" readonly>
-								<label>Nama Proyek</label>
-								<input type="text" name="JobNm" id="JobNm" class="form-control" value="<?php echo $datakontrak->JobNm ?>" readonly>
-								<label>Atas Nama</label>
-								<input type="text" name="NPWPName" id="NPWPName" class="form-control" value="<?php echo $datakontrak->NPWPName ?>">
-								<label>Nomor NPWP</label>
-								<input type="text" name="NPWPCompany" id="NPWPCompany" class="form-control" value="<?php echo $datakontrak->NPWPCompany ?>">
-								<label>No Rekening Proyek</label>
-								<input type="text" name="RekeningProyek" id="RekeningProyek" class="form-control" value="<?php echo $datakontrak->RekeningProyek ?>">
-								<label>Nama Bank</label>
-								<input type="text" name="BankProyek" id="BankProyek" class="form-control" value="<?php echo $datakontrak->BankProyek ?>">
-								<label>Alamat NPWP</label>
-								<textarea name="NPWPAddress" id="NPWPAddress" cols="10" rows="5" class="form-control"><?php echo $datakontrak->NPWPAddress ?></textarea>
-
-						</div>
-						<div class="modal-footer">
-							<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-							<button type="submit" class="btn btn-primary">Save changes</button>
-						</div>
-						</form>
-					</div>
-					<!-- /.modal-content -->
-				</div>
-				<!-- /.modal-dialog -->
-			</div>
-
-
-
-			<div class="box box-warning">
-
-				<div class="box-header with-border">
-					<h3 class="box-title" style="font-size: larger;">JAMINAN</h3>
-
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-					</div>
-				</div>
-				<!-- /.box-header -->
-				<div class="box-body">
-
-					<form class="form-group" action="" method="post">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>1. Jaminan Pelaksanaan</label>
-									<hr>
-								</div>
-
-								<!-- /.form-group -->
-								<div class="box-body">
-									<?php foreach ($JaminanPelaksanaan as $jk) : ?>
-										<div class="form-group">
-											<label>No. Jaminan</label>
-											<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
-											<label>Nilai Jaminan</label>
-											<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
-											<label>Masa Berlaku</label>
-											<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
-											<label>Upload File Jaminan Pelaksanaan</label>
-											<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
-										</div>
-									<?php endforeach; ?>
-
-								</div>
-								<!-- /.form-group -->
-							</div>
-
-							<!-- /.col -->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>2. Jaminan Uang Muka</label>
-									<hr>
-								</div>
-
-								<!-- /.form-group -->
-								<div class="box-body">
-									<?php foreach ($JaminanUangMuka as $jm) : ?>
-										<div class="form-group">
-											<label>No. Jaminan</label>
-											<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jm->NoJaminan; ?>">
-											<label>Nilai Jaminan</label>
-											<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jm->NilaiJaminan; ?>">
-											<label>Masa Berlaku</label>
-											<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jm->MasaBerlaku; ?>">
-											<label>Upload File Jaminan Pelaksanaan</label>
-											<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jm->Filejaminan; ?>" />
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-							<br>
-							<!-- /.form-group -->
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>3. Jaminan Sisa Pelaksanaan</label>
-									<!-- <button type="button" data-toggle="modal" data-target="#modal-SisPel" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus">&nbsp Tambah Data </i></button> -->
-									<hr>
-								</div>
-
-								<!-- /.form-group -->
-								<div class="box-body">
-									<?php foreach ($JaminanSisPel as $jk) : ?>
-										<div class="form-group">
-											<label>No. Jaminan</label>
-											<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
-											<label>Nilai Jaminan</label>
-											<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
-											<label>Masa Berlaku</label>
-											<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
-											<label>Upload File Jaminan Pelaksanaan</label>
-											<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
-										</div>
-									<?php endforeach; ?>
-								</div>
-							</div>
-
-							<div class="col-md-6">
-								<div class="form-group">
-									<label>4. Jaminan Pemeliharaan</label>
-									<hr>
-								</div>
-
-								<!-- /.form-group -->
-								<div class="box-body">
-									<?php foreach ($JaminanPemeliharaan as $jk) : ?>
-										<div class="form-group">
-											<label>No. Jaminan</label>
-											<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
-											<label>Nilai Jaminan</label>
-											<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
-											<label>Masa Berlaku</label>
-											<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
-											<label>Upload File Jaminan Pelaksanaan</label>
-											<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
-										</div>
-									<?php endforeach; ?>
-								</div>
-								<!-- /.form-group -->
-							</div>
-							<div class="modal-footer">
-								<button type="button" data-toggle="modal" data-target="#modal-Jaminan" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus">&nbsp Tambah Data </i></button>
-							</div>
-							<!-- /.col -->
-						</div>
-					</form>
-					<!-- /.row -->
-				</div>
-				<!-- /.box-body -->
-
 
 			</div>
-
-			<div class="box box-danger">
-				<div class="box-header with-border">
-					<h3 class="box-title" style="font-size: larger;">CEKLIST DOCUMENT PROYEK</h3>
-
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-					</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>No. NPWP Proyek</label>
+					<input type="text" class="form-control" name="NpwpProyek" id="NpwpProyek" value="<?php echo $datakontrak->NPWPCompany ?>">
 				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<div class="box">
-
-									<div class="box box-primary">
-										<div class="box-header">
-											<i class="ion ion-clipboard"></i>
-
-											<h3 class="box-title">Cek List Team lapangan</h3>
-										</div>
-										<!-- /.box-header -->
-										<div class="box-body">
-											<form action="<?= site_url('Job/checklistAction') ?>" method="post">
-												<!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-												<ul class="todo-list">
-													<?php
-														$checklist = ['Kontrak', 'Dokumen Addendum', 'Backup Addendum'];
-													?>
-													<form action="<?= site_url('Job/checklistAction') ?>" method="POST">
-														<div class="control-group after-add-more">
-															<ul class="todo-list">
-																<?php foreach($checklist as $row => $value): ?>
-																	<?php
-																		$check = '';
-																		foreach($checked as $r => $v) {
-																			if($v == $value) $check = 'checked';
-																		}
-																	?>
-																	<li>
-																		<span class="handle">
-																			<i class="fa fa-ellipsis-v"></i>
-																			<i class="fa fa-ellipsis-v"></i>
-																		</span>
-																		<input type="checkbox" <?= $check ?> name="Ceklist[]" value="<?= $value ?>">
-																		<span class="text"><?= $value ?></span>
-																	</li>
-																<?php endforeach ?>
-																<!-- <li>
-																	<span class="handle">
-																		<i class="fa fa-ellipsis-v"></i>
-																		<i class="fa fa-ellipsis-v"></i>
-																	</span>
-																	<input type="checkbox" name="Ceklist[]" value="Dokumen Addendum">
-																	<span class="text">Dokumen Addendum</span>
-																</li>
-																<li>
-																	<span class="handle">
-																		<i class="fa fa-ellipsis-v"></i>
-																		<i class="fa fa-ellipsis-v"></i>
-																	</span>
-																	<input type="checkbox" name="Ceklist[]" value="Backup Addendum">
-																	<span class="text">Backup Addendum</span>
-																</li> -->
-
-														</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+			</div>
+		</div>
+	</div>
+	<div class="box-footer">
+		<button type="button" data-target="#modal-DRP" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-save"> Tambah Rekening / NPWP </i></button>
+	</div>
+</div>
 
 
+<div class="modal fade" id="modal-DRP">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Input Data Rekening Proyek Dan NPWP Proyek</h4>
+			</div>
+			<div class="modal-body">
+				<form action=" <?php echo base_url('Job/TambahRekNPWP') ?>" method="POST">
+					<label>Job No</label>
+					<input type="text" name="JobNo" id="JobNo" class="form-control" value="<?php echo $datakontrak->JobNo ?>" readonly>
+					<label>Nama Proyek</label>
+					<input type="text" name="JobNm" id="JobNm" class="form-control" value="<?php echo $datakontrak->JobNm ?>" readonly>
+					<label>Atas Nama</label>
+					<input type="text" name="NPWPName" id="NPWPName" class="form-control" value="<?php echo $datakontrak->NPWPName ?>">
+					<label>Nomor NPWP</label>
+					<input type="text" name="NPWPCompany" id="NPWPCompany" class="form-control" value="<?php echo $datakontrak->NPWPCompany ?>">
+					<label>No Rekening Proyek</label>
+					<input type="text" name="RekeningProyek" id="RekeningProyek" class="form-control" value="<?php echo $datakontrak->RekeningProyek ?>">
+					<label>Nama Bank</label>
+					<input type="text" name="BankProyek" id="BankProyek" class="form-control" value="<?php echo $datakontrak->BankProyek ?>">
+					<label>Alamat NPWP</label>
+					<textarea name="NPWPAddress" id="NPWPAddress" cols="10" rows="5" class="form-control"><?php echo $datakontrak->NPWPAddress ?></textarea>
 
-						<div class="col-md-6">
-							<div class="form-group">
-								<div class="box">
-									<!-- <div class="box box-primary"> -->
-									<div class="box-header">
-										<i class="ion ion-clipboard"></i>
-
-										<h5 class="box-title">Cek List Team PC</h5>
-									</div>
-									<!-- /.box-header -->
-									<div class="box-body">
-										<!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-										<ul class="todo-list">
-											<form action="proses.php" method="POST">
-												<div class="control-group after-add-more1">
-													<ul class="todo-list">
-														<li>
-															<!-- drag handle -->
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<!-- checkbox -->
-															<input type="checkbox" name="Ceklist[]" value="Kontrak">
-															<!-- todo text -->
-															<span class="text">Kontrak</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="Ceklist[]" value="Dokumen Addendum">
-															<span class="text">Dokumen Addendum</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="Ceklist[]" value="Backup Addendum">
-															<span class="text">Backup Addendum</span>
-															<!-- <button type="button" class="btn btn-success btn-xs pull-right add-more1">Tambah Item</button> -->
-														</li>
-
-												</div>
-									</div>
-									<div class="box-footer">
-										<button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+				<button type="submit" class="btn btn-primary">Save changes</button>
 			</div>
 			</form>
+		</div>
+		<!-- /.modal-content -->
+	</div>
+	<!-- /.modal-dialog -->
+</div>
 
-			<div class="box box-success">
-				<div class="box-header with-border">
-					<h3 class="box-title" style="font-size: larger;">DATA PHO</h3>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+
+<div class="box box-warning">
+
+	<div class="box-header with-border">
+		<h3 class="box-title" style="font-size: larger;">JAMINAN</h3>
+
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+		</div>
+	</div>
+	<!-- /.box-header -->
+	<div class="box-body">
+
+		<form class="form-group" action="" method="post">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>1. Jaminan Pelaksanaan</label>
+						<hr>
 					</div>
-				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>No. PHO</label>
-								<input type="text" class="form-control" name="NoPHO" id="NoPHO" value="<?php echo $datakontrak->NoPHO ?>">
-							</div>
 
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Tgl PHO</label>
-
-								<input type="Date" class="form-control" name="TglPHO" id="TglPHO" value="<?php echo $datakontrak->TglPHO ?>">
-							</div>
-						</div>
-					</div>
+					<!-- /.form-group -->
 					<div class="box-body">
-						<div class="row">
-							<div class="col-md-6">
-								<div class="form-group">
-									<!-- <div class="box"> -->
-
-									<!-- <div class="box box-primary"> -->
-									<div class="box-header">
-										<i class="ion ion-clipboard"></i>
-
-										<h5 class="box-title">Cek List Persyaratan PHO</h5>
-
-									</div>
-									<!-- /.box-header -->
-									<div class="box-body">
-										<!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-										<ul class="todo-list">
-											<form action="proses.php" method="POST">
-												<div class="control-group after-add-more2">
-													<ul class="todo-list">
-														<li>
-															<!-- drag handle -->
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<!-- checkbox -->
-															<input type="checkbox" name="CeklistPHO[]" value="Mc 100">
-															<!-- todo text -->
-															<!-- <input type="text" name="Kontrak" placeholder="Kontrak"> -->
-															<span class="text">Mc 100</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Backup Quantitas">
-															<span class="text">Backup Quantitas</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Asbuild Drawing">
-															<span class="text">Asbuild Drawing</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Backup Qualitas">
-															<span class="text">Backup Qualitas</span>
-															<!-- <button type="button" class="btn btn-success btn-xs pull-right add-more2">Tambah Item</button> -->
-														</li>
-
-												</div>
-									</div>
-								</div>
-								<!-- <li style="hidden">
-                                        <div class="box-body">
-                                        <div class="copy hide">
-                                            <div class="control-group">
-                                                    &nbsp &nbsp<span class="handle col-ml-2">
-                                                      <i class="fa fa-ellipsis-v"></i>
-                                                      <i class="fa fa-ellipsis-v"></i>
-                                                    </span>
-                                                    &nbsp &nbsp<input type="checkbox" value="">
-                                                    &nbsp &nbsp &nbsp<span><input type="text" name="" class="control-group" style="border:1; width:70%;"></span>
-                                              <button class="btn btn-danger remove btn-xs pull-right" type="button"><i class="glyphicon glyphicon-remove"></i> Remove</button>
-                                            </div>
-                                        </div>
-                                        </div>
-                                    </li> -->
+						<?php foreach ($JaminanPelaksanaan as $jk) : ?>
+							<div class="form-group">
+								<label>No. Jaminan</label>
+								<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
+								<label>Nilai Jaminan</label>
+								<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
+								<label>Masa Berlaku</label>
+								<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
+								<label>Upload File Jaminan Pelaksanaan</label>
+								<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
 							</div>
+						<?php endforeach; ?>
 
-							<div class="col-md-6">
-								<div class="form-group">
-									<!-- <div class="box"> -->
+					</div>
+					<!-- /.form-group -->
+				</div>
 
-									<!-- <div class="box box-primary"> -->
-									<div class="box-header">
-										<i class="ion ion-clipboard"></i>
+				<!-- /.col -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>2. Jaminan Uang Muka</label>
+						<hr>
+					</div>
 
-										<h5 class="box-title">Cek List Persyaratan PHO</h5>
-									</div>
-									<!-- /.box-header -->
-									<div class="box-body">
-										<!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
-										<ul class="todo-list">
-											<form action="proses.php" method="POST">
-												<div class="control-group after-add-more3">
-													<ul class="todo-list">
-														<li>
-															<!-- drag handle -->
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<!-- checkbox -->
-															<input type="checkbox" name="CeklistPHO[]" value="Laporan Harian, Mingguan, Bulanan">
-															<!-- todo text -->
-															<!-- <input type="text" name="Kontrak" placeholder="Kontrak"> -->
-															<span class="text">Laporan Harian, Mingguan, Bulanan</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Jaminan Pemeliharaan">
-															<span class="text">Jaminan Pemeliharaan</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Dokumentasi">
-															<span class="text">Dokumentasi</span>
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Surat Permohonan PHO">
-															<span class="text">Surat Permohonan PHO</span>
-															<!-- <button type="button" class="btn btn-success btn-xs pull-right add-more3">Tambah Item</button> -->
-														</li>
-														<li>
-															<span class="handle">
-																<i class="fa fa-ellipsis-v"></i>
-																<i class="fa fa-ellipsis-v"></i>
-															</span>
-															<input type="checkbox" name="CeklistPHO[]" value="Laporan K3">
-															<span class="text">Laporan K3</span>
-														</li>
+					<!-- /.form-group -->
+					<div class="box-body">
+						<?php foreach ($JaminanUangMuka as $jm) : ?>
+							<div class="form-group">
+								<label>No. Jaminan</label>
+								<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jm->NoJaminan; ?>">
+								<label>Nilai Jaminan</label>
+								<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jm->NilaiJaminan; ?>">
+								<label>Masa Berlaku</label>
+								<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jm->MasaBerlaku; ?>">
+								<label>Upload File Jaminan Pelaksanaan</label>
+								<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jm->Filejaminan; ?>" />
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+				<br>
+				<!-- /.form-group -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>3. Jaminan Sisa Pelaksanaan</label>
+						<!-- <button type="button" data-toggle="modal" data-target="#modal-SisPel" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus">&nbsp Tambah Data </i></button> -->
+						<hr>
+					</div>
 
-												</div>
-									</div>
+					<!-- /.form-group -->
+					<div class="box-body">
+						<?php foreach ($JaminanSisPel as $jk) : ?>
+							<div class="form-group">
+								<label>No. Jaminan</label>
+								<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
+								<label>Nilai Jaminan</label>
+								<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
+								<label>Masa Berlaku</label>
+								<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
+								<label>Upload File Jaminan Pelaksanaan</label>
+								<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
+							</div>
+						<?php endforeach; ?>
+					</div>
+				</div>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>4. Jaminan Pemeliharaan</label>
+						<hr>
+					</div>
+
+					<!-- /.form-group -->
+					<div class="box-body">
+						<?php foreach ($JaminanPemeliharaan as $jk) : ?>
+							<div class="form-group">
+								<label>No. Jaminan</label>
+								<input type="text" class="form-control" name="NoJampel" id="NoJampel" value="<?php echo $jk->NoJaminan; ?>">
+								<label>Nilai Jaminan</label>
+								<input type="text" class="form-control" name="NilaiJampel" id="NilaiJampel" value="<?php echo $jk->NilaiJaminan; ?>">
+								<label>Masa Berlaku</label>
+								<input type="date" class="form-control" name="DtJampel" id="DtJampel" value="<?php echo $jk->MasaBerlaku; ?>">
+								<label>Upload File Jaminan Pelaksanaan</label>
+								<input type="file" class="form-control" name="Filejaminan" id="Filejaminan" value="<?php echo $jk->Filejaminan; ?>" />
+							</div>
+						<?php endforeach; ?>
+					</div>
+					<!-- /.form-group -->
+				</div>
+				<div class="modal-footer">
+					<button type="button" data-toggle="modal" data-target="#modal-Jaminan" class="btn btn-success btn-xs pull-right"><i class="fa fa-plus">&nbsp Tambah Data </i></button>
+				</div>
+				<!-- /.col -->
+			</div>
+		</form>
+		<!-- /.row -->
+	</div>
+	<!-- /.box-body -->
+
+
+</div>
+
+<form action="<?= site_url('Job/checklistAction') ?>" method="POST">
+	<div class="box box-danger">
+		<div class="box-header with-border">
+			<h3 class="box-title" style="font-size: larger;">CEKLIST DOCUMENT PROYEK</h3>
+
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+		
+				<!-- check list field team -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="box">
+							<div class="box box-primary">
+								<div class="box-header">
+									<i class="ion ion-clipboard"></i>
+
+									<h3 class="box-title">Cek List Team lapangan</h3>
+								</div>
+								<div class="box-body">
+									<ul class="todo-list">
+										<?php
+											$checklist = ['Kontrak', 'Dokumen Addendum', 'Backup Addendum'];
+										?>
+										<input type="text" name="JobNo" id="inputJobNo" value="<?php echo $datakontrak->JobNo ?>" required="required" hidden>
+
+										<div class="control-group after-add-more">
+											<ul class="todo-list">
+												<?php foreach ($checklist as $row => $value) : ?>
+													<?php $check = ''; ?>
+													<?php
+														foreach ($checkProjectFieldTeam as $r => $v) {
+															if ($v->item == $value) $check = 'checked';
+														}
+													?>
+
+													<li>
+														<span class="handle">
+															<i class="fa fa-ellipsis-v"></i>
+															<i class="fa fa-ellipsis-v"></i>
+														</span>
+														<input type="checkbox" <?= $check ?> name="Cekfield[]" value="<?= $value ?>">
+														<span class="text"><?= $value ?></span>
+													</li>
+												<?php endforeach ?>
+											</ul>
+										</div>
+									</ul>
 								</div>
 							</div>
 						</div>
-						<label>Upload Berita Acara PHO</label>
-						<input type="file" class="form-control" id="customFile" />
 					</div>
 				</div>
-				<div class="box-footer">
-					<button type="button" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button>
+
+				<!-- check list PC team -->
+				<div class="col-md-6">
+					<div class="form-group">
+						<div class="box">
+							<div class="box box-primary">
+								<div class="box-header">
+									<i class="ion ion-clipboard"></i>
+
+									<h3 class="box-title">Cek List Team PC</h3>
+								</div>
+								<div class="box-body">
+									<ul class="todo-list">
+										<?php
+											$checklist = ['Kontrak', 'Dokumen Addendum', 'Backup Addendum'];
+										?>
+										<div class="control-group after-add-more">
+											<ul class="todo-list">
+												<?php foreach ($checklist as $row => $value) : ?>
+													<?php $check = ''; ?>
+													<?php
+														foreach ($checkProjectPCTeam as $r => $v) {
+															if ($v->item == $value) $check = 'checked';
+														}
+													?>
+
+													<li>
+														<span class="handle">
+															<i class="fa fa-ellipsis-v"></i>
+															<i class="fa fa-ellipsis-v"></i>
+														</span>
+														<input type="checkbox" <?= $check ?> name="Cekpc[]" value="<?= $value ?>">
+														<span class="text"><?= $value ?></span>
+													</li>
+												<?php endforeach ?>
+											</ul>
+										</div>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<div class="box-footer">
+			<button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button>
+		</div>
+	</div>
+</form>
+
+<form action="<?= site_url('Job/SimpanPHO') ?>" method="POST" enctype="multipart/form-data">
+	<div class="box box-success">
+		<div class="box-header with-border">
+			<h3 class="box-title" style="font-size: larger;">DATA PHO</h3>
+
+			<div class="box-tools pull-right">
+				<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+				<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>No. PHO</label>
+						<input type="text" class="form-control" name="NoPHO" id="NoPHO" value="<?php echo $datakontrak->NoPHO ?>">
+
+						<input type="text" name="JobNo" id="JobNo" value="<?php echo $datakontrak->JobNo ?>" hidden>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label>Tgl PHO</label>
+
+						<input type="Date" class="form-control" name="TglPHO" id="TglPHO" value="<?php echo $datakontrak->TglPHO ?>">
+					</div>
 				</div>
 			</div>
+			<div class="box-body">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="box-header">
+								<i class="ion ion-clipboard"></i>
 
-			<div class="box box-success">
-				<div class="box-header with-border">
-					<h3 class="box-title" style="font-size: larger;">DATA FHO</h3>
+								<h5 class="box-title">Cek List Persyaratan PHO</h5>
+							</div>
+							<div class="box-body">
+								<ul class="todo-list">
+									<?php
+										$DataPHO1 = ['Mc 100', 'Backup Quantitas', 'Asbuild Drawing', 'Backup Qualitas'];
+									?>
+									<div class="control-group after-add-more2">
+										<ul class="todo-list">
+											<?php foreach ($DataPHO1 as $row => $value) : ?>
+												<?php $check = ''; ?>
+												<?php
+													foreach ($checkPHO1 as $r => $v) {
+														if ($v->item == $value) $check = 'checked';
+													}
+												?>
 
-					<div class="box-tools pull-right">
-						<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-						<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+												<li>
+													<span class="handle">
+														<i class="fa fa-ellipsis-v"></i>
+														<i class="fa fa-ellipsis-v"></i>
+													</span>
+													<input type="checkbox" <?= $check ?> name="CeklistPHO1[]" value="<?= $value ?>">
+													<span class="text"><?= $value ?></span>
+												</li>
+											<?php endforeach ?>
+										</ul>
+									</div>
+								</ul>
+							</div>
+						</div>
+					</div>
+
+					<div class="col-md-6">
+						<div class="form-group">
+							<div class="box-header">
+								<i class="ion ion-clipboard"></i>
+
+								<h5 class="box-title">Cek List Persyaratan PHO</h5>
+							</div>
+							<!-- /.box-header -->
+							<div class="box-body">
+								<!-- See dist/js/pages/dashboard.js to activate the todoList plugin -->
+								<ul class="todo-list">
+									<?php
+									$DataPHO2 = ['Laporan Harian ~ Mingguan ~ Bulanan', 'Jaminan Pemeliharaan', 'Documentasi', 'Surat Permohonan PHO', 'Laporan K3'];
+									?>
+									<div class="control-group after-add-more3">
+										<ul class="todo-list">
+											<?php foreach ($DataPHO2 as $row => $value) : ?>
+												<?php $check = ''; ?>
+												<?php
+													foreach ($checkPHO2 as $r => $v) {
+														if ($v->item == $value) $check = 'checked';
+													}
+												?>
+
+												<li>
+													<span class="handle">
+														<i class="fa fa-ellipsis-v"></i>
+														<i class="fa fa-ellipsis-v"></i>
+													</span>
+													<input type="checkbox" <?= $check ?> name="CeklistPHO2[]" value="<?= $value ?>">
+													<span class="text"><?= $value ?></span>
+												</li>
+											<?php endforeach ?>
+										</ul>
+									</div>
+								</ul>
+							</div>
+						</div>
 					</div>
 				</div>
-				<div class="box-body">
-					<div class="row">
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>No. FHO</label>
-								<input type="text" class="form-control" name="NoFHO" id="NoFHO" value="<?php echo $datakontrak->NoFHO ?>">
-							</div>
+				<label>Upload Berita Acara PHO</label>
+				<input type="file" class="form-control" name="FilePHO" id="customFile" value="<?= $datakontrak->PHOFile ?>" />
+			</div>
+		</div>
+		<div class="box-footer">
+			<button type="submit" class="btn btn-success pull-right"><i class="fa fa-save"> SIMPAN </i></button>
+		</div>
+	</div>
+</form>
 
-						</div>
-						<div class="col-md-6">
-							<div class="form-group">
-								<label>Tgl FHO</label>
-								<input type="Date" class="form-control" name="TglFHO" id="TglFHO" value="<?php echo $datakontrak->TglFHO ?>">
-							</div>
-						</div>
-					</div>
-					<div class="box-body">
-						<div class="row">
-							<!-- <div class="col-md-6"> -->
-							<div class="form-group">
-								<div class="form-group">
-									&nbsp;
-									<label>Ceklist Persyaratan FHO :</label>
-									&nbsp
-									&nbsp
-									<label>
-										<input type="checkbox" name="checkboxFHO" value="Berita Acara FHO">
-										Upload Berita Acara FHO
-									</label>
-									&nbsp
-									&nbsp
-									<br>
-								</div>
-							</div>
-						</div>
-						<label>Upload File FHO</label>
-						<input type="file" name="FileFHO" class="form-control" id="customFile" />
-						<label>Lanjut Notifikasi</label>
-						<select class="form-control" name="NotifLanjutTender" id="PesertaTender">
-							<option value="Pelaksanaan">Ya</option>
-							<option value="Pemeliharaan">Tidak</option>
-						</select>
-					</div>
+<div class="box box-success">
+	<div class="box-header with-border">
+		<h3 class="box-title" style="font-size: larger;">DATA FHO</h3>
+
+		<div class="box-tools pull-right">
+			<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+			<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+		</div>
+	</div>
+	<div class="box-body">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>No. FHO</label>
+					<input type="text" class="form-control" name="NoFHO" id="NoFHO" value="<?php echo $datakontrak->NoFHO ?>">
 				</div>
-				<div class="box-footer">
-					<button type="button" data-target="#modal-FHO" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-save"> UPDATE DATA PHO </i></button>
+
+			</div>
+			<div class="col-md-6">
+				<div class="form-group">
+					<label>Tgl FHO</label>
+					<input type="Date" class="form-control" name="TglFHO" id="TglFHO" value="<?php echo $datakontrak->TglFHO ?>">
 				</div>
 			</div>
+		</div>
+		<div class="box-body">
+			<div class="row">
+				<!-- <div class="col-md-6"> -->
+				<div class="form-group">
+					<div class="form-group">
+						&nbsp;
+						<label>Ceklist Persyaratan FHO :</label>
+						&nbsp
+						&nbsp
+						<label>
+							<input type="checkbox" name="checkboxFHO" value="Berita Acara FHO">
+							Upload Berita Acara FHO
+						</label>
+						&nbsp
+						&nbsp
+						<br>
+					</div>
+				</div>
+			</div>
+			<label>Upload File FHO</label>
+			<input type="text" name="FileFHO" class="form-control" id="customFile" value="<?php echo $datakontrak->FHOFile ?>">
+			<label for="">Lanjutkan Notifikasi</label>
+			<input type="text" name="NotifFHO" id="NotifFHO" class="form-control" value="<?php echo $datakontrak->EndNotification ?>" readonly>
+
+
+		</div>
+	</div>
+	<div class="box-footer">
+		<button type="button" data-target="#modal-FHO" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-save"> UPDATE DATA PHO </i></button>
+	</div>
+</div>
 
 
 
-			<!-- <div class="modal fade" id="modal-FHO">
+<!-- <div class="modal fade" id="modal-FHO">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -842,8 +755,8 @@
                 </div>
             </div> -->
 
-		</div>
-	</section>
+</div>
+</section>
 
 </div>
 
@@ -874,7 +787,7 @@
 				<h4 class="modal-title">Update Data FHO</h4>
 			</div>
 			<div class="modal-body">
-				<form action=" <?php echo base_url('Job/UpdateFHO') ?>" method="POST">
+				<form action=" <?php echo base_url('Job/UpdateFHO') ?>" method="POST" enctype="multipart/form-data">
 					<label>Job No</label>
 					<input type="text" name="JobNo" id="JobNo" class="form-control" value="<?php echo $datakontrak->JobNo ?>" readonly>
 					<label>Nama Proyek</label>
@@ -889,9 +802,16 @@
 					<label>Upload File FHO</label>
 					<input type="file" name="FileFHO" id="FileFHO" class="form-control" value="">
 					<label>Lanjut Notifikasi</label>
-					<select class="form-control">
-						<option value="Ya">Ya</option>
-						<option value="Tidak">Tidak</option>
+					<?php
+					$NotifFHO = ['', 'Ya', 'Tidak'];
+					?>
+					<select class="form-control" name="NotifLanjutTender" id="PesertaTender">
+						<?php foreach ($NotifFHO as $FHO) : ?>
+							<option value="<?= $FHO ?>"><?= $FHO ?></option>
+						<?php endforeach; ?>
+
+						<!-- <option value="Pelaksanaan">Ya</option>
+							<option value="Pemeliharaan">Tidak</option> -->
 					</select>
 
 			</div>
