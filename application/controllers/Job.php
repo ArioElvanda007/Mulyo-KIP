@@ -180,6 +180,41 @@ class Job extends CI_Controller
         $this->load->view('templates/footer');
     }
 
+	public function updateDataKontrak()
+	{
+		$JobNo 				= $this->input->post('JobNo');
+		$NoKontrak			= $this->input->post('NoKontrak');
+		$MasaPelaksanaan 	= $this->input->post('MasaPelaksanaan');
+		$MasaPemeliharaan	= $this->input->post('MasaPemeliharaan');
+		$RemarkAddendum		= $this->input->post('KeteranganAdd');
+		$PrdAwal			= $this->input->post('TglAddendum1');
+		$PrdAkhir			= $this->input->post('TglAddendum2');
+		$PenawaranNetto		= $this->input->post('PenawaranNetto');
+		$RingkasanPekerjaan	= $this->input->post('RingPek');
+		$NamaPPK			= $this->input->post('NamaPPK');
+		$AlamatPPK			= $this->input->post('AlamatPPK');
+
+		$data = array(
+			'NoKontrak'			=>$NoKontrak,
+			'MasaPelaksanaan'	=>$MasaPelaksanaan,
+			'MasaPemeliharaan'	=>$MasaPemeliharaan,
+			'RemarkAddendum'	=> $RemarkAddendum,
+			'PrdAwal'			=> $PrdAwal,
+			'PrdAkhir'			=> $PrdAkhir,
+			'PenawaranNetto'	=> $PenawaranNetto,
+			'RingkasanPekerjaan'=> $RingkasanPekerjaan,
+			'NamaPPK'			=> $NamaPPK,
+			'AlamatPPK'			=> $AlamatPPK,
+		);
+		$where = array(
+			'JobNo'		=> $JobNo,
+		);
+
+		$this->m_job->UpdateDataProyek('Job', $data, $where);
+		redirect('Job/dataproyek/' . ($JobNo));
+	}
+
+
 	public function checklistAction()
 	{
 		// echo "<pre>";
