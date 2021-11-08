@@ -171,9 +171,9 @@ class Job extends CI_Controller
 
         $data['judul'] = 'Data Kontrak / Addendum';
 		// $db = $this->m_job->ceklistDoc['$JobNo'];
-		$db = 'Kontrak';
-		$checked = explode(',', $db);
-		$data['checked'] = $checked;
+		// $db = 'Kontrak';
+		// $checked = explode(',', $db);
+		// $data['checked'] = $checked;
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view("content/jobentry/datakontrak", $data);
