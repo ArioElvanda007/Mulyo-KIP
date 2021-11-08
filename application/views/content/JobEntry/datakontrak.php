@@ -62,8 +62,8 @@
 	<!-- <Section class="content"> -->
 	<section class="content">
 		<div class="container-fluid">
-			<form action="<?php base_url('Job/updateDataKontrak') ?>" method="post">
 
+			<form action="<?= site_url('Job/updateDataKontrak'); ?>" method="post">
 				<div class="box box-warning">
 					<div class="box-header with-border">
 						<h1 class="box-title">Data Kontrak/Addendum</h1>
@@ -79,6 +79,7 @@
 								<div class="col-md-6">
 									<div class="form-group">
 										<label>No Kontrak / Addendum</label>
+										<input type="text" name="JobNo" id="JobNo" value="<?php echo $da->JobNo ?>" hidden>
 										<input type="text" name="NoKontrak" value="<?php echo $da->NoKontrak ?>" id="NoKontrak" class="form-control">
 										<label>Tahun Anggaran</label>
 										<input type="text" name="TA" value="<?php echo $da->TahunAnggaran  ?>" id="TA" class="form-control" readonly>
@@ -113,7 +114,8 @@
 										<label>Penawaran Netto (Rp) / Excl PPN</label>
 										<input type="text" class="form-control" name="PenawaranNetto" id="PenawaranNetto" value="<?= number_format($da->Bruto / 1.1) ?>" readonly>
 										<label>Netto Kontrak (Rp) / Excl PPN + PPH </label>
-										<input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Bruto / 1.1 * 0.97) ?>" readonly>
+										<input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Netto) ?>" readonly>
+										<!-- <input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Bruto / 1.1 * 0.97) ?>" readonly> -->
 										<label>Ringkasan Lingkup Kerja</label>
 										<textarea class="form-control" rows="5" name="RingPek" id="RingPek"><?php echo $da->RingkasanPekerjaan ?></textarea>
 										<label>Nama PPK</label>
@@ -126,24 +128,83 @@
 						<?php endforeach; ?>
 					</div>
 					<div class="box-footer">
-						<button type="button" class="btn btn-primary"><i class="fa fa-save"> &nbsp UPDATE</i></button>
+						<button type="submit" class="btn btn-primary"><i class="fa fa-save"> &nbsp UPDATE</i></button>
 						<button type="button" data-target="#modaladdendum" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-plus"> TAMBAH ADDENDUM </i></button>
 					</div>
 				</div>
 			</form>
 
-			<div class="modal fade" id="modaladdendum">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-								<span aria-hidden="true">&times;</span></button>
-							<h4 class="modal-title">Input Data Addendum </h4>
-						</div>
+			<form action="<?= site_url('Job/tambahAddendum'); ?>">
+				<div class="modal fade" id="modaladdendum">
+					<div class="modal-dialog">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">Input Data Addendum </h4>
+							</div>
+							<div class="box-body">
+								<?php foreach ($dataAddendum as $da) : ?>
+									<div class="row">
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>No Kontrak / Addendum</label>
+												<input type="text" name="JobNo" id="JobNo" value="<?php echo $da->JobNo ?>" hidden>
+												<input type="text" name="NoKontrak" value="<?php echo $da->NoKontrak ?>" id="NoKontrak" class="form-control">
+												<label>Tahun Anggaran</label>
+												<input type="text" name="TA" value="<?php echo $da->TahunAnggaran  ?>" id="TA" class="form-control">
+												<label>HPS (Rp)</label>
+												<!-- <input type="text" class="form-control" name="HPS" value="<?php echo $da->Hps ?>" id="HPS" onkeyup="toDecimal(this)"> -->
+												<input type="text" class="form-control" name="HPS" id="HPS" onkeyup="toDecimal(this)" value="<?= number_format($da->HPS) ?>">
+												<label>Nilai Kontrak</label>
+												<input type="text" class="form-control" name="NilaiKontrak" id="NilaiKontrak" onkeyup="toDecimal(this)" value="<?= number_format($da->Bruto)  ?>">
+												<label>Addendum Ke</label>
+												<input type="text" name="AddendumKe" value="<?php echo $da->AddendumKe + "1" ?>" id="Addendumke" class="form-control">
+												<label>Tgl Mulai Kontrak</label>
+												<input type="date" class="form-control" value="<?php echo $da->TglKontrak ?>" name="TglKontrak" id="TglKontrak">
+												<label>Masa Pelaksanaan</label>
+												<input type="spinner" class="form-control" name="MasaPelaksanaan" id="MasaPelaksanaan" value="<?php echo $da->Hari ?>">
+												<label>Masa Pemeliharaan</label>
+												<input type="spinner" class="form-control" name="MasaPemeliharaan" id="MasaPemeliharaan" value="<?php echo $da->Minggu ?>">
+												<label>Keterangan Addendum</label>
+												<textarea class="form-control" name="KeteranganAdd" rows="5"><?php echo $da->RemarkAddendum ?></textarea>
 
+
+											</div>
+										</div>
+
+										<div class="col-md-6">
+											<div class="form-group">
+												<label>Tgl Kontrak / Addendum</label>
+												<input type="date" class="form-control" name="TglAddendum1" id="TglAddendum1" value="<?php echo $da->PrdAwal ?>">
+												<label>Tgl Selesai Kontrak</label>
+												<input type="date" class="form-control" name="TglAddendum2" id="TglAddendum2" value="<?php echo $da->PrdAkhir ?>">
+												<label>Sumber Dana</label>
+												<input type="text" class="form-control" name="Sumberdana" id="Sumberdana" value="<?php echo $da->SumberDana ?>">
+												<label>Penawaran Netto (Rp) / Excl PPN</label>
+												<input type="text" class="form-control" name="PenawaranNetto" id="PenawaranNetto" value="<?= number_format($da->Bruto / 1.1) ?>">
+												<label>Netto Kontrak (Rp) / Excl PPN + PPH </label>
+												<input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Netto) ?>">
+												<!-- <input type="text" class="form-control" name="KontrakNetto" id="KontrakNetto" value="<?= number_format($da->Bruto / 1.1 * 0.97) ?>" readonly> -->
+												<label>Ringkasan Lingkup Kerja</label>
+												<textarea class="form-control" rows="5" name="RingPek" id="RingPek"><?php echo $da->RingkasanPekerjaan ?></textarea>
+												<label>Nama PPK</label>
+												<input type="text" Class="form-control" name="NamaPPK" rows="5" id="NamaPPK" value="<?php echo $da->NamaPPK; ?>">
+												<label>Alamat Kantor PPK</label>
+												<textarea class="form-control" rows="5" name="AlamatPPK" id="AlamatPPK"><?php echo $da->AlamatPPK; ?></textarea>
+											</div>
+										</div>
+									</div>
+								<?php endforeach; ?>
+							</div>
+							<div class="box-footer">
+								<button type="button" data-target="#modaladdendum" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-paper-plane">&nbsp; TAMBAH ADDENDUM </i></button>
+							</div>
+
+						</div>
 					</div>
 				</div>
-			</div>
+			</form>
 
 			<br>
 

@@ -195,9 +195,9 @@ class Job extends CI_Controller
 		$AlamatPPK			= $this->input->post('AlamatPPK');
 
 		$data = array(
-			'NoKontrak'			=>$NoKontrak,
-			'MasaPelaksanaan'	=>$MasaPelaksanaan,
-			'MasaPemeliharaan'	=>$MasaPemeliharaan,
+			'NoKontrak'			=> $NoKontrak,
+			'MasaPelaksanaan'	=> $MasaPelaksanaan,
+			'MasaPemeliharaan'	=> $MasaPemeliharaan,
 			'RemarkAddendum'	=> $RemarkAddendum,
 			'PrdAwal'			=> $PrdAwal,
 			'PrdAkhir'			=> $PrdAkhir,
@@ -207,11 +207,36 @@ class Job extends CI_Controller
 			'AlamatPPK'			=> $AlamatPPK,
 		);
 		$where = array(
-			'JobNo'		=> $JobNo,
+			'JobNo'		=> $JobNo
 		);
 
-		$this->m_job->UpdateDataProyek('Job', $data, $where);
-		redirect('Job/dataproyek/' . ($JobNo));
+		$this->M_job->UpdateDataProyek('Job',$data,$where);
+		redirect('Job/datakontrak/'.($JobNo));
+	}
+
+	public function tambahAddendum($JobNo)
+	{
+		$data = array(
+		'JobNo' 			=> $this->input->post('JobNo'),
+		'NoKontrak'			=> $this->input->post('NoKontrak'),
+		'TahunAnggaran'		=> $this->input->post('TA'),
+		'HPS'				=> $this->input->post('HPS'),
+		'Bruto'				=> $this->input->post('NilaiKontrak'),
+		'AddendumKe'		=> $this->input->post('AddendumKe'),
+		'TglKontrak'		=> $this->input->post('TglKontrak'),		
+		'MasaPelaksanaan' 	=> $this->input->post('MasaPelaksanaan'),
+		'MasaPemeliharaan'	=> $this->input->post('MasaPemeliharaan'),
+		'RemarkAddendum'	=> $this->input->post('KeteranganAdd'),
+		'PrdAwal'			=> $this->input->post('TglAddendum1'),
+		'PrdAkhir'			=> $this->input->post('TglAddendum2'),
+		'PenawaranNetto'	=> $this->input->post('PenawaranNetto'),
+		'RingkasanPekerjaan'=> $this->input->post('RingPek'),
+		'NamaPPK'			=> $this->input->post('NamaPPK'),
+		'AlamatPPK'			=> $this->input->post('AlamatPPK'),
+		);
+
+		$this->M_job->SimpanData('Job',$data);
+		redirect('Job/datakontrak/'. $JobNo);
 	}
 
 

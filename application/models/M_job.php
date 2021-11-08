@@ -45,6 +45,12 @@ class M_job extends CI_Model
         return $query;
     }
 
+	public function UpdateDataKontrak($JobNo=null)
+	{
+		$this->db->query("select CeklistLapangan from CeklistDok where JobNo = $JobNo and id = (select max(id) from CeklistDok where JobNo = $JobNo)");
+		// $this->db->update($table, $data, $where);
+	}
+
 	public function dataAddendum($JobNo = null)
 	{
 		$query = $this->db->query("SELECT TOP 1 * FROM Job WHERE JobNo='$JobNo'")->result_object();
