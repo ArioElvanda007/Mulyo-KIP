@@ -216,6 +216,23 @@ class Job extends CI_Controller
 
 	public function tambahAddendum($JobNo)
 	{
+		// $JobNo 			= $this->input->post('JobNo');
+		// $NoKontrak			= $this->input->post('NoKontrak');
+		// $TahunAnggaran		= $this->input->post('TA');
+		// $HPS				= $this->input->post('HPS');
+		// $Bruto				= $this->input->post('NilaiKontrak');
+		// $AddendumKe		= $this->input->post('AddendumKe');
+		// $TglKontrak		= $this->input->post('TglKontrak');		
+		// $MasaPelaksanaan 	= $this->input->post('MasaPelaksanaan');
+		// $MasaPemeliharaan	= $this->input->post('MasaPemeliharaan');
+		// $RemarkAddendum	= $this->input->post('KeteranganAdd');
+		// $PrdAwal			= $this->input->post('TglAddendum1');
+		// $PrdAkhir			= $this->input->post('TglAddendum2');
+		// $PenawaranNetto	= $this->input->post('PenawaranNetto');
+		// $RingkasanPekerjaan = $this->input->post('RingPek');
+		// $NamaPPK			= $this->input->post('NamaPPK');
+		// $AlamatPPK			= $this->input->post('AlamatPPK');
+
 		$data = array(
 		'JobNo' 			=> $this->input->post('JobNo'),
 		'NoKontrak'			=> $this->input->post('NoKontrak'),

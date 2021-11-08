@@ -93,9 +93,9 @@
 										<label>Tgl Mulai Kontrak</label>
 										<input type="date" class="form-control" value="<?php echo $da->TglKontrak ?>" name="TglKontrak" id="TglKontrak" readonly>
 										<label>Masa Pelaksanaan</label>
-										<input type="spinner" class="form-control" name="MasaPelaksanaan" id="MasaPelaksanaan" value="<?php echo $da->Hari ?>">
+										<input type="number" class="form-control" name="MasaPelaksanaan" id="MasaPelaksanaan" value="<?php echo $da->Hari ?>">
 										<label>Masa Pemeliharaan</label>
-										<input type="spinner" class="form-control" name="MasaPemeliharaan" id="MasaPemeliharaan" value="<?php echo $da->Minggu ?>">
+										<input type="number" class="form-control" name="MasaPemeliharaan" id="MasaPemeliharaan" value="<?php echo $da->Minggu ?>">
 										<label>Keterangan Addendum</label>
 										<textarea class="form-control" name="KeteranganAdd" rows="5"><?php echo $da->RemarkAddendum ?></textarea>
 
@@ -134,7 +134,7 @@
 				</div>
 			</form>
 
-			<form action="<?= site_url('Job/tambahAddendum'); ?>">
+			<form action="<?= site_url('Job/tambahAddendum') ?>" method="post">
 				<div class="modal fade" id="modaladdendum">
 					<div class="modal-dialog">
 						<div class="modal-content">
