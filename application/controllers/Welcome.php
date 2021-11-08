@@ -25,6 +25,11 @@ class Welcome extends CI_Controller {
               
 		$data['AbsensiPusat']=$this->db->query("SELECT * FROM AbsenHarian where TglEntry = '$date' ORDER BY Divisi ASC")->result();
 
+		$data['Pelaksanaan'] = $this->dashboardmod->pelaksanaan();
+		$data['Proposal'] = $this->dashboardmod->Proposal();
+		$data['Gagal'] = $this->dashboardmod->Gagal();
+		$data['Pemeliharaan'] = $this->dashboardmod->Pemeliharaan();
+
 
 
 		// $data['AbsensiPusat']=$this->dashboardmod->get_data('AbsenHarian')->result();
