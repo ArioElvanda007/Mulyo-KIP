@@ -73,7 +73,10 @@
 
 				<div class="navbar-custom-menu">
 					<ul class="nav navbar-nav">
-						<!-- Messages: style can be found in dropdown.less-->
+						<li><a href="<?php echo base_url('Auth/logout') ?>"><i class="fa fa-sign-out"></i> LOG OUT</a></li>
+						<li class="nav-item d-none d-sm-inline-block">
+							<a href="#changePassword" data-toggle="modal" class="nav-link">GANTI PASSWORD</a>
+							<!-- Messages: style can be found in dropdown.less-->
 						<li class="dropdown messages-menu">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">
 								<i class="fa fa-envelope-o"></i>
@@ -206,3 +209,29 @@
 				</div>
 			</nav>
 		</header>
+		
+		<div class="modal fade" id="changePassword">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Ubah Password Anda</h4>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+							<span class="sr-only">Close</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form action="<?= site_url('Auth/updatePassword') ?>" method="POST">
+							<div class="form-group">
+								<label>Password*</label>
+								<input type="password" class="form-control" name="Password" placeholder="Masukan password baru">
+							</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-danger" data-dismiss="modal">Batal</button>
+						<button type="submit" class="btn btn-primary">Simpan!</button>
+					</div>
+					</form>
+				</div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div>
