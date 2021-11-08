@@ -214,7 +214,7 @@ class Job extends CI_Controller
 		redirect('Job/datakontrak/'.($JobNo));
 	}
 
-	public function tambahAddendum()
+	public function tambahAddendum($JobNo)
 	{
 		// $JobNo 			= $this->input->post('JobNo');
 		// $NoKontrak			= $this->input->post('NoKontrak');
