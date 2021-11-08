@@ -198,7 +198,7 @@
 								<?php endforeach; ?>
 							</div>
 							<div class="box-footer">
-								<button type="button" data-target="#modaladdendum" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-paper-plane">&nbsp; TAMBAH ADDENDUM </i></button>
+								<button type="submit" data-target="#modaladdendum" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-paper-plane">&nbsp; TAMBAH ADDENDUM </i></button>
 							</div>
 
 						</div>
