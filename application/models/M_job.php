@@ -4,7 +4,7 @@ class M_job extends CI_Model
 {
     public function data_job()
     {
-        $query = $this->db->query("SELECT * From Job WHERE Company='MDH' AND TipeJob='Project' ORDER BY JobNo DESC");
+        $query = $this->db->query("SELECT * From Job WHERE Company='MDH' AND TipeJob='Project' AND StatusJob='Pelaksanaan' Or StatusJob='Pemeliharaan' ORDER BY JobNo DESC");
         return $query;
     }
 
@@ -230,7 +230,7 @@ class M_job extends CI_Model
 
 	public function checkProjectPCTeam($JobNo = null)
     {
-		$query="select item from
+		$query="select item  from
 		dbo.SplitString(
 		(select CeklistPC from CeklistDok where JobNo = $JobNo and id = (select max(id) from CeklistDok where JobNo = $JobNo))
 		, ',')";

@@ -156,7 +156,7 @@ class Job extends CI_Controller
 		$dataAddendum = $this->m_job->dataAddendum($JobNo);
 		$data['dataAddendum'] = $dataAddendum;
 
-		$checkProjectFieldTeam = $this->m_job->checkProjectFieldTeam($JobNo);
+		$checkProjectFieldTeam =  $this->m_job->checkProjectFieldTeam($JobNo);
 		// print_r($checkProject);
 		$data['checkProjectFieldTeam'] = $checkProjectFieldTeam;
 
@@ -541,6 +541,9 @@ class Job extends CI_Controller
 		$TglRencana	= $this->input->post('tglRencanaTermin');
 		$Uraian		= $this->input->post('UraianTermin');
 		$Persentase	= $this->input->post('TxtPersentase');
+		$Bruto		= $this->input->post('TxtA');
+		
+
 		
 
 	}

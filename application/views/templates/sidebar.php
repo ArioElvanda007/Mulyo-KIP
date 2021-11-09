@@ -9,7 +9,7 @@
   			</div>
   			<div class="pull-left info" style="height: 100px;">
   				<p><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
-  				<a href="#"><i class="fa fa-circle text-success"></i> IT Manager</a>
+  				<a href="#"><i class="fa fa-circle text-success"></i></a>
   			</div>
   		</div>
   		<!-- search form -->
@@ -134,7 +134,7 @@
   						<i class="fa fa-angle-left pull-right"></i>
   					</span>
   				</a>
-  				<ul class="treeview-menu">
+  				<!-- <ul class="treeview-menu">
   					<li><a href="#"><i class="fa fa-circle-o"></i> Chart Of Account</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> COA - External</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> GL Reference</a></li>
@@ -143,7 +143,7 @@
   					<li><a href="#"><i class="fa fa-circle-o"></i> Approval Jurnal Harian</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> Query Jurnal Harian</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> Posting Jurnal</a></li>
-  				</ul>
+  				</ul> -->
   			</li>
 
   			<li class="header">REPORTS</li>
@@ -161,7 +161,7 @@
   								<i class="fa fa-angle-left pull-right"></i>
   							</span>
   						</a>
-  						<ul class="treeview-menu">
+  						<!-- <ul class="treeview-menu">
   							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap KO</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Tracking KO</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap Invoice Supplier</a></li>
@@ -175,7 +175,7 @@
   							<li><a href="#"><i class="fa fa-circle-o"></i> Q. Permintaan Material/Alat</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> List Pengiriman KO Jatuh Tempo</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Volume MOS</a></li>
-  						</ul>
+  						</ul> -->
   					</li>
   					<li class="treeview">
   						<a href="#"><i class="fa fa-circle-o"></i> PD/PJ
@@ -183,7 +183,7 @@
   								<i class="fa fa-angle-left pull-right"></i>
   							</span>
   						</a>
-  						<ul class="treeview-menu">
+  						<!-- <ul class="treeview-menu">
   							<li><a href="#"><i class="fa fa-circle-o"></i> Daftar PD/PJ</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap Pembayaran</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Penyerapan RAP</a></li>
@@ -191,28 +191,38 @@
   							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap Outstanding/Apprv PD</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Cek/Giro Mundur</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap PD Jaminan</a></li>
-  						</ul>
+  						</ul> -->
   					</li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Termin</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Keuangan Periodik</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Cash Flow</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Piutang Progress Fisik</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Attribute Kontrak</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Rencana Termin</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring RPPM</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Rekap Proyek:Kontrak, Expens & Termin </a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Cadangan KSO</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Bar Chart Proyek</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Kurva Progress</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Proyek</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Saldo Rekening</a></li>
   					<li class="treeview">
-  						<a href="#"><i class="fa fa-circle-o"></i> Accounting
+  						<a href="#"><i class="fa fa-circle-o"></i> OPERASI
   							<span class="pull-right-container">
   								<i class="fa fa-angle-left pull-right"></i>
   							</span>
   						</a>
-  						<ul class="treeview-menu">
+  						<!-- <ul class="treeview-menu">
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Termin</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Keuangan Periodik</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Cash Flow</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Piutang Progress Fisik</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Attribute Kontrak</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Rencana Termin</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring RPPM</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Rekap Proyek:Kontrak, Expens & Termin </a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Cadangan KSO</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Bar Chart Proyek</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Kurva Progress</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Monitoring Proyek</a></li>
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Saldo Rekening</a></li>
+  						</ul> -->
+  					</li>
+  					<li class="treeview">
+  						<a href="#"><i class="fa fa-circle-o"></i> ACCOUNTING DAN FINANCE
+  							<span class="pull-right-container">
+  								<i class="fa fa-angle-left pull-right"></i>
+  							</span>
+  						</a>
+  						<!-- <ul class="treeview-menu">
+  							<li><a href="#"><i class="fa fa-circle-o"></i> Override Saldo</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Resume Posisi Keuangan & L/R Komperhensif</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Neraca</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Laporan Laba Rugi Komperhensif</a></li>
@@ -220,7 +230,7 @@
   							<li><a href="#"><i class="fa fa-circle-o"></i> Neraca Mutasi</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Buku Tambahan</a></li>
   							<li><a href="#"><i class="fa fa-circle-o"></i> Nota Akuntansi</a></li>
-  						</ul>
+  						</ul> -->
   					</li>
   				</ul>
   			</li>
@@ -233,7 +243,6 @@
   				</a>
   				<ul class="treeview-menu">
   					<li><a href="#"><i class="fa fa-circle-o"></i> Tracking PD</a></li>
-  					<li><a href="#"><i class="fa fa-circle-o"></i> Override Saldo</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> Change Password</a></li>
   					<li><a href="#"><i class="fa fa-circle-o"></i> Broadcast Notification</a></li>
   				</ul>
