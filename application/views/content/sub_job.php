@@ -122,7 +122,7 @@
                                             <a href="<?php echo site_url('job/tatakelola/' . $jb->JobNo)  ?>">
                                                 <h3 style="color: aliceblue;">Tata Kelola</h3>
 
-                                                <p style="color: aliceblue;">Data KSO, Man Power Planning, Tipe Managerial, Porsi Kontrak</p>
+                                                <p style="color: aliceblue;">Data KSO, Struktur Organisasi, Tipe Managerial, Porsi Kontrak</p>
                                             </a>
                                             <?php T_ENDFOREACH ?>
                                         </div>

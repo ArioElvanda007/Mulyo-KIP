@@ -174,119 +174,121 @@
 								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 									<span aria-hidden="true">&times;</span></button>
 								<h4 class="modal-title">DATA ENTRY TERMIN</h4>
+								<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
 							</div>
 
-							<div class="modal-body">
-								<form class="form-horizontal">
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Jenis Termin</label>
-										<div class="col-sm-7">
-											<select name="JenisTermin" class="form-control">
-												<option value="">--Pilih Jenis Termin--</option>
-												<option value="Uang Muka">Uang Muka</option>
-												<option value="Termin">Termin</option>
-												<option value="Retensi">Retensi</option>
-											</select>
+							<form action="<?= site_url('Job/addDPtermin')  ?>" method="post">
+								<div class="modal-body">
+									<form class="form-horizontal">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Jenis Termin</label>
+											<div class="col-sm-7">
+												<select name="JenisTermin" class="form-control">
+													<option value="">--Pilih Jenis Termin--</option>
+													<option value="Uang Muka">Uang Muka</option>
+													<option value="Termin">Termin</option>
+													<option value="Retensi">Retensi</option>
+												</select>
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
-										<div class="col-sm-7">
-											<input type="date" name="tglRencanaTermin" class="form-control" id="TglRencanaTermin">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
+											<div class="col-sm-7">
+												<input type="date" name="tglRencanaTermin" class="form-control" id="TglRencanaTermin">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Uraian</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="UraianTermin" placeholder="Uraian Termin" required>
-											<?php foreach ($tbldipa as $dp) : ?>
-												<input type="text" name="Budget" id="Budget" value="<?php echo $dp->Budget ?>" hidden>
-												<input type="text" name="JobNo" id="JobNo" value="<?php echo $dp->JobNo ?>" hidden>
-											<?php endforeach; ?>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Uraian</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="UraianTermin" placeholder="Uraian Termin" required>
+												<?php foreach ($tbldipa as $dp) : ?>
+													<input type="text" name="Budget" id="Budget" value="<?php echo $dp->Budget ?>" hidden>
+													<input type="text" name="JobNo" id="JobNo" value="<?php echo $dp->JobNo ?>" hidden>
+												<?php endforeach; ?>
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Presentasi Rencana</label>
-										<label style="align-content: center;">
-											<h4 style="align-content: center;">%</h4>
-										</label>
-										<div class="col-sm-3">
-											<input type="text" name="TxtPersentase" id="TxtPersentase" class="form-control" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Presentasi Rencana</label>
+											<label style="align-content: center;">
+												<h4 style="align-content: center;">%</h4>
+											</label>
+											<div class="col-sm-3">
+												<input type="text" name="TxtPersentase" id="TxtPersentase" class="form-control" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtA" id="TxtA" onkeyup="toDecimal(this,Rtermin())" value="0">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtA" id="TxtA" onkeyup="toDecimal(this,Rtermin())" value="0">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Potongan Uang Muka (B = A x n%)</label>
-										<label style="align-content: center;">
-											<h4 style="align-content: center;">%</h4>
-										</label>
-										<div class="col-sm-3">
-											<input type="text" class="form-control" name="TxtD" id="TxtD" value="0">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Potongan Uang Muka (B = A x n%)</label>
+											<label style="align-content: center;">
+												<h4 style="align-content: center;">%</h4>
+											</label>
+											<div class="col-sm-3">
+												<input type="text" class="form-control" name="TxtD" id="TxtD" value="0">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label"></label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtUM" id="TxtUM" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label"></label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtUM" id="TxtUM" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
+										<div class="form-group row">
 
-										<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
+											<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
 
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtE" id="TxtE" value="0" onkeyup="Rtermin()">
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtE" id="TxtE" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtF" id="TxtF" onkeyup="Rtermin()" value="0">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtF" id="TxtF" onkeyup="Rtermin()" value="0">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtG" id="TxtG" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtG" id="TxtG" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtH" id="TxtH" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtH" id="TxtH" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtI" id="TxtI" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtI" id="TxtI" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtJ" id="TxtJ" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtJ" id="TxtJ" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
-									<div class="form-group row">
-										<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
-										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtK" id="TxtK" value="0" onkeyup="Rtermin()">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtK" id="TxtK" value="0" onkeyup="Rtermin()">
+											</div>
 										</div>
-									</div>
 
-									<div class="modal-footer">
-										<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-										<button type="button" class="btn btn-primary">Save changes</button>
-									</div>
-								</form>
-							</div>
-
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+											<button type="submit" class="btn btn-primary">Save changes</button>
+										</div>
+									</form>
+								</div>
+							</form>
 						</div>
 						<!-- /.modal-content -->
 					</div>

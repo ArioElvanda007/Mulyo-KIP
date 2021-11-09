@@ -536,14 +536,34 @@ class Job extends CI_Controller
 
 	function addDPtermin()
 	{
-		$JobNo 		= $this->input->post('JobNo');
-		$Jenis		= $this->input->post('JenisTermin');
-		$TglRencana	= $this->input->post('tglRencanaTermin');
-		$Uraian		= $this->input->post('UraianTermin');
-		$Persentase	= $this->input->post('TxtPersentase');
-		$Bruto		= $this->input->post('TxtA');
-		
+		$JobNo 			= $this->input->post('JobNo');
+		$Jenis			= $this->input->post('JenisTermin');
+		$TglRencana		= $this->input->post('tglRencanaTermin');
+		$Uraian			= $this->input->post('UraianTermin');
+		$Persentase		= $this->input->post('TxtPersentase');
+		$Bruto			= $this->input->post('TxtA');
+		$PresentaseUM	= $this->input->post('TxtD');
+		$Netto 			= $this->input->post('TxtK');
+		$Retensi		= $this->input->post('cbRetensi');
+		$UserEntry		= $this->session->userdata('MIS_LOGGED_NAME');
+		$TimeEntry  	= date("Y-m-d H:i:s");
 
+		$data = array (
+			'JobNo'			=> $JobNo,
+			'Jenis'			=> $Jenis,
+			'TglRencana'	=> $TglRencana,
+			'Uraian'		=> $Uraian,
+			'Persentase'	=> $Persentase,
+			'Bruto'			=> str_replace(',','', $Bruto),
+			'PresentaseUM'	=> str_replace(',','', $PresentaseUM) ,
+			'Netto'			=> str_replace(',','', $Netto),
+			'Retensi'		=> str_replace(',','', $Retensi),
+			'UserEntry'		=> $UserEntry,
+			'TimeEntry'		=> $TimeEntry,			
+		);
+
+		$this->M_job->SimpanData('Job', $data);
+		redirect('Job/dipa/' . $JobNo);
 		
 
 	}
