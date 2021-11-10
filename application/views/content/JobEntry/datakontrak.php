@@ -760,74 +760,7 @@
 					<button type="button" data-target="#modal-FHO" data-toggle="modal" class="btn btn-success pull-right"><i class="fa fa-save"> UPDATE DATA PHO </i></button>
 				</div>
 			</div>
-
-
-
-			<!-- <div class="modal fade" id="modal-FHO">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4 class="modal-title">Update Data PHO</h4>
-                        </div>
-                        <div class="modal-body">
-                                <div class="box-body">
-                                    <form action=" <?php echo base_url('Job/UpdateFHO') ?>" method="POST">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <input type="text" name="JobNo" value="<?php echo $datakontrak->JobNo ?>" hidden>
-                                                <label>No. FHO</label>
-                                                <input type="text" class="form-control" name="NoFHO" id="NoFHO" value="<?php echo $datakontrak->NoFHO ?>">
-                                            </div>
-
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="form-group">
-                                                <label>Tgl FHO</label>
-                                                <input type="Date" class="form-control" name="TglFHO" id="TglFHO" value="<?php echo $datakontrak->TglFHO ?>">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="box-body">
-                                        <div class="row">
-                                            <!-- <div class="col-md-6"> 
-                                            <div class="form-group">
-                                                <div class="form-group">
-                                                    &nbsp;
-                                                    <label>Ceklist Persyaratan FHO :</label>
-                                                    &nbsp
-                                                    &nbsp
-                                                    <label>
-                                                        <input type="checkbox" name="checkboxFHO" value="Berita Acara FHO">
-                                                        Upload Berita Acara FHO
-                                                    </label>
-                                                    &nbsp
-                                                    &nbsp
-                                                    <br>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <label>Upload File FHO</label>
-                                        <input type="file" name="FileFHO" class="form-control" id="customFile" />
-                                        <label>Lanjut Notifikasi</label>
-                                        <select class="form-control" name="NotifLanjutTender" id="PesertaTender">
-                                            <option value="Pelaksanaan">Ya</option>
-                                            <option value="Pemeliharaan">Tidak</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="modal-footer">
-                                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
-                            </div>
-                            </form>
-                    </div>
-                </div>
-            </div> -->
-
+			
 		</div>
 	</section>
 

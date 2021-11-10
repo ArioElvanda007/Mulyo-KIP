@@ -158,6 +158,21 @@ class M_job extends CI_Model
 		return $eksekusi->result();
 	}
 
+	public function SumRTBruto($JobNo)
+	{
+		$this->db->select_sum('Bruto');
+		$this->db->from('RencanaTermin');
+		$this->db->where('JobNo', $JobNo);
+		return $this->db->get('')->row();
+	}
+	public function SumRTNetto($JobNo)
+	{
+		$this->db->select_sum('Netto');
+		$this->db->from('RencanaTermin');
+		$this->db->where('JobNo', $JobNo);
+		return $this->db->get('')->row();
+	}
+
     public function tatakelola($JobNo = null)
     {
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();

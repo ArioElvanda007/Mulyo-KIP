@@ -239,7 +239,7 @@
 										</div>
 										<div class="form-group row">
 
-											<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
+											<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" alt="Checkbox" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
 
 											<div class="col-sm-7">
 												<input type="text" class="form-control" name="TxtE" id="TxtE" value="0" onkeyup="Rtermin()">
@@ -305,6 +305,202 @@
 								<h4 class="modal-title">DATA ENTRY TERMIN</h4>
 							</div>
 
+							<form action="<?= site_url('Job/TambahTermin') ?>" method="post">
+								<div class="modal-body">
+									<form class="form-horizontal">
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Jenis Termin</label>
+											<div class="col-sm-7">
+												<select name="JenisTermin1" class="form-control">
+													<option value="">--Pilih Jenis Termin--</option>
+													<option value="Uang Muka">Uang Muka</option>
+													<option value="Termin">Termin</option>
+													<option value="Retensi">Retensi</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
+											<div class="col-sm-7">
+												<input type="date" name="tglRencanaTermin1" class="form-control" id="TglRencanaTermin1">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Uraian</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="UraianTermin1" placeholder="Uraian Termin" onkeyup="this.value = this.value.toUpperCase()" required>
+												<?php foreach ($tbldipa as $dp) : ?>
+													<input type="text" name="Budget1" id="Budget1" value="<?php echo $dp->Budget ?>" hidden>
+													<input type="text" name="JobNo1" id="JobNo1" value="<?php echo $dp->JobNo ?>" hidden>
+												<?php endforeach; ?>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Presentasi Rencana</label>
+											<label style="align-content: center;">
+												<h4 style="align-content: center;">%</h4>
+											</label>
+											<div class="col-sm-3">
+												<input type="text" name="TxtPersentase1" id="TxtPersentase1" class="form-control" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtA1" id="TxtA1" onkeyup="toDecimal(this,Rtermin1())" value="0">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Potongan Uang Muka (B = A x n%)</label>
+											<label style="align-content: center;">
+												<h4 style="align-content: center;">%</h4>
+											</label>
+											<div class="col-sm-3">
+												<?php foreach ($GetBruto as $gb) : ?>
+													<input type="text" class="form-control" name="TxtD1" id="TxtD1" value="<?php echo $gb->Persentase ?>">
+												<?php endforeach; ?>
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label"></label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtUM1" id="TxtUM1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+
+											<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi1[]" id="cbRetensi1" onkeyup="Rtermin1()" value="1"></label>
+
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtE1" id="TxtE1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtF1" id="TxtF1" onkeyup="Rtermin1()" value="0">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtG1" id="TxtG1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtH1" id="TxtH1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtI1" id="TxtI1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtJ1" id="TxtJ1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+										<div class="form-group row">
+											<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
+											<div class="col-sm-7">
+												<input type="text" class="form-control" name="TxtK1" id="TxtK1" value="0" onkeyup="Rtermin1()">
+											</div>
+										</div>
+
+										<div class="modal-footer">
+											<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+											<button type="Submit" class="btn btn-primary">Save changes</button>
+										</div>
+									</form>
+								</div>
+							</form>
+						</div>
+						<!-- /.modal-content -->
+					</div>
+					<!-- /.modal-dialog -->
+				</div>
+
+
+
+
+				<div class="box-tools pull-right">
+					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
+				</div>
+			</div>
+			<div class="box-body">
+				<!-- <div class="row"> -->
+				<!-- <div class="col-md-6"> -->
+				<div class="form-group">
+
+					<div class="box-body table-responsive no-padding">
+						<table class="table table-hover" border="1" cellspacing="2" width="100%">
+
+							<tr style="background-color: coral;">
+								<th hidden></th>
+								<th>NO</th>
+								<th>Tgl Rencana Jth Tempo</th>
+								<th>Jenis</th>
+								<th>Uraian</th>
+								<th>Presentase (%)</th>
+								<th>Bruto (Rp)</th>
+								<th>Netto (Rp)</th>
+								<th></th>
+							</tr>
+
+
+							<?php $no = 1;
+
+							foreach ($tblRtermin as $j => $value) : ?>
+								<tr>
+									<td hidden><?= $value->LedgerNo; ?></td>
+									<td><?php echo $no++ ?></td>
+									<td><?= $value->TglRencana; ?></td>
+									<td><?= $value->Jenis; ?></td>
+									<td><?= $value->Uraian; ?></td>
+									<td><?= $value->Persentase; ?></td>
+									<td><?= number_format($value->Bruto); ?></td>
+									<td><?= number_format($value->Netto); ?></td>
+									<td>
+										<button type="button" data-toggle="modal" data-target="#EditRencanaTermin<?php echo $value->LedgerNo; ?>" class="btn btn-success btn-xs">SELECT</button>
+										<button type="button" data-toggle="modal" data-target="#modal-EditDipa<?php echo $dipa->id_Dipa; ?>" class="btn btn-danger btn-xs">DELETE</button>
+									</td>
+								</tr>
+							<?php endforeach; ?>
+							<tr style="background-color:lightgray;">
+								<td colspan="5" rowspan="5">
+									<h5 style="float: right;">TOTAL</h5>
+								</td>
+								<td>
+									<h5><?php echo number_format($SumRTBruto->Bruto); ?></h5>
+								<td>
+									<h5><?php echo number_format($SumRTNetto->Netto); ?></h5>
+								</td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+				<!-- </div> -->
+				<!-- </div> -->
+			</div>
+
+			<?php foreach ($tblRtermin as $j => $value) : ?>
+				<div class="modal fade" id="EditRencanaTermin<?php echo $value->LedgerNo; ?>">
+					<div class="modal-dialog" style="width: 40%;">
+						<div class="modal-content">
+							<div class="modal-header">
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									<span aria-hidden="true">&times;</span></button>
+								<h4 class="modal-title">DATA ENTRY TERMIN</h4>
+							</div>
+
 							<div class="modal-body">
 								<form class="form-horizontal">
 									<div class="form-group row">
@@ -321,7 +517,7 @@
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
 										<div class="col-sm-7">
-											<input type="date" name="tglRencanaTermin1" class="form-control" id="TglRencanaTermin1">
+											<input type="date" name="tglRencanaTermin1" class="form-control" id="TglRencanaTermin2">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -329,9 +525,9 @@
 										<div class="col-sm-7">
 											<input type="text" class="form-control" name="UraianTermin1" placeholder="Uraian Termin" required>
 											<?php foreach ($tbldipa as $dp) : ?>
-												<input type="text" name="Budget1" id="Budget1" value="<?php echo $dp->Budget ?>" hidden>
-												<input type="text" name="JobNo1" id="JobNo1" value="<?php echo $dp->JobNo ?>" hidden>
-											<?php endforeach; ?>
+											<input type="text" name="Budget2" id="Budget1" value="<?php echo $dp->Budget ?>" hidden>
+											<input type="text" name="JobNo2" id="JobNo1" value="<?php echo $dp->JobNo ?>" hidden>
+										<?php endforeach; ?>
 										</div>
 									</div>
 									<div class="form-group row">
@@ -340,13 +536,13 @@
 											<h4 style="align-content: center;">%</h4>
 										</label>
 										<div class="col-sm-3">
-											<input type="text" name="TxtPersentase1" id="TxtPersentase1" class="form-control" onkeyup="Rtermin1()">
+											<input type="text" name="TxtPersentase2" id="TxtPersentase1" class="form-control" onkeyup="Rtermin1()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtA1" id="TxtA1" onkeyup="toDecimal(this,Rtermin1())" value="0">
+											<input type="text" class="form-control" name="TxtA1" id="TxtA2" onkeyup="toDecimal(this,Rtermin1())" value="0">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -355,9 +551,9 @@
 											<h4 style="align-content: center;">%</h4>
 										</label>
 										<div class="col-sm-3">
-											<?php foreach ($GetBruto as $gb) : ?>
-												<input type="text" class="form-control" name="TxtD1" id="TxtD1" value="<?php echo $gb->Persentase ?>">
-											<?php endforeach; ?>
+											<!-- <?php foreach ($GetBruto as $gb) : ?> -->
+											<input type="text" class="form-control" name="TxtD1" id="TxtD1" value="<?php echo $value->Persentase ?>">
+											<!-- <?php endforeach; ?> -->
 										</div>
 									</div>
 									<div class="form-group row">
@@ -423,61 +619,7 @@
 					</div>
 					<!-- /.modal-dialog -->
 				</div>
-
-
-				<div class="box-tools pull-right">
-					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
-				</div>
-			</div>
-			<div class="box-body">
-				<!-- <div class="row"> -->
-				<!-- <div class="col-md-6"> -->
-				<div class="form-group">
-
-					<div class="box-body table-responsive no-padding">
-						<table class="table table-hover" border="1" cellspacing="2" width="100%">
-
-							<tr style="background-color: coral;">
-								<th hidden></th>
-								<th>NO</th>
-								<th>Tgl Rencana Jth Tempo</th>
-								<th>Jenis</th>
-								<th>Uraian</th>
-								<th>Presentase (%)</th>
-								<th>Bruto (Rp)</th>
-								<th>Netto (Rp)</th>
-								<th></th>
-							</tr>
-
-
-							<?php $no = 1;
-
-							foreach ($tblRtermin as $j => $value) : ?>
-								<tr>
-									<td hidden><?= $value->LedgerNo; ?></td>
-									<td><?php echo $no++ ?></td>
-									<td><?= $value->TglRencana; ?></td>
-									<td><?= $value->Jenis; ?></td>
-									<td><?= $value->Uraian; ?></td>
-									<td><?= $value->Persentase; ?></td>
-									<td><?= number_format($value->Bruto); ?></td>
-									<td><?= number_format($value->Netto); ?></td>
-									<td>
-										<button type="button" data-toggle="modal" data-target="#modal-EditDipa<?php echo $dipa->id_Dipa; ?>" class="btn btn-success btn-xs">SELECT</button>
-										<button type="button" data-toggle="modal" data-target="#modal-EditDipa<?php echo $dipa->id_Dipa; ?>" class="btn btn-danger btn-xs">DELETE</button>
-									</td>
-								</tr>
-
-
-							<?php endforeach; ?>
-						</table>
-					</div>
-
-				</div>
-				<!-- </div> -->
-				<!-- </div> -->
-			</div>
+			<?php endforeach; ?>
 		</div>
 
 		<div class="box box-primary">

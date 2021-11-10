@@ -216,23 +216,6 @@ class Job extends CI_Controller
 
 	public function tambahAddendum($JobNo)
 	{
-		// $JobNo 			= $this->input->post('JobNo');
-		// $NoKontrak			= $this->input->post('NoKontrak');
-		// $TahunAnggaran		= $this->input->post('TA');
-		// $HPS				= $this->input->post('HPS');
-		// $Bruto				= $this->input->post('NilaiKontrak');
-		// $AddendumKe		= $this->input->post('AddendumKe');
-		// $TglKontrak		= $this->input->post('TglKontrak');		
-		// $MasaPelaksanaan 	= $this->input->post('MasaPelaksanaan');
-		// $MasaPemeliharaan	= $this->input->post('MasaPemeliharaan');
-		// $RemarkAddendum	= $this->input->post('KeteranganAdd');
-		// $PrdAwal			= $this->input->post('TglAddendum1');
-		// $PrdAkhir			= $this->input->post('TglAddendum2');
-		// $PenawaranNetto	= $this->input->post('PenawaranNetto');
-		// $RingkasanPekerjaan = $this->input->post('RingPek');
-		// $NamaPPK			= $this->input->post('NamaPPK');
-		// $AlamatPPK			= $this->input->post('AlamatPPK');
-
 		$data = array(
 		'JobNo' 			=> $this->input->post('JobNo'),
 		'NoKontrak'			=> $this->input->post('NoKontrak'),
@@ -426,7 +409,7 @@ class Job extends CI_Controller
         $NilaiJaminan       =$this->input->post('NilaiJaminan');
         $MasaBerlaku        =$this->input->post('MasaBerlaku');
         $Filejaminan        =$this->input->post('FileJaminan');
-        $UserEntry         =$this->session->userdata('MIS_LOGGED_NAME');
+        $UserEntry          =$this->session->userdata('MIS_LOGGED_NAME');
         $TimeEntry           =date("Y-m-d H:i:s");
 
         $Filejaminan        =$_FILES['Filejaminan']['name'];
@@ -475,6 +458,8 @@ class Job extends CI_Controller
 		$getBruto = $this->m_job->GetBruto($JobNo);
 		$data['GetBruto'] = $getBruto;
 
+		$data['SumRTBruto'] = $this->M_job->SumRTBruto($JobNo);
+		$data['SumRTNetto'] = $this->M_job->SumRTNetto($JobNo);
 
 		$data['judul'] = 'Dipa';
 
@@ -544,7 +529,7 @@ class Job extends CI_Controller
 		$Bruto			= $this->input->post('TxtA');
 		$PresentaseUM	= $this->input->post('TxtD');
 		$Netto 			= $this->input->post('TxtK');
-		$Retensi		= $this->input->post('cbRetensi');
+		//$Retensi		= $this->input->post('cbRetensi');
 		$UserEntry		= $this->session->userdata('MIS_LOGGED_NAME');
 		$TimeEntry  	= date("Y-m-d H:i:s");
 
@@ -555,17 +540,62 @@ class Job extends CI_Controller
 			'Uraian'		=> $Uraian,
 			'Persentase'	=> $Persentase,
 			'Bruto'			=> str_replace(',','', $Bruto),
-			'PresentaseUM'	=> str_replace(',','', $PresentaseUM) ,
+			'PersentaseUM'	=> str_replace(',','', $PresentaseUM) ,
 			'Netto'			=> str_replace(',','', $Netto),
-			'Retensi'		=> str_replace(',','', $Retensi),
+			'Retensi'		=> implode(',', $this->input->post('cbRetensi[]', TRUE)),
 			'UserEntry'		=> $UserEntry,
 			'TimeEntry'		=> $TimeEntry,			
 		);
 
-		$this->M_job->SimpanData('Job', $data);
+		$this->M_job->SimpanData('RencanaTermin', $data);
 		redirect('Job/dipa/' . $JobNo);
 		
+	}
 
+	function TambahTermin()
+	{
+		$JobNo 			= $this->input->post('JobNo1');
+		$Jenis			= $this->input->post('JenisTermin1');
+		$TglRencana		= $this->input->post('tglRencanaTermin1');
+		$Uraian			= $this->input->post('UraianTermin1');
+		$Persentase		= $this->input->post('TxtPersentase1');
+		$Bruto			= $this->input->post('TxtA1');
+		$PresentaseUM	= $this->input->post('TxtD1');
+		$NilaiPotUM		= $this->input->post('TxtUM1');
+		$NilaiRetensi	= $this->input->post('TxtE1');
+		$TotalPotongan	= $this->input->post('TxtF1');
+		$PembayaranFisik= $this->input->post('TxtG1');
+		$PPN 			= $this->input->post('TxtH1');
+		$NetExcPPN		= $this->input->post('TxtI1');
+		$PPH 			= $this->input->post('TxtJ1');		
+		$Netto 			= $this->input->post('TxtK1');
+		//$Retensi		= $this->input->post('cbRetensi');
+		$UserEntry		= $this->session->userdata('MIS_LOGGED_NAME');
+		$TimeEntry  	= date("Y-m-d H:i:s");
+
+		$data = array(
+			'JobNo'			=> $JobNo,
+			'Jenis'			=> $Jenis,
+			'TglRencana'	=> $TglRencana,
+			'Uraian'		=> $Uraian,
+			'Persentase'	=> $Persentase,
+			'Bruto'			=> str_replace(',','', $Bruto),
+			'PersentaseUM'	=> str_replace(',','', $PresentaseUM),
+			'NilaiPotUM'	=> str_replace(',','', $NilaiPotUM ),
+			'NilaiRetensi'	=> str_replace(',','', $NilaiRetensi),
+			'TotalPotongan'	=> str_replace(',','', $TotalPotongan),
+			'PembayaranFisik' => str_replace(',','', $PembayaranFisik),
+			'PPN'			=> str_replace(',','', $PPN),
+			'NetExcPPN'		=> str_replace(',','', $NetExcPPN),
+			'PPH'			=> str_replace(',','', $PPH),
+			'Netto'			=> str_replace(',','', $Netto),
+			'Retensi'		=> implode(',', $this->input->post('cbRetensi[]', TRUE)),
+			'UserEntry'		=> $UserEntry,
+			'TimeEntry'		=> $TimeEntry,
+		);
+
+		$this->M_job->SimpanData('RencanaTermin', $data);
+		redirect('Job/dipa/' . $JobNo);
 	}
 
 	
