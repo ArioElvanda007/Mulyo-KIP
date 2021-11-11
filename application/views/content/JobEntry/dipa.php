@@ -159,8 +159,8 @@
 							<div class="card">
 								<div class="card-body">
 									<!-- <a href="<?= site_url('job/sub_job') ?>" class="btn btn-warning"><i class="fa fa-arrow-left"></i> Kembali</a> -->
-									<a data-target="#TambahDPRencanaTermin" data-toggle="modal" class="btn btn-flickr"><i class="fa fa-plus"></i> Tambah DP Termin</a>
-									<a data-target="#TambahRencanaTermin" data-toggle="modal" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Termin</a>
+									<a data-target="#TambahDPRencanaTermin" data-toggle="modal" class="btn btn-flickr"><i class="fa fa-plus"></i> Input Uang Muka Rencana Termin</a>
+									<a data-target="#TambahRencanaTermin" data-toggle="modal" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah Data Rencana Termin</a>
 								</div>
 							</div>
 						</div>
@@ -179,114 +179,110 @@
 
 							<form action="<?= site_url('Job/addDPtermin')  ?>" method="post">
 								<div class="modal-body">
-									<form class="form-horizontal">
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Jenis Termin</label>
-											<div class="col-sm-7">
-												<select name="JenisTermin" class="form-control">
-													<option value="">--Pilih Jenis Termin--</option>
-													<option value="Uang Muka">Uang Muka</option>
-													<option value="Termin">Termin</option>
-													<option value="Retensi">Retensi</option>
-												</select>
-											</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Jenis Termin</label>
+										<div class="col-sm-7">
+											<select name="JenisTermin" class="form-control">
+												<option value="">--Pilih Jenis Termin--</option>
+												<option value="Uang Muka">Uang Muka</option>
+												<option value="Termin">Termin</option>
+												<option value="Retensi">Retensi</option>
+											</select>
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
-											<div class="col-sm-7">
-												<input type="date" name="tglRencanaTermin" class="form-control" id="TglRencanaTermin">
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
+										<div class="col-sm-7">
+											<input type="date" name="tglRencanaTermin" class="form-control" id="TglRencanaTermin">
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Uraian</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="UraianTermin" placeholder="Uraian Termin" required>
-												<?php foreach ($tbldipa as $dp) : ?>
-													<input type="text" name="Budget" id="Budget" value="<?php echo $dp->Budget ?>" hidden>
-													<input type="text" name="JobNo" id="JobNo" value="<?php echo $dp->JobNo ?>" hidden>
-												<?php endforeach; ?>
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Uraian</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="UraianTermin" placeholder="Uraian Termin" required>
+											<?php foreach ($tbldipa as $dp) : ?>
+												<input type="text" name="Budget" id="Budget" value="<?php echo $dp->Budget ?>" hidden>
+												<input type="text" name="JobNo" id="JobNo" value="<?php echo $dp->JobNo ?>" hidden>
+											<?php endforeach; ?>
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Presentasi Rencana</label>
-											<label style="align-content: center;">
-												<h4 style="align-content: center;">%</h4>
-											</label>
-											<div class="col-sm-3">
-												<input type="text" name="TxtPersentase" id="TxtPersentase" class="form-control" onkeyup="Rtermin()">
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Presentasi Rencana</label>
+										<label style="align-content: center;">
+											<h4 style="align-content: center;">%</h4>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" name="TxtPersentase" id="TxtPersentase" class="form-control" onkeyup="Rtermin()">
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtA" id="TxtA" onkeyup="toDecimal(this,Rtermin())" value="0">
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtA" id="TxtA" onkeyup="toDecimal(this,Rtermin())" value="0">
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Potongan Uang Muka (B = A x n%)</label>
-											<label style="align-content: center;">
-												<h4 style="align-content: center;">%</h4>
-											</label>
-											<div class="col-sm-3">
-												<input type="text" class="form-control" name="TxtD" id="TxtD" value="0">
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Potongan Uang Muka (B = A x n%)</label>
+										<label style="align-content: center;">
+											<h4 style="align-content: center;">%</h4>
+										</label>
+										<div class="col-sm-3">
+											<input type="text" class="form-control" name="TxtD" id="TxtD" value="0">
 										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label"></label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtUM" id="TxtUM" value="0" onkeyup="Rtermin()">
-											</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label"></label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtUM" id="TxtUM" value="0" onkeyup="Rtermin()">
 										</div>
-										<div class="form-group row">
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" alt="Checkbox" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtE" id="TxtE" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtF" id="TxtF" onkeyup="Rtermin()" value="0">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtG" id="TxtG" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtH" id="TxtH" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtI" id="TxtI" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtJ" id="TxtJ" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
+									<div class="form-group row">
+										<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
+										<div class="col-sm-7">
+											<input type="text" class="form-control" name="TxtK" id="TxtK" value="0" onkeyup="Rtermin()">
+										</div>
+									</div>
 
-											<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi[]" alt="Checkbox" id="cbRetensi" onkeyup="Rtermin()" value="1"></label>
-
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtE" id="TxtE" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtF" id="TxtF" onkeyup="Rtermin()" value="0">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtG" id="TxtG" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtH" id="TxtH" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtI" id="TxtI" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtJ" id="TxtJ" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-										<div class="form-group row">
-											<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
-											<div class="col-sm-7">
-												<input type="text" class="form-control" name="TxtK" id="TxtK" value="0" onkeyup="Rtermin()">
-											</div>
-										</div>
-
-										<div class="modal-footer">
-											<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-											<button type="submit" class="btn btn-primary">Save changes</button>
-										</div>
-									</form>
+									<div class="modal-footer">
+										<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+										<button type="submit" class="btn btn-primary">Save changes</button>
+									</div>
 								</div>
 							</form>
 						</div>
@@ -425,14 +421,12 @@
 					<!-- /.modal-dialog -->
 				</div>
 
-
-
-
 				<div class="box-tools pull-right">
 					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
 					<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-remove"></i></button>
 				</div>
 			</div>
+
 			<div class="box-body">
 				<!-- <div class="row"> -->
 				<!-- <div class="col-md-6"> -->
@@ -453,9 +447,7 @@
 								<th></th>
 							</tr>
 
-
 							<?php $no = 1;
-
 							foreach ($tblRtermin as $j => $value) : ?>
 								<tr>
 									<td hidden><?= $value->LedgerNo; ?></td>
@@ -478,6 +470,7 @@
 								</td>
 								<td>
 									<h5><?php echo number_format($SumRTBruto->Bruto); ?></h5>
+									</td>
 								<td>
 									<h5><?php echo number_format($SumRTNetto->Netto); ?></h5>
 								</td>
@@ -504,30 +497,26 @@
 							<div class="modal-body">
 								<form class="form-horizontal">
 									<div class="form-group row">
+										<!-- <?php $JenisTermin = ['', 'UANG MUKA', 'TERMIN', 'RETENSI']; ?> -->
 										<label class="col-sm-4 col-form-label">Jenis Termin</label>
 										<div class="col-sm-7">
-											<select name="JenisTermin1" class="form-control">
-												<option value="">--Pilih Jenis Termin--</option>
-												<option value="Uang Muka">Uang Muka</option>
-												<option value="Termin">Termin</option>
-												<option value="Retensi">Retensi</option>
-											</select>
+											<input type="text" name="JenisTermin2" id="JenisTermin2" class="form-control" value="<?php echo $value->Jenis ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Rencana Tgl Jatuh Tempo</label>
 										<div class="col-sm-7">
-											<input type="date" name="tglRencanaTermin1" class="form-control" id="TglRencanaTermin2">
+											<input type="date" name="tglRencanaTermin2" class="form-control" id="TglRencanaTermin2" value="<?php echo $value->TglRencana; ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Uraian</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="UraianTermin1" placeholder="Uraian Termin" required>
+											<input type="text" class="form-control" name="UraianTermin2" placeholder="Uraian Termin" id="UraianTermin2" value="<?php echo $value->Uraian ?>" required>
 											<?php foreach ($tbldipa as $dp) : ?>
-											<input type="text" name="Budget2" id="Budget1" value="<?php echo $dp->Budget ?>" hidden>
-											<input type="text" name="JobNo2" id="JobNo1" value="<?php echo $dp->JobNo ?>" hidden>
-										<?php endforeach; ?>
+												<input type="text" name="Budget2" id="Budget2" value="<?php echo $dp->Budget ?>" hidden>
+												<input type="text" name="JobNo2" id="JobNo2" value="<?php echo $dp->JobNo ?>" hidden>
+											<?php endforeach; ?>
 										</div>
 									</div>
 									<div class="form-group row">
@@ -536,13 +525,13 @@
 											<h4 style="align-content: center;">%</h4>
 										</label>
 										<div class="col-sm-3">
-											<input type="text" name="TxtPersentase2" id="TxtPersentase1" class="form-control" onkeyup="Rtermin1()">
+											<input type="text" name="TxtPersentase2" id="TxtPersentase2" class="form-control" value="<?php echo $value->Persentase ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Nominal Rencana (A)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtA1" id="TxtA2" onkeyup="toDecimal(this,Rtermin1())" value="0">
+											<input type="text" class="form-control" name="TxtA2" id="TxtA2" onkeyup="toDecimal(this,Rtermin2())" value="<?php echo number_format($value->Bruto) ?>">
 										</div>
 									</div>
 									<div class="form-group row">
@@ -551,59 +540,59 @@
 											<h4 style="align-content: center;">%</h4>
 										</label>
 										<div class="col-sm-3">
-											<!-- <?php foreach ($GetBruto as $gb) : ?> -->
-											<input type="text" class="form-control" name="TxtD1" id="TxtD1" value="<?php echo $value->Persentase ?>">
-											<!-- <?php endforeach; ?> -->
+											<?php foreach ($GetBruto as $gb) : ?>
+											<input type="text" class="form-control" name="TxtD2" id="TxtD2" value="<?php echo $value->PersentaseUM ?>">
+											<?php endforeach; ?>
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label"></label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtUM1" id="TxtUM1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtUM2" id="TxtUM2" value="<?php echo number_format($value->NilaiPotUM) ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 
-										<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi1[]" id="cbRetensi1" onkeyup="Rtermin1()" value="1"></label>
+										<label class="col-sm-4 col-form-label">Retensi (C = A x 5%) &nbsp <input type="checkbox" name="cbRetensi2[]" id="cbRetensi2" onkeyup="Rtermin2()" value="1"></label>
 
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtE1" id="TxtE1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtE2" id="TxtE2" value="<?php echo number_format($value->NilaiRetensi)  ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Total Potongan (D = B + C)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtF1" id="TxtF1" onkeyup="Rtermin1()" value="0">
+											<input type="text" class="form-control" name="TxtF2" id="TxtF2" onkeyup="Rtermin2()" value="<?php echo number_format($value->TotalPotongan) ?>">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Pembayaran Fisik (E = A - D)*Inc PPN</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtG1" id="TxtG1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtG2" id="TxtG2" value="<?php echo number_format($value->PembayaranFisik) ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">PPN (F = (E/1.1) x10%)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtH1" id="TxtH1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtH2" id="TxtH2" value="<?php echo number_format($value->PPN) ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Total Nett Exc. PPN (G = E- F)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtI1" id="TxtI1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtI2" id="TxtI2" value="<?php echo number_format($value->NetExcPPN) ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">PPH (H = (E/1.1)x3%)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtJ1" id="TxtJ1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtJ2" id="TxtJ2" value="<?php echo number_format($value->PPH) ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 									<div class="form-group row">
 										<label class="col-sm-4 col-form-label">Netto Exc. PPN & PPH (I = G-H)</label>
 										<div class="col-sm-7">
-											<input type="text" class="form-control" name="TxtK1" id="TxtK1" value="0" onkeyup="Rtermin1()">
+											<input type="text" class="form-control" name="TxtK2" id="TxtK2" value="<?php echo number_format($value->Netto)  ?>" onkeyup="Rtermin2()">
 										</div>
 									</div>
 
@@ -626,7 +615,6 @@
 			<div class="box-header with-border">
 				<h1 class="box-title" style="font-size: larger;">PENERIMAAN TERMIN</h1>
 				<p></p>
-
 
 				<div class="modal fade" id="modal-default-PM">
 					<div class="modal-dialog">
@@ -800,44 +788,6 @@
 												<!-- /.modal-dialog -->
 											</div>
 
-											<!-- <div class="modal-body">
-                                                <form class="form-horizontal">
-                                                    <div class="form-group row">
-                                                        <label>Nilai Kontrak Incl Addendum</label>
-                                                        <p></p>
-                                                        <label for="inputName" class="col-sm-2 col-form-label">Netto BoQ (Rp)</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputName" placeholder="Netto BoQ (Rp)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputEmail" class="col-sm-2 col-form-label">Fisik (Rp)</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputEmail" placeholder="Fisik (Rp)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputName2" class="col-sm-2 col-form-label">PPN (Rp)</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputName2" placeholder="PPN (Rp)">
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputExperience" class="col-sm-2 col-form-label">PPH Final (Rp)</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputExperience" placeholder="PPH Final (Rp)"></textarea>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group row">
-                                                        <label for="inputSkills" class="col-sm-2 col-form-label">Netto Penerimaan (Rp)</label>
-                                                        <div class="col-sm-10">
-                                                            <input type="text" class="form-control" id="inputSkills" placeholder="Netto Penerimaan (Rp)">
-                                                        </div>
-                                                    </div>
-
-                                                </form>
-                                            </div> -->
-
 											<div class="box-body table-responsive no-padding">
 												<table class="table table-hover" border="1" cellspacing="2" width="100%">
 
@@ -868,40 +818,19 @@
 
 
 													<!-- <?php $no = 1;
-
 															foreach ($Job as $j => $value) : ?> -->
 													<tr>
-														<td><?php echo $no++ ?></td>
-														<!--td><?= $value->JobNo; ?></td-->
-														<!-- <td><?= $value->JobNm; ?></td>
-                                                <td><?= $value->Deskripsi; ?></td>
-                                                <td><?= $value->CompanyId; ?></td>
-                                                <td><?= $value->StatusJob; ?></td>
-                                                <td><?= $value->Kategori; ?></td>
-                                                <td style="width: 5%">
-                                                    <!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a> -->
-														<a title="SELECT" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
-														<a title="DELETE" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
-														</td>
+														<td><?php echo $no++ ?></td>														
 													</tr>
-
-
 													<!-- <?php
 															endforeach;
-
 															?> -->
 												</table>
 											</div>
-
-
 										</div>
 
-
-
 										<div class="tab-pane" id="timeline">
-
 											<p></p>
-
 											<div class="container-fluid">
 												<div class="row">
 													<div class="col-12">
@@ -967,7 +896,6 @@
 																<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0">
 																<label>Cadangan KSO Member 2:*</label>
 																<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0">
-
 															</form>
 														</div>
 														<div class="modal-footer">
@@ -981,9 +909,7 @@
 											</div>
 
 											<p> </p>
-
 											<table class="table table-hover" border="1" cellspacing="2" width="100%">
-
 												<tr style="background-color: deepskyblue;">
 													<th>No</th>
 													<th>Tgl Cair</th>
@@ -996,10 +922,7 @@
 													<th>Netto Cadangan KSO Member 2 (Rp)</th>
 													<th>Action</th>
 												</tr>
-
-
 												<!-- <?php $no = 1;
-
 														foreach ($Job as $j => $value) : ?> -->
 												<tr>
 													<td><?php echo $no++ ?></td>
@@ -1015,19 +938,12 @@
 													<a title="DELETE" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
 													</td>
 												</tr>
-
-
 												<!-- <?php
 														endforeach;
-
 														?> -->
 											</table>
-
-
 										</div>
 										<!-- /.tab-pane -->
-
-
 										<!-- /.tab-pane -->
 									</div>
 									<!-- /.tab-content -->
@@ -1036,7 +952,6 @@
 							<!-- /.card -->
 						</div>
 					</div>
-
 				</div>
 				<!-- </div> -->
 				<!-- </div> -->
@@ -1089,8 +1004,7 @@
 	}
 	?>
 
-
-	---Modal DIPA EDIT ---
+	<!---Modal DIPA EDIT --->
 	<div class="modal fade" id="modal-default">
 		<div class="modal-dialog">
 			<div class="modal-content">
@@ -1121,8 +1035,8 @@
 		</div>
 		<!-- /.modal-dialog -->
 	</div>
-
-	---END DIPA EDIT --
+	<!---END DIPA EDIT -->
+</div>
 
 	<!-- <script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript">
@@ -1430,6 +1344,151 @@
 			var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
 			var K = I - J;
 			$('#TxtK1').val(numeral(K).format(0.0));
+
+		}
+
+		function Rtermin2() {
+			var bruto = $('#Budget2').val();
+			bruto = parseInt(bruto.replace(/,/g, ''));
+			var persentase = parseInt($('#TxtPersentase2').val());
+			var nominal = bruto * (persentase / 100);
+
+			$('#TxtA2').val(numeral(nominal).format(0.0));
+
+			var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+			var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+			var UM = A * (D / 100);
+			$('#TxtUM2').val(numeral(UM).format(0.0));
+
+			// var E = A * (5 / 100);
+			// $('#TxtE').val(E)
+
+			$("input[value=1]").on("change", function(evt) {
+				if ($(this).prop("checked")) {
+
+					var bruto = $('#Budget2').val();
+					bruto = parseInt(bruto.replace(/,/g, ''));
+					var persentase = parseInt($('#TxtPersentase2').val());
+					var nominal = bruto * (persentase / 100);
+
+					$('#TxtA2').val(numeral(nominal).format(0.0));
+
+					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+					var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+					var UM = A * (D / 100);
+					$('#TxtUM2').val(numeral(UM).format(0.0));
+
+					var E = A * (5 / 100);
+					$("#TxtE2").val(numeral(E).format(0.0));
+
+					var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+					var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+					var F = UM + E;
+					$('#TxtF2').val(numeral(F).format(0.0));
+
+					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+					var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+					var G = A - F;
+					$('#TxtG2').val(numeral(G).format(0.0));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var H = (G / 1.1);
+					var H1 = H * (10 / 100);
+					$('#TxtH2').val(numeral(H1).format(0.0));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+					var I = G - H;
+					$('#TxtI2').val(numeral(I).format(0.0));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var J = (G / 1.1);
+					var J1 = J * (3 / 100);
+					$('#TxtJ2').val(numeral(J1).format(0.0));
+
+					var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+					var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+					var K = I - J;
+					$('#TxtK2').val(numeral(K).format(0.0));
+
+				} else {
+
+					var bruto = $('#Budget2').val();
+					bruto = parseInt(bruto.replace(/,/g, ''));
+					var persentase = parseInt($('#TxtPersentase2').val());
+					var nominal = bruto * (persentase / 100);
+
+					$('#TxtA2').val(numeral(nominal).format(0.0));
+
+					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+					var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+					var UM = A * (D / 100);
+					$('#TxtUM2').val(numeral(UM).format(0.0));
+
+					var E = 0;
+					$("#TxtE2").val(E);
+
+					var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+					var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+					var F = UM + E;
+					$('#TxtF2').val(numeral(F).format(0.0));
+
+					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+					var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+					var G = A - F;
+					$('#TxtG2').val(numeral(G).format(0.0));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var H = (G / 1.1);
+					var H1 = H * (10 / 100);
+					$('#TxtH2').val(numeral(H1).format(0.0).replace(/,/g, ''));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+					var I = G - H;
+					$('#TxtI2').val(numeral(I).format(0.0));
+
+					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+					var J = (G / 1.1);
+					var J1 = J * (3 / 100);
+					$('#TxtJ2').val(numeral(J1).format(0.0));
+
+					var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+					var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+					var K = I - J;
+					$('#TxtK2').val(numeral(K).format(0.0));
+				}
+			});
+
+			var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+			var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+			var F = UM + E;
+			$('#TxtF2').val(numeral(F).format(0.0));
+
+			var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+			var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+			var G = A - F;
+			$('#TxtG2').val(numeral(G).format(0.0));
+
+			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+			var H = (G / 1.1);
+			var H1 = H * (10 / 100);
+			$('#TxtH2').val(numeral(H1).format(0.0));
+
+			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+			var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+			var I = G - H;
+			$('#TxtI2').val(numeral(I).format(0.0));
+
+			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+			var J = (G / 1.1);
+			var J1 = J * (3 / 100);
+			$('#TxtJ2').val(numeral(J1).format(0.0));
+
+			var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+			var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+			var K = I - J;
+			$('#TxtK2').val(numeral(K).format(0.0));
 
 		}
 	</script>
