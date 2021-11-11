@@ -461,6 +461,10 @@ class Job extends CI_Controller
 		$data['SumRTBruto'] = $this->M_job->SumRTBruto($JobNo);
 		$data['SumRTNetto'] = $this->M_job->SumRTNetto($JobNo);
 
+		$dataBruto = $this->M_job->data_job($JobNo);
+		$data['Bruto'] = $dataBruto;
+
+
 		$data['judul'] = 'Dipa';
 
         $this->load->view('templates/header', $data);
@@ -596,6 +600,17 @@ class Job extends CI_Controller
 
 		$this->M_job->SimpanData('RencanaTermin', $data);
 		redirect('Job/dipa/' . $JobNo);
+	}
+
+	function DelRTermin($id = null, $JobNo = null)
+	{
+		$where = array('LedgerNo' => $id);
+		$this->M_job->hapus_data($where, 'RencanaTermin');
+		redirect('Job/dipa/' . $JobNo);
+	}
+
+	public function SimpanTerminInduk()
+	{
 	}
 
 	

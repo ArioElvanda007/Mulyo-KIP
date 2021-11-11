@@ -460,7 +460,8 @@
 									<td><?= number_format($value->Netto); ?></td>
 									<td>
 										<button type="button" data-toggle="modal" data-target="#EditRencanaTermin<?php echo $value->LedgerNo; ?>" class="btn btn-success btn-xs">SELECT</button>
-										<button type="button" data-toggle="modal" data-target="#modal-EditDipa<?php echo $dipa->id_Dipa; ?>" class="btn btn-danger btn-xs">DELETE</button>
+										<a href="<?= site_url('Job/DelRTermin/' . $value->LedgerNo); ?>" onclick="return confirm('Yaqin Hapus Data..?')" type="submit" class="btn btn-danger btn-xs">DELETE</a>
+
 									</td>
 								</tr>
 							<?php endforeach; ?>
@@ -470,7 +471,7 @@
 								</td>
 								<td>
 									<h5><?php echo number_format($SumRTBruto->Bruto); ?></h5>
-									</td>
+								</td>
 								<td>
 									<h5><?php echo number_format($SumRTNetto->Netto); ?></h5>
 								</td>
@@ -541,7 +542,7 @@
 										</label>
 										<div class="col-sm-3">
 											<?php foreach ($GetBruto as $gb) : ?>
-											<input type="text" class="form-control" name="TxtD2" id="TxtD2" value="<?php echo $value->PersentaseUM ?>">
+												<input type="text" class="form-control" name="TxtD2" id="TxtD2" value="<?php echo $value->PersentaseUM ?>">
 											<?php endforeach; ?>
 										</div>
 									</div>
@@ -615,8 +616,7 @@
 			<div class="box-header with-border">
 				<h1 class="box-title" style="font-size: larger;">PENERIMAAN TERMIN</h1>
 				<p></p>
-
-				<div class="modal fade" id="modal-default-PM">
+				<!-- <div class="modal fade" id="modal-default-PM">
 					<div class="modal-dialog">
 						<div class="modal-content">
 							<div class="modal-header">
@@ -664,10 +664,10 @@
 								<button type="button" class="btn btn-primary">Simpan</button>
 							</div>
 						</div>
-						<!-- /.modal-content -->
+						<!-- /.modal-content --
 					</div>
-					<!-- /.modal-dialog -->
-				</div>
+					<!-- /.modal-dialog --
+				</div> -->
 
 
 				<div class="box-tools pull-right">
@@ -681,7 +681,7 @@
 				<div class="form-group">
 
 					<div class="box-body table-responsive no-padding">
-						<div class="col-md-9">
+						<div class="col-md-12">
 							<div class="card">
 								<div class="card-header p-2">
 									<ul class="nav nav-pills">
@@ -695,7 +695,6 @@
 									<div class="tab-content">
 										<div class="active tab-pane" id="TerminInduk">
 											<p></p>
-
 											<div class="container-fluid">
 												<div class="row">
 													<div class="col-12">
@@ -722,10 +721,12 @@
 															<form class="form-horizontal">
 																<div class="form-group row">
 																	<label for="inputName" class="col-sm-4 col-form-label">Jenin Termin</label>
+																	<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
 																	<div class="col-sm-8">
 																		<select name="JenisTermin" class="form-control">
-																			<option value="Uang Muka">Uang Muka</option>
-																			<option value="Termin">Termin</option>
+																			<?php foreach ($JenisTermin as $jtm) : ?>
+																				<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
+																			<?php endforeach; ?>
 																		</select>
 																	</div>
 																</div>
@@ -744,38 +745,36 @@
 																<div class="form-group row">
 																	<label class="col-sm-4 col-form-label">Uraian</label>
 																	<div class="col-sm-8">
-																		<input type="text" name="Uraian" class="form-control" name="Uraian" placeholder="Uraian"></input>
+																		<input type="text" name="Uraian" class="form-control" name="UraianTermin" placeholder="Uraian"></input>
 																	</div>
 																</div>
 																<div class="form-group row">
 																	<label class="col-sm-4 col-form-label">Bruto BoQ (Rp)</label>
 																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="BrutoBoq" id="BrutoBoq" placeholder="BrutoBoQ">
+																		<input type="text" class="form-control" name="BrutoBoQ" id="BrutoBoQ" onkeyup="termininduk()">
 																	</div>
 																</div>
 
 																<div class="form-group row">
 																	<label class="col-sm-4 col-form-label">Potongan Uang Muka (Rp)</label>
 																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="PotUM" id="PotUM" placeholder="Potongan Uang Muka">
+																		<input type="text" class="form-control" name="PotUM" id="PotUM" onkeyup="termininduk()" value="0">
 																	</div>
 																</div>
 
 																<div class="form-group row">
 																	<label class="col-sm-4 col-form-label">Potongan Retensi (Rp)</label>
 																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="Potretensi" id="Potretensi" placeholder="Potongan Retensi">
+																		<input type="text" class="form-control" name="Potretensi" id="Potretensi" value="0" onkeyup="termininduk()">
 																	</div>
 																</div>
 
 																<div class="form-group row">
 																	<label class="col-sm-4 col-form-label">Netto BoQ (Rp)</label>
 																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="NettoBoq" id="NettoBoQ" placeholder="Netto BoQ">
+																		<input type="text" class="form-control" name="NettoBoQ" id="NettoBoQ" value="0">
 																	</div>
 																</div>
-
-
 															</form>
 														</div>
 														<div class="modal-footer">
@@ -788,17 +787,26 @@
 												<!-- /.modal-dialog -->
 											</div>
 
+
+
+											<div class="form-group row">
+												<input type="text" class="text" style="float: right; width:125px;">
+												<input type="text" class="text" style="float: right;width:125px;">
+												<input type="text" class="text" style="float: right;width:125px;">
+												<input type="text" class="text" style="float: right;width:125px;">
+												<input type="text" class="text" style="float: right; width:125px;" value="">
+												<input type="text" class="text" style="float: right; width:255px;" placeholder="NILAI KONTRAK INCL ADDENDUM" readonly>
+											</div>
 											<div class="box-body table-responsive no-padding">
 												<table class="table table-hover" border="1" cellspacing="2" width="100%">
-
-													<th colspan="7" scope="colgroup">
+													<!-- <th colspan="7" scope="colgroup">
 														<center>Nilai Kontrak Addendum</center>
 													</th>
 													<th>Netto BoQ (Rp)</th>
 													<th>Fisik (Rp)</th>
 													<th>PPN (Rp)</th>
 													<th>PPH Final (Rp)</th>
-													<th>Netto Penerimaan (Rp)</th>
+													<th>Netto Penerimaan (Rp)</th> -->
 
 													<tr style="background-color: deepskyblue;">
 														<th>No</th>
@@ -820,7 +828,7 @@
 													<!-- <?php $no = 1;
 															foreach ($Job as $j => $value) : ?> -->
 													<tr>
-														<td><?php echo $no++ ?></td>														
+														<td><?php echo $no++ ?></td>
 													</tr>
 													<!-- <?php
 															endforeach;
@@ -1038,7 +1046,7 @@
 	<!---END DIPA EDIT -->
 </div>
 
-	<!-- <script type="text/javascript" src="jquery.js"></script>
+<!-- <script type="text/javascript" src="jquery.js"></script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$('#diskon').keyup(function() {
@@ -1055,440 +1063,453 @@
 		});
 	</script> -->
 
-	<script src="<?= base_url('assets/plugins/numeral/numeral.js') ?>"></script>
-	<script type="text/javascript">
-		function Rtermin() {
-			var bruto = $('#Budget').val();
-			bruto = parseInt(bruto.replace(/,/g, ''));
-			var persentase = parseInt($('#TxtPersentase').val());
-			var nominal = bruto * (persentase / 100);
+<script src="<?= base_url('assets/plugins/numeral/numeral.js') ?>"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js"></script>
 
-			$('#TxtA').val(numeral(nominal).format(0.0));
+<script type="text/javascript">
+	function termininduk() {
 
-			var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-			var D = parseInt($('#TxtD').val().replace(/,/g, ''));
-			var UM = A * (D / 100);
-			$('#TxtUM').val(numeral(UM).format(0.0));
-
-			// var E = A * (5 / 100);
-			// $('#TxtE').val(E)
-
-			$("input[value=1]").on("change", function(evt) {
-				if ($(this).prop("checked")) {
-
-					var bruto = $('#Budget').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM').val(numeral(UM).format(0.0));
-
-					var E = A * (5 / 100);
-					$("#TxtE").val(numeral(E).format(0.0));
-
-					var E = parseInt($('#TxtE').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH').val(numeral(H1).format(0.0));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK').val(numeral(K).format(0.0));
-
-				} else {
-
-					var bruto = $('#Budget').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM').val(numeral(UM).format(0.0));
-
-					var E = 0;
-					$("#TxtE").val(E);
-
-					var E = parseInt($('#TxtE').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH').val(numeral(H1).format(0.0).replace(/,/g, ''));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK').val(numeral(K).format(0.0));
-				}
-			});
-
-			var E = parseInt($('#TxtE').val().replace(/,/g, ''));
-			var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
-			var F = UM + E;
-			$('#TxtF').val(numeral(F).format(0.0));
-
-			var A = parseInt($('#TxtA').val().replace(/,/g, ''));
-			var F = parseInt($('#TxtF').val().replace(/,/g, ''));
-			var G = A - F;
-			$('#TxtG').val(numeral(G).format(0.0));
-
-			var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-			var H = (G / 1.1);
-			var H1 = H * (10 / 100);
-			$('#TxtH').val(numeral(H1).format(0.0));
-
-			var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-			var H = parseInt($('#TxtH').val().replace(/,/g, ''));
-			var I = G - H;
-			$('#TxtI').val(numeral(I).format(0.0));
-
-			var G = parseInt($('#TxtG').val().replace(/,/g, ''));
-			var J = (G / 1.1);
-			var J1 = J * (3 / 100);
-			$('#TxtJ').val(numeral(J1).format(0.0));
-
-			var I = parseInt($('#TxtI').val().replace(/,/g, ''));
-			var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
-			var K = I - J;
-			$('#TxtK').val(numeral(K).format(0.0));
-
+		var bruto = $('input[name="BrutoBoQ"]').val().replace(/,/g, '');
+		var potum = $('input[name="PotUM"]').val().replace(/,/g, '');
+		var potret = $('input[name="Potretensi"]').val();
+		var netto = parseInt(bruto) - parseInt(potum);
+		var netto1 = parseInt(netto) - parseInt(potret);
+		if (!isNaN(netto1)) {
+			$('input[name="NettoBoQ"]').val(numeral(netto1).format(0.0));
+		} else {
+			$('input[name="NettoBoQ"]').val(0);
 		}
-
-		function Rtermin1() {
-			var bruto = $('#Budget1').val();
-			bruto = parseInt(bruto.replace(/,/g, ''));
-			var persentase = parseInt($('#TxtPersentase1').val());
-			var nominal = bruto * (persentase / 100);
-
-			$('#TxtA1').val(numeral(nominal).format(0.0));
-
-			var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-			var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
-			var UM = A * (D / 100);
-			$('#TxtUM1').val(numeral(UM).format(0.0));
-
-			// var E = A * (5 / 100);
-			// $('#TxtE').val(E)
-
-			$("input[value=1]").on("change", function(evt) {
-				if ($(this).prop("checked")) {
-
-					var bruto = $('#Budget1').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase1').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA1').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM1').val(numeral(UM).format(0.0));
-
-					var E = A * (5 / 100);
-					$("#TxtE1").val(numeral(E).format(0.0));
-
-					var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF1').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG1').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH1').val(numeral(H1).format(0.0));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI1').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ1').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK1').val(numeral(K).format(0.0));
-
-				} else {
-
-					var bruto = $('#Budget1').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase1').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA1').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM1').val(numeral(UM).format(0.0));
-
-					var E = 0;
-					$("#TxtE1").val(E);
-
-					var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF1').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG1').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH1').val(numeral(H1).format(0.0).replace(/,/g, ''));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI1').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ1').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK1').val(numeral(K).format(0.0));
-				}
-			});
-
-			var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
-			var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
-			var F = UM + E;
-			$('#TxtF1').val(numeral(F).format(0.0));
-
-			var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
-			var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
-			var G = A - F;
-			$('#TxtG1').val(numeral(G).format(0.0));
-
-			var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-			var H = (G / 1.1);
-			var H1 = H * (10 / 100);
-			$('#TxtH1').val(numeral(H1).format(0.0));
-
-			var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-			var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
-			var I = G - H;
-			$('#TxtI1').val(numeral(I).format(0.0));
-
-			var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
-			var J = (G / 1.1);
-			var J1 = J * (3 / 100);
-			$('#TxtJ1').val(numeral(J1).format(0.0));
-
-			var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
-			var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
-			var K = I - J;
-			$('#TxtK1').val(numeral(K).format(0.0));
-
-		}
-
-		function Rtermin2() {
-			var bruto = $('#Budget2').val();
-			bruto = parseInt(bruto.replace(/,/g, ''));
-			var persentase = parseInt($('#TxtPersentase2').val());
-			var nominal = bruto * (persentase / 100);
-
-			$('#TxtA2').val(numeral(nominal).format(0.0));
-
-			var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-			var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
-			var UM = A * (D / 100);
-			$('#TxtUM2').val(numeral(UM).format(0.0));
-
-			// var E = A * (5 / 100);
-			// $('#TxtE').val(E)
-
-			$("input[value=1]").on("change", function(evt) {
-				if ($(this).prop("checked")) {
-
-					var bruto = $('#Budget2').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase2').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA2').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM2').val(numeral(UM).format(0.0));
-
-					var E = A * (5 / 100);
-					$("#TxtE2").val(numeral(E).format(0.0));
-
-					var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF2').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG2').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH2').val(numeral(H1).format(0.0));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI2').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ2').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK2').val(numeral(K).format(0.0));
-
-				} else {
-
-					var bruto = $('#Budget2').val();
-					bruto = parseInt(bruto.replace(/,/g, ''));
-					var persentase = parseInt($('#TxtPersentase2').val());
-					var nominal = bruto * (persentase / 100);
-
-					$('#TxtA2').val(numeral(nominal).format(0.0));
-
-					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-					var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
-					var UM = A * (D / 100);
-					$('#TxtUM2').val(numeral(UM).format(0.0));
-
-					var E = 0;
-					$("#TxtE2").val(E);
-
-					var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
-					var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
-					var F = UM + E;
-					$('#TxtF2').val(numeral(F).format(0.0));
-
-					var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-					var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
-					var G = A - F;
-					$('#TxtG2').val(numeral(G).format(0.0));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var H = (G / 1.1);
-					var H1 = H * (10 / 100);
-					$('#TxtH2').val(numeral(H1).format(0.0).replace(/,/g, ''));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
-					var I = G - H;
-					$('#TxtI2').val(numeral(I).format(0.0));
-
-					var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-					var J = (G / 1.1);
-					var J1 = J * (3 / 100);
-					$('#TxtJ2').val(numeral(J1).format(0.0));
-
-					var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
-					var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
-					var K = I - J;
-					$('#TxtK2').val(numeral(K).format(0.0));
-				}
-			});
-
-			var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
-			var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
-			var F = UM + E;
-			$('#TxtF2').val(numeral(F).format(0.0));
-
-			var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
-			var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
-			var G = A - F;
-			$('#TxtG2').val(numeral(G).format(0.0));
-
-			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-			var H = (G / 1.1);
-			var H1 = H * (10 / 100);
-			$('#TxtH2').val(numeral(H1).format(0.0));
-
-			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-			var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
-			var I = G - H;
-			$('#TxtI2').val(numeral(I).format(0.0));
-
-			var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
-			var J = (G / 1.1);
-			var J1 = J * (3 / 100);
-			$('#TxtJ2').val(numeral(J1).format(0.0));
-
-			var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
-			var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
-			var K = I - J;
-			$('#TxtK2').val(numeral(K).format(0.0));
-
-		}
-	</script>
+	}
+
+	function Rtermin() {
+		var bruto = $('#Budget').val();
+		bruto = parseInt(bruto.replace(/,/g, ''));
+		var persentase = parseInt($('#TxtPersentase').val());
+		var nominal = bruto * (persentase / 100);
+
+		$('#TxtA').val(numeral(nominal).format(0.0));
+
+		var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+		var D = parseInt($('#TxtD').val().replace(/,/g, ''));
+		var UM = A * (D / 100);
+		$('#TxtUM').val(numeral(UM).format(0.0));
+
+		$("input[value=1]").on("change", function(evt) {
+			if ($(this).prop("checked")) {
+
+				var bruto = $('#Budget').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM').val(numeral(UM).format(0.0));
+
+				var E = A * (5 / 100);
+				$("#TxtE").val(numeral(E).format(0.0));
+
+				var E = parseInt($('#TxtE').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH').val(numeral(H1).format(0.0));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK').val(numeral(K).format(0.0));
+
+			} else {
+
+				var bruto = $('#Budget').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM').val(numeral(UM).format(0.0));
+
+				var E = 0;
+				$("#TxtE").val(E);
+
+				var E = parseInt($('#TxtE').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH').val(numeral(H1).format(0.0).replace(/,/g, ''));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK').val(numeral(K).format(0.0));
+			}
+		});
+
+		var E = parseInt($('#TxtE').val().replace(/,/g, ''));
+		var UM = parseInt($('#TxtUM').val().replace(/,/g, ''));
+		var F = UM + E;
+		$('#TxtF').val(numeral(F).format(0.0));
+
+		var A = parseInt($('#TxtA').val().replace(/,/g, ''));
+		var F = parseInt($('#TxtF').val().replace(/,/g, ''));
+		var G = A - F;
+		$('#TxtG').val(numeral(G).format(0.0));
+
+		var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+		var H = (G / 1.1);
+		var H1 = H * (10 / 100);
+		$('#TxtH').val(numeral(H1).format(0.0));
+
+		var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+		var H = parseInt($('#TxtH').val().replace(/,/g, ''));
+		var I = G - H;
+		$('#TxtI').val(numeral(I).format(0.0));
+
+		var G = parseInt($('#TxtG').val().replace(/,/g, ''));
+		var J = (G / 1.1);
+		var J1 = J * (3 / 100);
+		$('#TxtJ').val(numeral(J1).format(0.0));
+
+		var I = parseInt($('#TxtI').val().replace(/,/g, ''));
+		var J = parseInt($('#TxtJ').val().replace(/,/g, ''));
+		var K = I - J;
+		$('#TxtK').val(numeral(K).format(0.0));
+
+	}
+
+	function Rtermin1() {
+		var bruto = $('#Budget1').val();
+		bruto = parseInt(bruto.replace(/,/g, ''));
+		var persentase = parseInt($('#TxtPersentase1').val());
+		var nominal = bruto * (persentase / 100);
+
+		$('#TxtA1').val(numeral(nominal).format(0.0));
+
+		var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+		var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
+		var UM = A * (D / 100);
+		$('#TxtUM1').val(numeral(UM).format(0.0));
+
+		// var E = A * (5 / 100);
+		// $('#TxtE').val(E)
+
+		$("input[value=1]").on("change", function(evt) {
+			if ($(this).prop("checked")) {
+
+				var bruto = $('#Budget1').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase1').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA1').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM1').val(numeral(UM).format(0.0));
+
+				var E = A * (5 / 100);
+				$("#TxtE1").val(numeral(E).format(0.0));
+
+				var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF1').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG1').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH1').val(numeral(H1).format(0.0));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI1').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ1').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK1').val(numeral(K).format(0.0));
+
+			} else {
+
+				var bruto = $('#Budget1').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase1').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA1').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD1').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM1').val(numeral(UM).format(0.0));
+
+				var E = 0;
+				$("#TxtE1").val(E);
+
+				var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF1').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG1').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH1').val(numeral(H1).format(0.0).replace(/,/g, ''));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI1').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ1').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK1').val(numeral(K).format(0.0));
+			}
+		});
+
+		var E = parseInt($('#TxtE1').val().replace(/,/g, ''));
+		var UM = parseInt($('#TxtUM1').val().replace(/,/g, ''));
+		var F = UM + E;
+		$('#TxtF1').val(numeral(F).format(0.0));
+
+		var A = parseInt($('#TxtA1').val().replace(/,/g, ''));
+		var F = parseInt($('#TxtF1').val().replace(/,/g, ''));
+		var G = A - F;
+		$('#TxtG1').val(numeral(G).format(0.0));
+
+		var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+		var H = (G / 1.1);
+		var H1 = H * (10 / 100);
+		$('#TxtH1').val(numeral(H1).format(0.0));
+
+		var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+		var H = parseInt($('#TxtH1').val().replace(/,/g, ''));
+		var I = G - H;
+		$('#TxtI1').val(numeral(I).format(0.0));
+
+		var G = parseInt($('#TxtG1').val().replace(/,/g, ''));
+		var J = (G / 1.1);
+		var J1 = J * (3 / 100);
+		$('#TxtJ1').val(numeral(J1).format(0.0));
+
+		var I = parseInt($('#TxtI1').val().replace(/,/g, ''));
+		var J = parseInt($('#TxtJ1').val().replace(/,/g, ''));
+		var K = I - J;
+		$('#TxtK1').val(numeral(K).format(0.0));
+
+	}
+
+	function Rtermin2() {
+		var bruto = $('#Budget2').val();
+		bruto = parseInt(bruto.replace(/,/g, ''));
+		var persentase = parseInt($('#TxtPersentase2').val());
+		var nominal = bruto * (persentase / 100);
+
+		$('#TxtA2').val(numeral(nominal).format(0.0));
+
+		var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+		var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+		var UM = A * (D / 100);
+		$('#TxtUM2').val(numeral(UM).format(0.0));
+
+		// var E = A * (5 / 100);
+		// $('#TxtE').val(E)
+
+		$("input[value=1]").on("change", function(evt) {
+			if ($(this).prop("checked")) {
+
+				var bruto = $('#Budget2').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase2').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA2').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM2').val(numeral(UM).format(0.0));
+
+				var E = A * (5 / 100);
+				$("#TxtE2").val(numeral(E).format(0.0));
+
+				var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF2').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG2').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH2').val(numeral(H1).format(0.0));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI2').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ2').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK2').val(numeral(K).format(0.0));
+
+			} else {
+
+				var bruto = $('#Budget2').val();
+				bruto = parseInt(bruto.replace(/,/g, ''));
+				var persentase = parseInt($('#TxtPersentase2').val());
+				var nominal = bruto * (persentase / 100);
+
+				$('#TxtA2').val(numeral(nominal).format(0.0));
+
+				var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+				var D = parseInt($('#TxtD2').val().replace(/,/g, ''));
+				var UM = A * (D / 100);
+				$('#TxtUM2').val(numeral(UM).format(0.0));
+
+				var E = 0;
+				$("#TxtE2").val(E);
+
+				var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+				var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+				var F = UM + E;
+				$('#TxtF2').val(numeral(F).format(0.0));
+
+				var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+				var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+				var G = A - F;
+				$('#TxtG2').val(numeral(G).format(0.0));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var H = (G / 1.1);
+				var H1 = H * (10 / 100);
+				$('#TxtH2').val(numeral(H1).format(0.0).replace(/,/g, ''));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+				var I = G - H;
+				$('#TxtI2').val(numeral(I).format(0.0));
+
+				var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+				var J = (G / 1.1);
+				var J1 = J * (3 / 100);
+				$('#TxtJ2').val(numeral(J1).format(0.0));
+
+				var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+				var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+				var K = I - J;
+				$('#TxtK2').val(numeral(K).format(0.0));
+			}
+		});
+
+		var E = parseInt($('#TxtE2').val().replace(/,/g, ''));
+		var UM = parseInt($('#TxtUM2').val().replace(/,/g, ''));
+		var F = UM + E;
+		$('#TxtF2').val(numeral(F).format(0.0));
+
+		var A = parseInt($('#TxtA2').val().replace(/,/g, ''));
+		var F = parseInt($('#TxtF2').val().replace(/,/g, ''));
+		var G = A - F;
+		$('#TxtG2').val(numeral(G).format(0.0));
+
+		var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+		var H = (G / 1.1);
+		var H1 = H * (10 / 100);
+		$('#TxtH2').val(numeral(H1).format(0.0));
+
+		var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+		var H = parseInt($('#TxtH2').val().replace(/,/g, ''));
+		var I = G - H;
+		$('#TxtI2').val(numeral(I).format(0.0));
+
+		var G = parseInt($('#TxtG2').val().replace(/,/g, ''));
+		var J = (G / 1.1);
+		var J1 = J * (3 / 100);
+		$('#TxtJ2').val(numeral(J1).format(0.0));
+
+		var I = parseInt($('#TxtI2').val().replace(/,/g, ''));
+		var J = parseInt($('#TxtJ2').val().replace(/,/g, ''));
+		var K = I - J;
+		$('#TxtK2').val(numeral(K).format(0.0));
+
+	}
+</script>

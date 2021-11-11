@@ -151,6 +151,12 @@ class M_job extends CI_Model
 		return $eksekusi->result();
 	}
 
+	public function hapus_data($where, $table)
+	{;
+		$this->db->where($where);
+		$this->db->delete($table);
+	}
+
 	public function GetBruto($JobNo)
 	{
 		$query = "SELECT TOP 1 Persentase FROM RencanaTermin WHERE JobNo='$JobNo'";
