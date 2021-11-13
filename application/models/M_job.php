@@ -151,6 +151,14 @@ class M_job extends CI_Model
 		return $eksekusi->result();
 	}
 
+	public function getBrutoTermin($JobNo = null)
+	{
+		$query = "SELECT * FROM Job WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
+
+
 	public function hapus_data($where, $table)
 	{;
 		$this->db->where($where);
@@ -179,6 +187,14 @@ class M_job extends CI_Model
 		return $this->db->get('')->row();
 	}
 
+	public function getTblTerminInduk($JobNo = null)
+	{
+		$query = "SELECT * FROM TerminInduk WHERE JobNo='$JobNo' ORDER BY LedgerNo DESC  ";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
+
+
     public function tatakelola($JobNo = null)
     {
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();
@@ -202,13 +218,6 @@ class M_job extends CI_Model
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();
         return $query;
     }
-
-    // public function getlist_rppm($limit, $start)
-    // {
-    //     return $this->db->where($JobNo);
-    //     return $this->db->get('rppm1', $limit, $start);
-    //     return $query;
-    // }
 
     public function mos($JobNo = null)
     {

@@ -616,59 +616,6 @@
 			<div class="box-header with-border">
 				<h1 class="box-title" style="font-size: larger;">PENERIMAAN TERMIN</h1>
 				<p></p>
-				<!-- <div class="modal fade" id="modal-default-PM">
-					<div class="modal-dialog">
-						<div class="modal-content">
-							<div class="modal-header">
-								<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-									<span aria-hidden="true">&times;</span></button>
-								<h4 class="modal-title">Entry Rencana Termin</h4>
-							</div>
-							<div class="modal-body">
-								<form class="form-horizontal">
-									<div class="form-group row">
-										<label for="inputName" class="col-sm-2 col-form-label">Name</label>
-										<div class="col-sm-10">
-											<input type="email" class="form-control" id="inputName" placeholder="Name">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
-										<div class="col-sm-10">
-											<input type="email" class="form-control" id="inputEmail" placeholder="Email">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="inputName2" class="col-sm-2 col-form-label">Name</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="inputName2" placeholder="Name">
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="inputExperience" class="col-sm-2 col-form-label">Experience</label>
-										<div class="col-sm-10">
-											<textarea class="form-control" id="inputExperience" placeholder="Experience"></textarea>
-										</div>
-									</div>
-									<div class="form-group row">
-										<label for="inputSkills" class="col-sm-2 col-form-label">Skills</label>
-										<div class="col-sm-10">
-											<input type="text" class="form-control" id="inputSkills" placeholder="Skills">
-										</div>
-									</div>
-
-								</form>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-								<button type="button" class="btn btn-primary">Simpan</button>
-							</div>
-						</div>
-						<!-- /.modal-content --
-					</div>
-					<!-- /.modal-dialog --
-				</div> -->
-
 
 				<div class="box-tools pull-right">
 					<button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
@@ -787,16 +734,18 @@
 												<!-- /.modal-dialog -->
 											</div>
 
+											<?php foreach ($getBrutoTermin as $j => $value) : ?>
+												<div class="form-group row">
+													<input type="text" class="text" name="TxtNetto" id="TxtNetto" style="float: right; width:125px; text-align: right;" value="<?php echo number_format($value->Netto) ?>" readonly>
+													<input type="text" class="text" name="TxtPPH" id="TxtPPH" style="float: right;width:125px; text-align: right;" value="<?php echo number_format($value->Bruto / 1.1 * 0.03) ?>" readonly>
+													<input type="text" class="text" name="TxtPPN" id="TxtPPN" style="float: right;width:125px; text-align: right;" value="<?php echo number_format($value->Bruto / 1.1 * 0.1) ?>" onkeyup="NKTermin()" readonly>
+													<input type="text" class="text" name="TxtFisik" id="TxtFisik" style="float: right;width:125px; text-align: right;" value="<?php echo number_format($value->Bruto / 1.1) ?>" readonly>
+													<input type="text" class="text" name="TxtBruto" id="TxtBruto" style="float: right; width:125px; text-align: right;" value="<?php echo number_format($value->Bruto) ?>" onchange="NKTermin()" readonly>
+													<input type="text" class="text" style="float: right; width:225px;" placeholder="NILAI KONTRAK INCL ADDENDUM" readonly>
+												</div>
+											<?php endforeach; ?>
 
-
-											<div class="form-group row">
-												<input type="text" class="text" style="float: right; width:125px;">
-												<input type="text" class="text" style="float: right;width:125px;">
-												<input type="text" class="text" style="float: right;width:125px;">
-												<input type="text" class="text" style="float: right;width:125px;">
-												<input type="text" class="text" style="float: right; width:125px;" value="">
-												<input type="text" class="text" style="float: right; width:255px;" placeholder="NILAI KONTRAK INCL ADDENDUM" readonly>
-											</div>
+											</form>
 											<div class="box-body table-responsive no-padding">
 												<table class="table table-hover" border="1" cellspacing="2" width="100%">
 													<!-- <th colspan="7" scope="colgroup">
@@ -824,15 +773,24 @@
 														<th>Action</th>
 													</tr>
 
-
-													<!-- <?php $no = 1;
-															foreach ($Job as $j => $value) : ?> -->
+													<?php $no = 1;
+															foreach ($TblTerminInduk as $j ) : ?>
 													<tr>
 														<td><?php echo $no++ ?></td>
+														<td><?php echo $j->TglCair ?></td>
+														<td><?php echo $j->NoBAP ?></td>
+														<td><?php echo $j->Uraian ?></td>
+														<td><?php echo number_format($j->BrutoBOQ)  ?></td>
+														<td><?php echo number_format($j->UM)  ?></td>
+														<td><?php echo number_format($j->Retensi)  ?></td>
+														<td><?php echo number_format($j->TerminInduk)  ?></td>
+														<td><?php echo number_format($j->TerminInduk / 1.1) ?></td>
+														<td><?php echo number_format($j->TerminInduk /1.1 * 0.1) ?></td>
+														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
 													</tr>
-													<!-- <?php
+													<?php
 															endforeach;
-															?> -->
+															?>
 												</table>
 											</div>
 										</div>
@@ -1065,10 +1023,22 @@
 
 <script src="<?= base_url('assets/plugins/numeral/numeral.js') ?>"></script>
 <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+<script src="http://code.jquery.com/jquery-2.1.4.js"></script>
 
 <script type="text/javascript">
-	function termininduk() {
+	function NKTermin() {
+		$(document).ready(function() {
+			$("#TxtBruto").keyup(function() {
+				var bttermin = parseInt($("#TxtBruto").val());
+				var ppntermin = parseInt($("#TxtPPN").val());
+				var pphtermin = parseInt($("#TxtPPH").val());
+				var netto = bttermin - ppntermin - pphtermin;
+				$("#TxtNetto").val(netto);
+			});
+		});
+	}
 
+	function termininduk() {
 		var bruto = $('input[name="BrutoBoQ"]').val().replace(/,/g, '');
 		var potum = $('input[name="PotUM"]').val().replace(/,/g, '');
 		var potret = $('input[name="Potretensi"]').val();

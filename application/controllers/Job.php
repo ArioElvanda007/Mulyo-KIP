@@ -455,6 +455,9 @@ class Job extends CI_Controller
 		$TblRencanaTermin = $this->m_job->getRtermin($JobNo);
 		$data['tblRtermin'] = $TblRencanaTermin;
 
+		$getBrutoTermin = $this->m_job->getBrutoTermin($JobNo);
+		$data['getBrutoTermin'] = $getBrutoTermin;
+
 		$getBruto = $this->m_job->GetBruto($JobNo);
 		$data['GetBruto'] = $getBruto;
 
@@ -463,6 +466,9 @@ class Job extends CI_Controller
 
 		$dataBruto = $this->M_job->data_job($JobNo);
 		$data['Bruto'] = $dataBruto;
+
+		$tblTerminInduk = $this->M_job->getTblTerminInduk($JobNo);
+		$data['TblTerminInduk'] = $tblTerminInduk;
 
 
 		$data['judul'] = 'Dipa';
@@ -611,6 +617,7 @@ class Job extends CI_Controller
 
 	public function SimpanTerminInduk()
 	{
+		
 	}
 
 	
