@@ -747,7 +747,7 @@
 
 											</form>
 											<div class="box-body table-responsive no-padding">
-												<table class="table table-hover" border="1" cellspacing="2" width="100%">
+												<table class="table table-hover" border="1" cellspacing="2" width="100%" id="TI">
 													<!-- <th colspan="7" scope="colgroup">
 														<center>Nilai Kontrak Addendum</center>
 													</th>
@@ -774,7 +774,11 @@
 													</tr>
 
 													<?php $no = 1;
-															foreach ($TblTerminInduk as $j ) : ?>
+													foreach ($TblTerminInduk as $j)
+													// 	$PotonganUM[] = $j->TerminInduk / 1.1;
+													// $Fisik = array('$PotonganUM');
+													//$pajak_bongkar[] = $rows->pajak_bongkar; $total_pajak = array_sum($pajak_bongkar);
+													?>
 													<tr>
 														<td><?php echo $no++ ?></td>
 														<td><?php echo $j->TglCair ?></td>
@@ -785,15 +789,25 @@
 														<td><?php echo number_format($j->Retensi)  ?></td>
 														<td><?php echo number_format($j->TerminInduk)  ?></td>
 														<td><?php echo number_format($j->TerminInduk / 1.1) ?></td>
-														<td><?php echo number_format($j->TerminInduk /1.1 * 0.1) ?></td>
+														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.1) ?></td>
+														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
 														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
 													</tr>
 													<?php
-															endforeach;
-															?>
+													T_ENDFOREACH
+													?>
 												</table>
 											</div>
 										</div>
+
+										<!-- <script>
+											var table = document.getElementById("TI"),
+												Netto = 0;
+											for (var t = 1; t < table.rows.length; t++) {
+												sumHsl = parseInt(table.rows[t].cells[3].innerHTML) - parseInt(table.rows[t].cells[9].innerHTML) - parseInt(table.rows[t].cells[10].innerHTML);
+											}
+											document.getElementById("TI").innerHTML = "Sum Value = " + sumHsl;
+										</script> -->
 
 										<div class="tab-pane" id="timeline">
 											<p></p>
