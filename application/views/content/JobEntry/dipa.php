@@ -656,83 +656,86 @@
 											</div>
 											<!-- Post -->
 
-											<div class="modal fade" id="modal-default-TI">
-												<div class="modal-dialog">
-													<div class="modal-content">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title">Input Termin Induk</h4>
-														</div>
-														<div class="modal-body">
-															<form class="form-horizontal">
-																<div class="form-group row">
-																	<label for="inputName" class="col-sm-4 col-form-label">Jenin Termin</label>
-																	<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
-																	<div class="col-sm-8">
-																		<select name="JenisTermin" class="form-control">
-																			<?php foreach ($JenisTermin as $jtm) : ?>
-																				<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
-																			<?php endforeach; ?>
-																		</select>
+											<form action="<?= site_url('Job/SimpanTerminInduk') ?>" method="POST">
+												<div class="modal fade" id="modal-default-TI">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title">Input Termin Induk</h4>
+															</div>
+															<div class="modal-body">
+																<form class="form-horizontal">
+																	<div class="form-group row">
+																		<label for="inputName" class="col-sm-4 col-form-label">Jenin Termin</label>
+																		<input type="text" name="JobNo" id="JobNo" value="<?php echo $dipa->JobNo; ?>" hidden>
+																		<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
+																		<div class="col-sm-8">
+																			<select name="JenisTermin" class="form-control">
+																				<?php foreach ($JenisTermin as $jtm) : ?>
+																					<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
+																				<?php endforeach; ?>
+																			</select>
+																		</div>
 																	</div>
-																</div>
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Tgl Cair</label>
-																	<div class="col-sm-8">
-																		<input type="date" name="TglCair" class="form-control" id="TglCair">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Tgl Cair</label>
+																		<div class="col-sm-8">
+																			<input type="date" name="TglCair" class="form-control" id="TglCair">
+																		</div>
 																	</div>
-																</div>
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">No BAP</label>
-																	<div class="col-sm-8">
-																		<input type="text" name="NoBap" class="form-control" id="NoBap" placeholder="Name">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">No BAP</label>
+																		<div class="col-sm-8">
+																			<input type="text" name="NoBap" class="form-control" id="NoBap" placeholder="No BAP">
+																		</div>
 																	</div>
-																</div>
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Uraian</label>
-																	<div class="col-sm-8">
-																		<input type="text" name="Uraian" class="form-control" name="UraianTermin" placeholder="Uraian"></input>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Uraian</label>
+																		<div class="col-sm-8">
+																			<input type="text" name="Uraian" class="form-control" name="UraianTermin" placeholder="Uraian"></input>
+																		</div>
 																	</div>
-																</div>
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Bruto BoQ (Rp)</label>
-																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="BrutoBoQ" id="BrutoBoQ" onkeyup="termininduk()">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Bruto BoQ (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="BrutoBoQ" id="BrutoBoQ" onkeyup="termininduk()">
+																		</div>
 																	</div>
-																</div>
 
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Potongan Uang Muka (Rp)</label>
-																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="PotUM" id="PotUM" onkeyup="termininduk()" value="0">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Potongan Uang Muka (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="PotUM" id="PotUM" onkeyup="termininduk()" value="0">
+																		</div>
 																	</div>
-																</div>
 
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Potongan Retensi (Rp)</label>
-																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="Potretensi" id="Potretensi" value="0" onkeyup="termininduk()">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Potongan Retensi (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="Potretensi" id="Potretensi" value="0" onkeyup="termininduk()">
+																		</div>
 																	</div>
-																</div>
 
-																<div class="form-group row">
-																	<label class="col-sm-4 col-form-label">Netto BoQ (Rp)</label>
-																	<div class="col-sm-8">
-																		<input type="text" class="form-control" name="NettoBoQ" id="NettoBoQ" value="0">
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Netto BoQ (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="NettoBoQ" id="NettoBoQ" value="0">
+																		</div>
 																	</div>
-																</div>
-															</form>
+																</form>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-primary">Simpan</button>
+															</div>
 														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary">Simpan</button>
-														</div>
+														<!-- /.modal-content -->
 													</div>
-													<!-- /.modal-content -->
+													<!-- /.modal-dialog -->
 												</div>
-												<!-- /.modal-dialog -->
-											</div>
+											</form>
 
 											<?php foreach ($getBrutoTermin as $j => $value) : ?>
 												<div class="form-group row">
@@ -747,17 +750,9 @@
 
 											</form>
 											<div class="box-body table-responsive no-padding">
-												<table class="table table-hover" border="1" cellspacing="2" width="100%" id="TI">
-													<!-- <th colspan="7" scope="colgroup">
-														<center>Nilai Kontrak Addendum</center>
-													</th>
-													<th>Netto BoQ (Rp)</th>
-													<th>Fisik (Rp)</th>
-													<th>PPN (Rp)</th>
-													<th>PPH Final (Rp)</th>
-													<th>Netto Penerimaan (Rp)</th> -->
-
+												<table class="table table-hover" border="1" cellspacing="2" width="100%" id="TI" methode="post">
 													<tr style="background-color: deepskyblue;">
+														<th hidden></th>
 														<th>No</th>
 														<th>Tgl Cair</th>
 														<th>No. BAP</th>
@@ -774,40 +769,120 @@
 													</tr>
 
 													<?php $no = 1;
-													foreach ($TblTerminInduk as $j)
-													// 	$PotonganUM[] = $j->TerminInduk / 1.1;
-													// $Fisik = array('$PotonganUM');
-													//$pajak_bongkar[] = $rows->pajak_bongkar; $total_pajak = array_sum($pajak_bongkar);
+													foreach ($TblTerminInduk as $j) {
+
 													?>
-													<tr>
-														<td><?php echo $no++ ?></td>
-														<td><?php echo $j->TglCair ?></td>
-														<td><?php echo $j->NoBAP ?></td>
-														<td><?php echo $j->Uraian ?></td>
-														<td><?php echo number_format($j->BrutoBOQ)  ?></td>
-														<td><?php echo number_format($j->UM)  ?></td>
-														<td><?php echo number_format($j->Retensi)  ?></td>
-														<td><?php echo number_format($j->TerminInduk)  ?></td>
-														<td><?php echo number_format($j->TerminInduk / 1.1) ?></td>
-														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.1) ?></td>
-														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
-														<td><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
-													</tr>
+														<tr>
+															<td hidden><?php echo $j->LedgerNo ?></td>
+															<td><?php echo $no++ ?></td>
+															<td><?php echo $j->TglCair ?></td>
+															<td><?php echo $j->NoBAP ?></td>
+															<td><?php echo $j->Uraian ?></td>
+															<td><?php echo number_format($j->BrutoBOQ) ?></td>
+															<td><?php echo number_format($j->UM) ?></td>
+															<td><?php echo number_format($j->Retensi) ?></td>
+															<td id="bruto"><?php echo number_format($j->TerminInduk) ?></td>
+															<td><?php echo number_format($j->TerminInduk / 1.1) ?></td>
+															<td id="ppn"><?php echo number_format($j->TerminInduk / 1.1 * 0.1) ?></td>
+															<td id="pph"><?php echo number_format($j->TerminInduk / 1.1 * 0.03) ?></td>
+															<td id="netto"><?php echo number_format($j->TerminInduk - $j->TerminInduk / 1.1 * 0.1 - $j->TerminInduk / 1.1 * 0.03)  ?></td>
+															<td>
+																<button type="button" data-toggle="modal" data-target="#modal-edit-TI<?php echo $j->LedgerNo; ?>" class="btn btn-success badge btn-xs">Select</button>
+																<a href="<?= site_url('Job/DelTerminInduk/' . $j->LedgerNo); ?>" onclick="return confirm('Yaqin Hapus Data..?')" type="submit" class="btn btn-danger badge btn-xs">Delete</a>
+															</td>
+														</tr>
 													<?php
-													T_ENDFOREACH
+													}
 													?>
 												</table>
 											</div>
 										</div>
 
-										<!-- <script>
-											var table = document.getElementById("TI"),
-												Netto = 0;
-											for (var t = 1; t < table.rows.length; t++) {
-												sumHsl = parseInt(table.rows[t].cells[3].innerHTML) - parseInt(table.rows[t].cells[9].innerHTML) - parseInt(table.rows[t].cells[10].innerHTML);
-											}
-											document.getElementById("TI").innerHTML = "Sum Value = " + sumHsl;
-										</script> -->
+										<?php foreach ($TblTerminInduk as $j) : ?>
+											<form action="<?= site_url('Job/EditTerminInduk') ?>" method="POST">
+												<div class="modal fade" id="modal-edit-TI<?php echo $j->LedgerNo; ?>">
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title">Edit Termin Induk</h4>
+																<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
+															</div>
+															<div class="modal-body">
+																<form class="form-horizontal">
+																	<div class="form-group row">
+																		<label for="inputName" class="col-sm-4 col-form-label">Jenis Termin</label>
+																		<input type="text" name="JobNo" id="JobNo" value="<?php echo $j->JobNo ?>" hidden>
+																		<input type="text" name="LedgerNo" id="LedgerNo" value="<?php echo $j->LedgerNo ?>" hidden>
+																		<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
+																		<div class="col-sm-8">
+																			<select name="JenisTermin" class="form-control">
+
+																				<option value="<?php echo $j->Jenis ?>"><?php echo $j->Jenis ?></option>
+
+																			</select>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Tgl Cair</label>
+																		<div class="col-sm-8">
+																			<input type="date" name="TglCair" class="form-control" id="TglCair" value="<?php echo $j->TglCair; ?>">
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">No BAP</label>
+																		<div class="col-sm-8">
+																			<input type="text" name="NoBap" class="form-control" id="NoBap" placeholder="No BAP" value="<?php echo $j->NoBAP; ?>">
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Uraian</label>
+																		<div class="col-sm-8">
+																			<input type="text" name="Uraian" class="form-control" name="UraianTermin" placeholder="Uraian" value="<?php echo $j->Uraian; ?>"></input>
+																		</div>
+																	</div>
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Bruto BoQ (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="BrutoBoQ" id="BrutoBoQ" onkeyup="termininduk()" value="<?php echo number_format($j->BrutoBOQ); ?>">
+																		</div>
+																	</div>
+
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Potongan Uang Muka (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="PotUM" id="PotUM" onkeyup="termininduk()" value="<?php echo number_format($j->UM); ?>">
+																		</div>
+																	</div>
+
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Potongan Retensi (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="Potretensi" id="Potretensi" value="<?php echo  number_format($j->Retensi); ?>" onkeyup="termininduk()">
+																		</div>
+																	</div>
+
+																	<div class="form-group row">
+																		<label class="col-sm-4 col-form-label">Netto BoQ (Rp)</label>
+																		<div class="col-sm-8">
+																			<input type="text" class="form-control" name="NettoBoQ" id="NettoBoQ" value="<?php echo  number_format($j->TerminInduk); ?>">
+																		</div>
+																	</div>
+																</form>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-primary">Simpan</button>
+															</div>
+														</div>
+														<!-- /.modal-content -->
+													</div>
+													<!-- /.modal-dialog -->
+												</div>
+											</form>
+										<?php endforeach; ?>
+
 
 										<div class="tab-pane" id="timeline">
 											<p></p>
@@ -825,197 +900,211 @@
 											</div>
 											<!-- The timeline -->
 
-											<div class="modal fade" id="modal-default-TM">
-												<div class=" modal-dialog">
-													<div class="modal-content" style="width: 150%;">
-														<div class="modal-header">
-															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																<span aria-hidden="true">&times;</span></button>
-															<h4 class="modal-title">Input Termin Member</h4>
-														</div>
-														<div class="modal-body">
-															<form class="form-horizontal" style="width: 100%;">
-																<div class="form-group row">
-																	<label for="inputName" class="col-sm-2 col-form-label">Jenis Termin </label>
-																	<div class="col-sm-10">
-																		<select class="form-control" name="NotifLanjutTender" id="JenisTermin" onchange="changePesertaTender()" required="required">
-																			<option value="UangMuka">Uang Muka</option>
-																			<option value="Termin">Termin</option>
-																		</select>
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<label for="inputEmail" class="col-sm-2 col-form-label">Tgl Cair</label>
-																	<div class="col-sm-10">
-																		<input type="Date" class="form-control" id="TglCair" placeholder="Tgl Cair Termin">
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<label for="inputName2" class="col-sm-2 col-form-label">Tgl Setor Ke Rekening Induk</label>
-																	<div class="col-sm-10">
-																		<input type="Date" class="form-control" id="TglSetor" placeholder="Tgl Setor">
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<label for="inputExperience" class="col-sm-2 col-form-label">No BAP</label>
-																	<div class="col-sm-10">
-																		<input type="text" class="form-control" id="NoBap" placeholder="No BAP">
-																	</div>
-																</div>
-																<div class="form-group row">
-																	<label for="inputSkills" class="col-sm-2 col-form-label">Uraian</label>
-																	<div class="col-sm-10">
-																		<input type="text" class="form-control" id="Uraian" placeholder="Uraian">
-																	</div>
-																</div>
-																<label>Netto Share Termin WKS(Rp) (Leader):</label>
-																<input type="text" name="NettoLeader" id="NettoLeader" class="form-control" placeholder="0">
-																<label>Netto Share Termin KIP (Rp) (Member):</label>
-																<input type="text" name="NettoMember" id="NettoMember" class="form-control" placeholder="0">
-																<label>Cadangan KSO Member 1:*</label>
-																<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0">
-																<label>Cadangan KSO Member 2:*</label>
-																<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0">
-															</form>
-														</div>
-														<div class="modal-footer">
-															<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-															<button type="button" class="btn btn-primary">Simpan</button>
-														</div>
-													</div>
-													<!-- /.modal-content -->
-												</div>
-												<!-- /.modal-dialog -->
-											</div>
+											<?php foreach ($TblTerminMember as $j => $value) : ?>
 
-											<p> </p>
-											<table class="table table-hover" border="1" cellspacing="2" width="100%">
-												<tr style="background-color: deepskyblue;">
-													<th>No</th>
-													<th>Tgl Cair</th>
-													<th>Tgl Setor</th>
-													<th>No. BAP</th>
-													<th>Uraian</th>
-													<th>Member 1 (Rp)</th>
-													<th>Member 2 (Rp)</th>
-													<th>Netto Cadangan KSO Member 1(Rp)</th>
-													<th>Netto Cadangan KSO Member 2 (Rp)</th>
-													<th>Action</th>
-												</tr>
-												<!-- <?php $no = 1;
-														foreach ($Job as $j => $value) : ?> -->
-												<tr>
-													<td><?php echo $no++ ?></td>
-													<!--td><?= $value->JobNo; ?></td-->
-													<!-- <td><?= $value->JobNm; ?></td>
-                                                <td><?= $value->Deskripsi; ?></td>
-                                                <td><?= $value->CompanyId; ?></td>
-                                                <td><?= $value->StatusJob; ?></td>
-                                                <td><?= $value->Kategori; ?></td>
-                                                <td style="width: 5%">
-                                                    <!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a> -->
+												<div class="modal fade" id="modal-default-TM">
+													<form action="<?= site_url('Job/SimpanTerminMember') ?>" method="POST">
+
+														<div class=" modal-dialog">
+															<div class="modal-content" style="width: 150%;">
+																<div class="modal-header">
+																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																		<span aria-hidden="true">&times;</span></button>
+																	<h4 class="modal-title">Input Termin Member</h4>
+																	<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
+																</div>
+																<div class="modal-body">
+																	<form class="form-horizontal" style="width: 100%;">
+																		<div class="form-group row">
+																			<label for="inputName" class="col-sm-2 col-form-label">Jenis Termin </label>
+																			<input type="text" name="JobNo" id="JobNo" value="<?php echo $dipa->JobNo; ?>" hidden>
+																			<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
+																			<div class="col-sm-8">
+																				<select name="JenisTermin" class="form-control" id="JenisTermin" onchange="changePesertaTender()" required="required">
+																					<?php foreach ($JenisTermin as $jtm) : ?>
+																						<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
+																					<?php endforeach; ?>
+																				</select>
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label for="inputEmail" class="col-sm-2 col-form-label">Tgl Cair</label>
+																			<div class="col-sm-10">
+																				<input type="Date" class="form-control" name="TglCair" id="TglCair" placeholder="Tgl Cair Termin">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label for="inputName2" class="col-sm-2 col-form-label">Tgl Setor Ke Rekening Induk</label>
+																			<div class="col-sm-10">
+																				<input type="Date" class="form-control" name="TglSetor" id="TglSetor" placeholder="Tgl Setor">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label for="inputExperience" class="col-sm-2 col-form-label">No BAP</label>
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" name="NoBap" id="NoBap" placeholder="No BAP">
+																			</div>
+																		</div>
+																		<div class="form-group row">
+																			<label for="inputSkills" class="col-sm-2 col-form-label">Uraian</label>
+																			<div class="col-sm-10">
+																				<input type="text" class="form-control" id="Uraian" name="Uraian" placeholder="Uraian">
+																			</div>
+																		</div>
+																		<label>Netto Share Termin (Rp) (Leader):</label>
+																		<input type="text" name="NettoLeader" id="NettoLeader" class="form-control" placeholder="0">
+																		<label>Netto Share Termin (Rp) (Member):</label>
+																		<input type="text" name="NettoMember" id="NettoMember" class="form-control" placeholder="0">
+																		<label>Cadangan KSO Member 1:*</label>
+																		<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0">
+																		<label>Cadangan KSO Member 2:*</label>
+																		<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0">
+																	</form>
+																</div>
+																<div class="modal-footer">
+																	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+																	<button type="submit" class="btn btn-primary">Simpan</button>
+																</div>
+													</form>
+												</div>
+											<?php endforeach; ?>
+
+											<!-- /.modal-content -->
+										</div>
+										<!-- /.modal-dialog -->
+									</div>
+
+
+									<p> </p>
+									<table class="table table-hover" border="1" cellspacing="2" width="100%">
+										<tr style="background-color: deepskyblue;">
+											<th>No</th>
+											<th>Tgl Cair</th>
+											<th>Tgl Setor</th>
+											<th>No. BAP</th>
+											<th>Uraian</th>
+											<th>Member 1 (Rp)</th>
+											<th>Member 2 (Rp)</th>
+											<th>Netto Cadangan KSO Member 1(Rp)</th>
+											<th>Netto Cadangan KSO Member 2 (Rp)</th>
+											<th>Action</th>
+										</tr>
+										<?php $no = 1;
+										foreach ($TblTerminMember as $j => $value) : ?>
+											<tr>
+												<td><?php echo $no++ ?></td>
+												<td><?= $value->TglCair; ?></td>
+												<td><?= $value->TglSetor; ?></td>
+												<td><?= $value->NoBAP; ?></td>
+												<td><?= $value->Uraian; ?></td>
+												<td><?= number_format($value->TerminMember1); ?></td>
+												<td><?= number_format($value->TerminMember2); ?></td>
+												<td><?= number_format($value->CadanganKSO); ?></td>
+												<td><?= number_format($value->CadanganKSOMember1); ?></td>
+												<td style="width: 5%">
+													<!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a> -->
 													<a title="SELECT" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
 													<a title="DELETE" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
-													</td>
-												</tr>
-												<!-- <?php
-														endforeach;
-														?> -->
-											</table>
-										</div>
-										<!-- /.tab-pane -->
-										<!-- /.tab-pane -->
-									</div>
-									<!-- /.tab-content -->
-								</div><!-- /.card-body -->
+												</td>
+											</tr>
+										<?php
+										endforeach;
+										?>
+									</table>
+								</div>
+								<!-- /.tab-pane -->
+								<!-- /.tab-pane -->
 							</div>
-							<!-- /.card -->
-						</div>
+							<!-- /.tab-content -->
+						</div><!-- /.card-body -->
 					</div>
+					<!-- /.card -->
 				</div>
-				<!-- </div> -->
-				<!-- </div> -->
 			</div>
 		</div>
-	</section>
+		<!-- </div> -->
+		<!-- </div> -->
+</div>
+</div>
+</section>
 
-	<script type="text/javascript">
-		var rupiah = document.getElementById('rupiah');
-		rupiah.addEventListener('keyup', function(e) {
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-			rupiah.value = formatRupiah(this.value, 'Rp. ');
-		});
-		// rupiah.addEventListener('keydown', function(event) {
-		//     return isNumberKey(event);
-		// });
+<script type="text/javascript">
+	var rupiah = document.getElementById('rupiah');
+	rupiah.addEventListener('keyup', function(e) {
+		// tambahkan 'Rp.' pada saat form di ketik
+		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+		rupiah.value = formatRupiah(this.value, 'Rp. ');
+	});
+	// rupiah.addEventListener('keydown', function(event) {
+	//     return isNumberKey(event);
+	// });
 
-		var rupiah1 = document.getElementById('rupiah1');
-		rupiah1.addEventListener('keyup', function(e) {
-			// tambahkan 'Rp.' pada saat form di ketik
-			// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
-			rupiah1.value = formatRupiah(this.value, 'Rp. ');
-		});
+	var rupiah1 = document.getElementById('rupiah1');
+	rupiah1.addEventListener('keyup', function(e) {
+		// tambahkan 'Rp.' pada saat form di ketik
+		// gunakan fungsi formatRupiah() untuk mengubah angka yang di ketik menjadi format angka
+		rupiah1.value = formatRupiah(this.value, 'Rp. ');
+	});
 
-		/* Fungsi formatRupiah */
-		function formatRupiah(angka, prefix) {
-			var number_string = angka.replace(/[^,\d]/g, '').toString(),
-				split = number_string.split(','),
-				sisa = split[0].length % 3,
-				rupiah = split[0].substr(0, sisa),
-				ribuan = split[0].substr(sisa).match(/\d{3}/gi);
+	/* Fungsi formatRupiah */
+	function formatRupiah(angka, prefix) {
+		var number_string = angka.replace(/[^,\d]/g, '').toString(),
+			split = number_string.split(','),
+			sisa = split[0].length % 3,
+			rupiah = split[0].substr(0, sisa),
+			ribuan = split[0].substr(sisa).match(/\d{3}/gi);
 
-			// tambahkan titik jika yang di input sudah menjadi angka ribuan
-			if (ribuan) {
-				separator = sisa ? '.' : '';
-				rupiah += separator + ribuan.join('.');
-			}
-
-			rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
-			return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
-			// return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
+		// tambahkan titik jika yang di input sudah menjadi angka ribuan
+		if (ribuan) {
+			separator = sisa ? '.' : '';
+			rupiah += separator + ribuan.join('.');
 		}
-	</script>
 
-	<?php function buatRupiah($angka)
-	{
-		$hasil = " Rp " . number_format($angka, 2, ',', '.');
-		return $hasil;
+		rupiah = split[1] != undefined ? rupiah + ',' + split[1] : rupiah;
+		return prefix == undefined ? rupiah : (rupiah ? rupiah : '');
+		// return prefix == undefined ? rupiah : (rupiah ? 'Rp. ' + rupiah : '');
 	}
-	?>
+</script>
 
-	<!---Modal DIPA EDIT --->
-	<div class="modal fade" id="modal-default">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						<span aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title">Default Modal</h4>
-				</div>
-				<form action="<?= site_url('absensicon/updateDataAksi') ?>" method="post">
-					<div class="modal-body">
-						<input type="text" name="id_Dipa" hidden="" value="<?php echo $dipa->id_Dipa ?>">
-						<input type="text" name="JobNo" hidden="" value="<?php echo $dipa->JobNo ?>">
-						<p hidden=""><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
-						<label>Tahun</label>
-						<input type="text" name="Tahun" id="InfoPasar" class="form-control">
-						<label>DIPA (Rp)</label>
-						<input type="text" name="Dipa" id="Dipa" class="form-control" onkeyup="toDecimal(this)">
-						<label>DIPA Pagu Bruto</label>
-						<input type="text" name="PaguBudget" id="PaguBudget" class="form-control" onkeyup="toDecimal(this)">
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-						<button type="submit" class="btn btn-primary">Simpan</button>
-					</div>
-				</form>
+<?php function buatRupiah($angka)
+{
+	$hasil = " Rp " . number_format($angka, 2, ',', '.');
+	return $hasil;
+}
+?>
+
+<!---Modal DIPA EDIT --->
+<div class="modal fade" id="modal-default">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Default Modal</h4>
 			</div>
-			<!-- /.modal-content -->
+			<form action="<?= site_url('absensicon/updateDataAksi') ?>" method="post">
+				<div class="modal-body">
+					<input type="text" name="id_Dipa" hidden="" value="<?php echo $dipa->id_Dipa ?>">
+					<input type="text" name="JobNo" hidden="" value="<?php echo $dipa->JobNo ?>">
+					<p hidden=""><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
+					<label>Tahun</label>
+					<input type="text" name="Tahun" id="InfoPasar" class="form-control">
+					<label>DIPA (Rp)</label>
+					<input type="text" name="Dipa" id="Dipa" class="form-control" onkeyup="toDecimal(this)">
+					<label>DIPA Pagu Bruto</label>
+					<input type="text" name="PaguBudget" id="PaguBudget" class="form-control" onkeyup="toDecimal(this)">
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+					<button type="submit" class="btn btn-primary">Simpan</button>
+				</div>
+			</form>
 		</div>
-		<!-- /.modal-dialog -->
+		<!-- /.modal-content -->
 	</div>
-	<!---END DIPA EDIT -->
+	<!-- /.modal-dialog -->
+</div>
+<!---END DIPA EDIT -->
 </div>
 
 <!-- <script type="text/javascript" src="jquery.js"></script>

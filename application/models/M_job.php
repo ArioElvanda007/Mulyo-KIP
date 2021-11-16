@@ -194,6 +194,12 @@ class M_job extends CI_Model
 		return $eksekusi->result();
 	}
 
+	public function getTblTerminMember($JobNo = null)
+	{
+		$query = "SELECT * FROM TerminMember WHERE JobNo='$JobNo' ORDER BY LedgerNo DESC  ";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
 
     public function tatakelola($JobNo = null)
     {

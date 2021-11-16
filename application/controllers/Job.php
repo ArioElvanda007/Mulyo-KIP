@@ -470,6 +470,9 @@ class Job extends CI_Controller
 		$tblTerminInduk = $this->M_job->getTblTerminInduk($JobNo);
 		$data['TblTerminInduk'] = $tblTerminInduk;
 
+		$TblTerminMember = $this->M_job->getTblTerminMember($JobNo);
+		$data['TblTerminMember'] = $TblTerminMember;
+
 
 		$data['judul'] = 'Dipa';
 
@@ -617,9 +620,111 @@ class Job extends CI_Controller
 
 	public function SimpanTerminInduk()
 	{
-		
+			$JobNo			= $this->input->post('JobNo');
+			$Jenis			= $this->input->post('JenisTermin');
+			$TglCair		= $this->input->post('TglCair');
+			$NoBAP 			= $this->input->post('NoBap');
+			$Uraian			= $this->input->post('Uraian');
+			$BrutoBOQ		= $this->input->post('BrutoBoQ');
+			$UM				= $this->input->post('PotUM');
+			$Retensi		= $this->input->post('Potretensi');
+			$TerminInduk	= $this->input->post('NettoBoQ');
+			$UserEntry		= $this->session->userdata('MIS_LOGGED_NAME');
+			$TimeEntry  	= date("Y-m-d H:i:s");
+
+		$data = array(
+			'JobNo'			=> $JobNo,
+			'Jenis'			=> $Jenis,
+			'TglCair'		=> $TglCair,
+			'NoBAP' 		=> $NoBAP,
+			'Uraian'		=> $Uraian,
+			'BrutoBOQ'		=> $BrutoBOQ,
+			'UM'			=> $UM,
+			'Retensi'		=> $Retensi,
+			'TerminInduk'	=> $TerminInduk,
+			'UserEntry'		=> $UserEntry,
+			'TimeEntry'		=> $TimeEntry,
+		);
+
+		$this->M_job->SimpanData('TerminInduk', $data);
+		Redirect('Job/dipa/' . $JobNo);
 	}
 
+	public function EditTerminInduk()
+	{
+		$LedgerNo		= $this->input->post('LedgerNo');
+		$JobNo			= $this->input->post('JobNo');
+		$Jenis			= $this->input->post('JenisTermin');
+		$TglCair		= $this->input->post('TglCair');
+		$NoBAP 			= $this->input->post('NoBap');
+		$Uraian			= $this->input->post('Uraian');
+		$BrutoBOQ		= $this->input->post('BrutoBoQ');
+		$UM				= $this->input->post('PotUM');
+		$Retensi		= $this->input->post('Potretensi');
+		$TerminInduk	= $this->input->post('NettoBoQ');
+
+		$data = array(
+			'JobNo'			=> $JobNo,
+			'Jenis'			=> $Jenis,
+			'TglCair'		=> $TglCair,
+			'NoBAP' 		=> $NoBAP,
+			'Uraian'		=> $Uraian,
+			'BrutoBOQ'		=> $BrutoBOQ,
+			'UM'			=> $UM,
+			'Retensi'		=> $Retensi,
+			'TerminInduk'	=> $TerminInduk,
+		);
+
+		$where = array(
+			'LedgerNo' => $LedgerNo,
+		);
+		$this->M_job->UpdateDataProyek('TerminInduk', $data, $where);
+		Redirect('Job/dipa/' . $JobNo);
+	}
+
+	function DelTerminInduk($id=null,$JobNo=null)
+	{
+		//$JobNo = $this->input->post('JobNo');
+
+		$where = array('LedgerNo' => $id);
+		$this->M_job->hapus_data($where, 'TerminInduk');
+		redirect('Job/dipa/' . $JobNo);
+	}
+
+
+
+	public function SimpanTerminMember()
+	{
+		$JobNo  			= $this->input->post('JobNo');
+		$Jenis				= $this->input->post('JenisTermin');
+		$TglCair 			= $this->input->post('TglCair');
+		$TglSetor			= $this->input->post('TglSetor');
+		$NoBAP				= $this->input->post('NoBap');
+		$Uraian				= $this->input->post('Uraian');
+		$NettoLeader		= $this->input->post('NettoLeader');
+		$NettoMember		= $this->input->post('NettoMember');
+		$CadanganMember1	= $this->input->post('CadanganMember1');
+		$CadanganMember2	= $this->input->post('CadanganMember2');
+		$UserEntry			= $this->session->userdata('MIS_LOGGED_NAME');
+		$TimeEntry  		= date("Y-m-d H:i:s");
+
+		$data =  array(
+			'JobNo'				=> $JobNo,
+			'Jenis'				=> $Jenis,
+			'TglCair'			=> $TglCair,
+			'TglSetor'			=> $TglSetor,
+			'NoBAP'				=> $NoBAP,
+			'Uraian'			=> $Uraian,
+			'TerminMember1'		=> $NettoLeader,
+			'TerminMember'		=> $NettoMember,
+			'CadanganMember1'	=> $CadanganMember1,
+			'CadanganMember2'	=> $CadanganMember2,
+			'UserEntry'			=> $UserEntry,
+			'TimeEntry'			=> $TimeEntry,
+		);
+		$this->M_job->SimpanData('TerminMember', $data);
+		Redirect('Job/dipa/' . $JobNo);
+	}
 	
     public function tatakelola($JobNo)
     {
