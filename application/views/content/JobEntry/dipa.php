@@ -900,117 +900,191 @@
 											</div>
 											<!-- The timeline -->
 
-											<?php foreach ($TblTerminMember as $j => $value) : ?>
+											<!-- /.modal-content -->
+											<p> </p>
+											<table class="table table-hover" border="1" cellspacing="2" width="100%">
+												<tr style="background-color: deepskyblue;">
+													<th hidden></th>
+													<th style="width:2%;">No</th>
+													<th style="width:5%;">Tgl Cair</th>
+													<th style="width:5%;">Tgl Setor</th>
+													<th style="width:15%;">No. BAP</th>
+													<th style="width:20%;">Uraian</th>
+													<th style="width:10%;">Member 1 (Rp)</th>
+													<th style="width:10%;">Member 2 (Rp)</th>
+													<th style="width:10%;">Netto Cadangan KSO Member 1(Rp)</th>
+													<th style="width:10%;">Netto Cadangan KSO Member 2 (Rp)</th>
+													<th style="width:auto;">Action</th>
+												</tr>
+												<?php $no = 1;
+												foreach ($TblTerminMember as $j => $value) : ?>
+													<tr>
+														<td hidden><?= $value->LedgerNo; ?></td>
+														<td><?php echo $no++ ?></td>
+														<td><?= $value->TglCair; ?></td>
+														<td><?= $value->TglSetor; ?></td>
+														<td><?= $value->NoBAP; ?></td>
+														<td><?= $value->Uraian; ?></td>
+														<td><?= number_format($value->TerminMember1); ?></td>
+														<td><?= number_format($value->TerminMember2); ?></td>
+														<td><?= number_format($value->CadanganKSO); ?></td>
+														<td><?= number_format($value->CadanganKSOMember1); ?></td>
+														<td style="width: 5%">
+															<!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a> -->
+															<a title="SELECT" data-toggle="modal" data-target="#modal-edit-TM<?php echo $value->LedgerNo; ?>" class="btn btn-success badge btn-xs"><i class="fa fa-pencil-square"></i></a>
+															<a title="DELETE" href="<?= site_url('') ?>" class="btn btn-danger badge btn-xs"><i class="fa fa-trash"></i></a>
+														</td>
+													</tr>
+												<?php
+												endforeach;
+												?>
+											</table>
+										</div>
 
-												<div class="modal fade" id="modal-default-TM">
-													<form action="<?= site_url('Job/SimpanTerminMember') ?>" method="POST">
+										<form action="<?= site_url('Job/SimpanTerminMember') ?>" method="POST">
+											<div class="modal fade" id="modal-default-TM">
+												<div class=" modal-dialog">
+													<div class="modal-content">
+														<div class="modal-header">
+															<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																<span aria-hidden="true">&times;</span></button>
+															<h4 class="modal-title">Input Termin Member</h4>
+															<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
+														</div>
+														<div class="modal-body">
+															<form class="form-horizontal" style="width: 100%;">
+																<div class="form-group row">
+																	<label for="inputName" class="col-sm-2 col-form-label">Jenis Termin </label>
+																	<input type="text" name="JobNo" id="JobNo" value="<?php echo $dipa->JobNo; ?>" hidden>
+																	<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
+																	<div class="col-sm-8">
+																		<select name="JenisTermin" class="form-control" id="JenisTermin" onchange="changePesertaTender()" required="required">
+																			<?php foreach ($JenisTermin as $jtm) : ?>
+																				<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
+																			<?php endforeach; ?>
+																		</select>
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="inputEmail" class="col-sm-2 col-form-label">Tgl Cair</label>
+																	<div class="col-sm-10">
+																		<input type="Date" class="form-control" name="TglCair" id="TglCair" placeholder="Tgl Cair Termin">
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="inputName2" class="col-sm-2 col-form-label">Tgl Setor Ke Rekening Induk</label>
+																	<div class="col-sm-10">
+																		<input type="Date" class="form-control" name="TglSetor" id="TglSetor" placeholder="Tgl Setor">
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="inputExperience" class="col-sm-2 col-form-label">No BAP</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control" name="NoBap" id="NoBap" placeholder="No BAP">
+																	</div>
+																</div>
+																<div class="form-group row">
+																	<label for="inputSkills" class="col-sm-2 col-form-label">Uraian</label>
+																	<div class="col-sm-10">
+																		<input type="text" class="form-control" id="Uraian" name="Uraian" placeholder="Uraian">
+																	</div>
+																</div>
+																<label>Netto Share Termin (Rp) (Leader):</label>
+																<input type="text" name="NettoLeader" id="NettoLeader" class="form-control" placeholder="0">
+																<label>Netto Share Termin (Rp) (Member):</label>
+																<input type="text" name="NettoMember" id="NettoMember" class="form-control" placeholder="0">
+																<label>Cadangan KSO Member 1:*</label>
+																<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0">
+																<label>Cadangan KSO Member 2:*</label>
+																<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0">
+															</form>
+														</div>
+														<div class="modal-footer">
+															<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+															<button type="submit" class="btn btn-primary">Simpan</button>
+														</div>
+													</div>
+												</div>
+												<!-- /.modal-dialog -->
+											</div>
+										</form>
 
-														<div class=" modal-dialog">
-															<div class="modal-content" style="width: 150%;">
-																<div class="modal-header">
-																	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-																		<span aria-hidden="true">&times;</span></button>
-																	<h4 class="modal-title">Input Termin Member</h4>
-																	<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
-																</div>
-																<div class="modal-body">
-																	<form class="form-horizontal" style="width: 100%;">
-																		<div class="form-group row">
-																			<label for="inputName" class="col-sm-2 col-form-label">Jenis Termin </label>
-																			<input type="text" name="JobNo" id="JobNo" value="<?php echo $dipa->JobNo; ?>" hidden>
-																			<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
-																			<div class="col-sm-8">
-																				<select name="JenisTermin" class="form-control" id="JenisTermin" onchange="changePesertaTender()" required="required">
-																					<?php foreach ($JenisTermin as $jtm) : ?>
-																						<option value="<?php echo $jtm ?>"><?php echo $jtm ?></option>
-																					<?php endforeach; ?>
-																				</select>
-																			</div>
+										<!--modal edit Termin Member -->
+										<form action="<?= site_url('Job/EditTerminMember') ?>" method="POST">
+											<?php foreach ($TblTerminMember as $j) : ?>
+												<div class="modal fade" id="modal-edit-TM<?php echo $j->LedgerNo; ?>">
+													<div class=" modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+																	<span aria-hidden="true">&times;</span></button>
+																<h4 class="modal-title">Input Termin Member</h4>
+																<p hidden><?= $this->session->userdata('MIS_LOGGED_NAME'); ?></p>
+															</div>
+															<div class="modal-body">
+																<form class="form-horizontal" style="width: 100%;">
+																	<div class="form-group row">
+																		<label for="inputName" class="col-sm-2 col-form-label">Jenis Termin </label>
+																		<input type="text" name="JobNo" id="JobNo" value="<?php echo $j->JobNo; ?>" hidden>
+																		<input type="text" name="LedgerNo" id="LedgerNo" value="<?php echo $j->LedgerNo ?>" hidden>
+																		<?php $JenisTermin = ['', 'Uang Muka', 'Termin']; ?>
+																		<div class="col-sm-8">
+																			<select name="JenisTermin" class="form-control" id="JenisTermin" onchange="changePesertaTender()" required="required">
+																				<!-- <?php foreach ($JenisTermin as $jtm) : ?> -->
+																				<option value="<?php echo $j->Jenis ?>"><?php echo $j->Jenis ?></option>
+																				<!-- <?php endforeach; ?> -->
+																			</select>
 																		</div>
-																		<div class="form-group row">
-																			<label for="inputEmail" class="col-sm-2 col-form-label">Tgl Cair</label>
-																			<div class="col-sm-10">
-																				<input type="Date" class="form-control" name="TglCair" id="TglCair" placeholder="Tgl Cair Termin">
-																			</div>
+																	</div>
+																	<div class="form-group row">
+																		<label for="inputEmail" class="col-sm-2 col-form-label">Tgl Cair</label>
+																		<div class="col-sm-10">
+																			<input type="Date" class="form-control" name="TglCair" id="TglCair" placeholder="Tgl Cair Termin" value="<?php echo $j->TglCair ?>">
 																		</div>
-																		<div class="form-group row">
-																			<label for="inputName2" class="col-sm-2 col-form-label">Tgl Setor Ke Rekening Induk</label>
-																			<div class="col-sm-10">
-																				<input type="Date" class="form-control" name="TglSetor" id="TglSetor" placeholder="Tgl Setor">
-																			</div>
+																	</div>
+																	<div class="form-group row">
+																		<label for="inputName2" class="col-sm-2 col-form-label">Tgl Setor Ke Rekening Induk</label>
+																		<div class="col-sm-10">
+																			<input type="Date" class="form-control" name="TglSetor" id="TglSetor" placeholder="Tgl Setor" value="<?php echo $j->TglSetor ?>">
 																		</div>
-																		<div class="form-group row">
-																			<label for="inputExperience" class="col-sm-2 col-form-label">No BAP</label>
-																			<div class="col-sm-10">
-																				<input type="text" class="form-control" name="NoBap" id="NoBap" placeholder="No BAP">
-																			</div>
+																	</div>
+																	<div class="form-group row">
+																		<label for="inputExperience" class="col-sm-2 col-form-label">No BAP</label>
+																		<div class="col-sm-10">
+																			<input type="text" class="form-control" name="NoBap" id="NoBap" placeholder="No BAP" value="<?php echo $j->NoBAP ?>">
 																		</div>
-																		<div class="form-group row">
-																			<label for="inputSkills" class="col-sm-2 col-form-label">Uraian</label>
-																			<div class="col-sm-10">
-																				<input type="text" class="form-control" id="Uraian" name="Uraian" placeholder="Uraian">
-																			</div>
+																	</div>
+																	<div class="form-group row">
+																		<label for="inputSkills" class="col-sm-2 col-form-label">Uraian</label>
+																		<div class="col-sm-10">
+																			<input type="text" class="form-control" id="Uraian" name="Uraian" placeholder="Uraian" value="<?php echo $j->Uraian ?>">
 																		</div>
-																		<label>Netto Share Termin (Rp) (Leader):</label>
-																		<input type="text" name="NettoLeader" id="NettoLeader" class="form-control" placeholder="0">
-																		<label>Netto Share Termin (Rp) (Member):</label>
-																		<input type="text" name="NettoMember" id="NettoMember" class="form-control" placeholder="0">
-																		<label>Cadangan KSO Member 1:*</label>
-																		<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0">
-																		<label>Cadangan KSO Member 2:*</label>
-																		<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0">
-																	</form>
-																</div>
-																<div class="modal-footer">
-																	<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-																	<button type="submit" class="btn btn-primary">Simpan</button>
-																</div>
-													</form>
+																	</div>
+																	<label>Netto Share Termin (Rp) (Leader):</label>
+																	<input type="text" name="NettoLeader" id="NettoLeader" class="form-control" placeholder="0" value="<?php echo number_format($j->TerminMember1)  ?>">
+																	<label>Netto Share Termin (Rp) (Member):</label>
+																	<input type="text" name="NettoMember" id="NettoMember" class="form-control" placeholder="0" value="<?php echo number_format($j->TerminMember2)  ?>">
+																	<label>Cadangan KSO Member 1:*</label>
+																	<input type="text" name="CadanganMember1" id="CadanganMember1" class="form-control" placeholder="0" value="<?php echo number_format($j->CadanganKSO)  ?>">
+																	<label>Cadangan KSO Member 2:*</label>
+																	<input type="text" name="CadanganMember2" id="CadanganMember2" class="form-control" placeholder="0" value="<?php echo number_format($j->CadanganKSOMember1)  ?>">
+																</form>
+															</div>
+															<div class="modal-footer">
+																<button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+																<button type="submit" class="btn btn-primary">Simpan</button>
+															</div>
+														</div>
+													</div>
+													<!-- /.modal-dialog -->
 												</div>
 											<?php endforeach; ?>
-
-											<!-- /.modal-content -->
-										</div>
+										</form>
 										<!-- /.modal-dialog -->
 									</div>
 
 
-									<p> </p>
-									<table class="table table-hover" border="1" cellspacing="2" width="100%">
-										<tr style="background-color: deepskyblue;">
-											<th>No</th>
-											<th>Tgl Cair</th>
-											<th>Tgl Setor</th>
-											<th>No. BAP</th>
-											<th>Uraian</th>
-											<th>Member 1 (Rp)</th>
-											<th>Member 2 (Rp)</th>
-											<th>Netto Cadangan KSO Member 1(Rp)</th>
-											<th>Netto Cadangan KSO Member 2 (Rp)</th>
-											<th>Action</th>
-										</tr>
-										<?php $no = 1;
-										foreach ($TblTerminMember as $j => $value) : ?>
-											<tr>
-												<td><?php echo $no++ ?></td>
-												<td><?= $value->TglCair; ?></td>
-												<td><?= $value->TglSetor; ?></td>
-												<td><?= $value->NoBAP; ?></td>
-												<td><?= $value->Uraian; ?></td>
-												<td><?= number_format($value->TerminMember1); ?></td>
-												<td><?= number_format($value->TerminMember2); ?></td>
-												<td><?= number_format($value->CadanganKSO); ?></td>
-												<td><?= number_format($value->CadanganKSOMember1); ?></td>
-												<td style="width: 5%">
-													<!-- <a title="Detail" href="<?= site_url('job/sub_job' . $value->JobNo) ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a> -->
-													<a title="SELECT" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
-													<a title="DELETE" href="<?= site_url('job/sub_job') ?>" class="btn btn-success"><i class="fa fa-cubes"></i></a>
-												</td>
-											</tr>
-										<?php
-										endforeach;
-										?>
-									</table>
+
 								</div>
 								<!-- /.tab-pane -->
 								<!-- /.tab-pane -->

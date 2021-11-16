@@ -550,7 +550,7 @@ class Job extends CI_Controller
 			'JobNo'			=> $JobNo,
 			'Jenis'			=> $Jenis,
 			'TglRencana'	=> $TglRencana,
-			'Uraian'		=> $Uraian,
+			'Uraian'		   => $Uraian,
 			'Persentase'	=> $Persentase,
 			'Bruto'			=> str_replace(',','', $Bruto),
 			'PersentaseUM'	=> str_replace(',','', $PresentaseUM) ,
@@ -709,20 +709,58 @@ class Job extends CI_Controller
 		$TimeEntry  		= date("Y-m-d H:i:s");
 
 		$data =  array(
-			'JobNo'				=> $JobNo,
-			'Jenis'				=> $Jenis,
-			'TglCair'			=> $TglCair,
-			'TglSetor'			=> $TglSetor,
-			'NoBAP'				=> $NoBAP,
-			'Uraian'			=> $Uraian,
+			'JobNo'					=> $JobNo,
+			'Jenis'					=> $Jenis,
+			'TglCair'				=> $TglCair,
+			'TglSetor'				=> $TglSetor,
+			'NoBAP'					=> $NoBAP,
+			'Uraian'					=> $Uraian,
 			'TerminMember1'		=> $NettoLeader,
-			'TerminMember'		=> $NettoMember,
-			'CadanganMember1'	=> $CadanganMember1,
-			'CadanganMember2'	=> $CadanganMember2,
-			'UserEntry'			=> $UserEntry,
-			'TimeEntry'			=> $TimeEntry,
+			'TerminMember2'		=> $NettoMember,
+			'CadanganKSO'			=> $CadanganMember1,
+			'CadanganKSOMember1'	=> $CadanganMember2,
+			'UserEntry'				=> $UserEntry,
+			'TimeEntry'				=> $TimeEntry,
 		);
 		$this->M_job->SimpanData('TerminMember', $data);
+		Redirect('Job/dipa/' . $JobNo);
+	}
+
+	public function EditTerminMember()
+	{
+		$LedgerNo		= $this->input->post('LedgerNo');
+		$JobNo  			= $this->input->post('JobNo');
+		$Jenis				= $this->input->post('JenisTermin');
+		$TglCair 			= $this->input->post('TglCair');
+		$TglSetor			= $this->input->post('TglSetor');
+		$NoBAP				= $this->input->post('NoBap');
+		$Uraian				= $this->input->post('Uraian');
+		$NettoLeader		= $this->input->post('NettoLeader');
+		$NettoMember		= $this->input->post('NettoMember');
+		$CadanganMember1	= $this->input->post('CadanganMember1');
+		$CadanganMember2	= $this->input->post('CadanganMember2');
+		$UserEntry			= $this->session->userdata('MIS_LOGGED_NAME');
+		$TimeEntry  		= date("Y-m-d H:i:s");
+
+		$data =  array(
+			'JobNo'					=> $JobNo,
+			'Jenis'					=> $Jenis,
+			'TglCair'				=> $TglCair,
+			'TglSetor'				=> $TglSetor,
+			'NoBAP'					=> $NoBAP,
+			'Uraian'					=> $Uraian,
+			'TerminMember1'		=> $NettoLeader,
+			'TerminMember2'		=> $NettoMember,
+			'CadanganKSO'			=> $CadanganMember1,
+			'CadanganKSOMember1'	=> $CadanganMember2,
+			'UserEntry'				=> $UserEntry,
+			'TimeEntry'				=> $TimeEntry,
+		);
+
+		$where = array(
+			'LedgerNo' => $LedgerNo,
+		);
+		$this->M_job->UpdateDataProyek('TerminMember', $data, $where);
 		Redirect('Job/dipa/' . $JobNo);
 	}
 	
