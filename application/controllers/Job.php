@@ -829,13 +829,13 @@ class Job extends CI_Controller
         $data['rap'] = $rap;
 
 		  $UserID			= $this->session->userdata('MIS_LOGGED_NAME');
-		//   $AksesAlokasi = $this->m_job->GetAlokasi($UserID);
-		$AksesAlokasi = $this->db->query("select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
-								(select * from Login) as a
-								left outer join
-								(select * from Alokasi) as b
-								on b.Alokasi = a.AksesAlokasi
-								Where a.UserID=$UserID");
+		  $AksesAlokasi = $this->m_job->GetAlokasi();
+		// $AksesAlokasi = $this->db->query("select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
+		// 						(select * from Login) as a
+		// 						left outer join
+		// 						(select * from Alokasi) as b
+		// 						on b.Alokasi = a.AksesAlokasi
+		// 						Where a.UserID=$UserID");
 		  $data['AksesAlokasi'] = $AksesAlokasi;
 
         $data['judul'] = 'RAP';

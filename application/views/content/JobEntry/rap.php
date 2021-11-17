@@ -45,7 +45,7 @@
                             <div class="col-sm-10">
                                 <select class="form-control" name="alokasi" id="alokasi" style="width: 50%;">
 								<?php foreach ($AksesAlokasi as $al) : ?>
-                                    <option value="<?php echo $al  ?>"><?php echo $al ?></option>
+                                    <option value="<?php echo $al->Alokasi  ?>"><?php echo $al->Keterangan ?></option>
 									<?php endforeach; ?>
                                 </select>
                             </div>

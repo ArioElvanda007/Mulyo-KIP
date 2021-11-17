@@ -229,12 +229,13 @@ class M_job extends CI_Model
 
 	public function GetAlokasi($UserID = Null)
 	{
-		$query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
-					(select * from Login) as a
-					left outer join
-					(select * from Alokasi) as b
-					on b.Alokasi = a.AksesAlokasi
-					Where a.UserID=$UserID ";
+		// $query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
+		// 			(select * from Login) as a
+		// 			left outer join
+		// 			(select * from Alokasi) as b
+		// 			on b.Alokasi = a.AksesAlokasi
+		// 			Where a.UserID=$UserID ";
+		$query = "SELECT * FROM Alokasi";
 		$eksekusi = $this->db->query($query);
 		return $eksekusi->result();
 	}
