@@ -227,7 +227,7 @@ class M_job extends CI_Model
         return $query;
     }
 
-	public function GetAlokasi($UserID = Null)
+	public function GetAlokasi()
 	{
 		// $query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
 		// 			(select * from Login) as a
