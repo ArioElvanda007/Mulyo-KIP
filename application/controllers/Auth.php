@@ -18,6 +18,7 @@ class Auth extends CI_Controller
 			if ($user) {
 				if (password_verify($this->input->post('password'), $user->PasswordCI)) {
 					$this->session->set_userdata([
+						'MIS_LOGGED_ID'   => $user->UserID,
 						'MIS_LOGGED_CORP'   => $this->input->post('corp'),
 						'MIS_LOGGED_NAME'   => $user->UserName,
 						'MIS_LOGGED_TOKEN'  => json_encode($user),
