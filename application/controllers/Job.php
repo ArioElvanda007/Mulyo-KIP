@@ -473,7 +473,6 @@ class Job extends CI_Controller
 		$TblTerminMember = $this->M_job->getTblTerminMember($JobNo);
 		$data['TblTerminMember'] = $TblTerminMember;
 
-
 		$data['judul'] = 'Dipa';
 
         $this->load->view('templates/header', $data);
@@ -767,8 +766,14 @@ class Job extends CI_Controller
     public function tatakelola($JobNo)
     {
         $this->load->model('m_job');
-        $tatakelola = $this->m_job->tatakelola($JobNo);
+        $tatakelola = $this->M_job->tatakelola($JobNo);
         $data['tatakelola'] = $tatakelola;
+
+		  $getTataKelola = $this->M_job->GetTataKelola($JobNo);
+		  $data['GetTataKelola'] = $getTataKelola;
+
+		$GetMpp = $this->M_job->GetMpp($JobNo);
+		$data['TblMPP'] = $GetMpp;
 
         $data['judul'] = 'TaTa Kelola';
         $this->load->view('templates/header', $data);
@@ -777,11 +782,61 @@ class Job extends CI_Controller
         $this->load->view('templates/footer');
     }
 
-    public function rap($JobNo)
+	 public function updateDATAKSO()
+	 {
+		$JobNo 				= $this->input->post('JobNo');
+		$Kso					= $this->input->post('Kso');
+		$TipeManagerial	= $this->input->post('TipeManagerial');
+		$NoRekKSO			= $this->input->post('NoRekKSO');
+		$Member1				= $this->input->post('NamaLeader');
+		$PersenShare1		= $this->input->post('PersenLeader');
+		$BrutoShare1 		= $this->input->post('BrutoLeader');
+		$BankInduk			= $this->input->post('BankLeader');
+		$NoRekInduk			= $this->input->post('NoRekLeader');
+		$Member2 			= $this->input->post('NamaMember');
+		$PersenShare2 		= $this->input->post('PersenMember');
+		$BrutoShare2 		= $this->input->post('BrutoMember');
+		$BankMember 		= $this->input->post('BankMember');
+		$NoRekMember 		= $this->input->post('NoRekMember');
+
+		$data = array(
+			'KSO'     			=> $Kso,
+			'TipeManajerial' 	=> $TipeManagerial,
+			'NoRekKSO'			=> $NoRekKSO,
+			'Member1'			=> $Member1,
+			'PersenShare1'		=> $PersenShare1,
+			'BrutoShare1'		=> $BrutoShare1,
+			'BankInduk'			=> $BankInduk,
+			'NoRekInduk'		=> $NoRekInduk,
+			'Member2'			=> $Member2,
+			'PersenShare2' 	=> $PersenShare2,
+			'BrutoShare2' 		=> $BrutoShare2,
+			'BankMember'		=> $BankMember,
+			'NoRekMember'		=> $NoRekMember,
+		);
+		$where = array (
+			'JobNo'  => $JobNo,
+		);
+		$this->M_job->UpdateDataProyek('Job', $data, $where);
+		Redirect('Job/tatakelola/' . $JobNo);
+ 	  }
+
+		
+    public function rap($JobNo, $UserID)
     {
         $this->load->model('m_job');
         $rap = $this->m_job->rap($JobNo);
         $data['rap'] = $rap;
+
+		  $UserID			= $this->session->userdata('MIS_LOGGED_NAME');
+		//   $AksesAlokasi = $this->m_job->GetAlokasi($UserID);
+		$AksesAlokasi = $this->db->query("select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
+								(select * from Login) as a
+								left outer join
+								(select * from Alokasi) as b
+								on b.Alokasi = a.AksesAlokasi
+								Where a.UserID=$UserID");
+		  $data['AksesAlokasi'] = $AksesAlokasi;
 
         $data['judul'] = 'RAP';
         $this->load->view('templates/header', $data);

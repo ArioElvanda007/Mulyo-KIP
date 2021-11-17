@@ -207,11 +207,37 @@ class M_job extends CI_Model
         return $query;
     }
 
+	public function GetTataKelola($JobNo=null)
+	{
+		$query = "SELECT * FROM Job WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
+
+	public function GetMpp($JobNo = null)
+	{
+		$query = "SELECT * FROM MPP WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
+
     public function rap($JobNo = null)
     {
         $query = $this->db->get_where('Job', array('JobNo' => $JobNo))->row();
         return $query;
     }
+
+	public function GetAlokasi($UserID = Null)
+	{
+		$query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
+					(select * from Login) as a
+					left outer join
+					(select * from Alokasi) as b
+					on b.Alokasi = a.AksesAlokasi
+					Where a.UserID=$UserID ";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+	}
 
     public function pdpj($JobNo = null)
     {
