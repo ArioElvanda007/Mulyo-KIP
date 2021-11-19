@@ -227,14 +227,26 @@ class M_job extends CI_Model
         return $query;
     }
 
-	public function GetAlokasi()
+	function pencarian_rap($JobNo=null)
 	{
-		// $query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
-		// 			(select * from Login) as a
-		// 			left outer join
-		// 			(select * from Alokasi) as b
-		// 			on b.Alokasi = a.AksesAlokasi
-		// 			Where a.UserID=$UserID ";
+		$query = "SELECT * FROM RAP WHERE JobNo='$JobNo'";
+		$eksekusi = $this->db->query($query);
+		return $eksekusi->result();
+		// $this->db->where("Alokasi", $Alokasi);
+		// $this->db->where("Versi", $Versi);
+		// return $this->db->get("RAP");
+	}
+
+
+	public function GetAlokasi($UserID = null)
+	{
+	// 	$UserID = $this->session->userdata('MIS_LOGGED_ID');
+	// 	$query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
+	// 			(select * from Login) as a
+	// 			left outer join
+	// 			(select * from Alokasi) as b
+	// 			on b.Alokasi = a.AksesAlokasi
+	// 			Where a.UserID = $UserID ";
 		$query = "SELECT * FROM Alokasi";
 		$eksekusi = $this->db->query($query);
 		return $eksekusi->result();

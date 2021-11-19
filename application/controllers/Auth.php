@@ -22,6 +22,7 @@ class Auth extends CI_Controller
 						'MIS_LOGGED_NAME'   => $user->UserName,
 						'MIS_LOGGED_TOKEN'  => json_encode($user),
 						'MIS_LOGGED_NIK'    => $user->NIK,
+						'MIS_LOGGED_ID'	  => $user->UserID,
 					]);
 					// $this->setMessage('Welcome','success','Login berhasil, selamat datang '. $user->UserName);
 					redirect('Welcome/index');

@@ -635,10 +635,10 @@ class Job extends CI_Controller
 			'JobNo'			=> $JobNo,
 			'Jenis'			=> $Jenis,
 			'TglCair'		=> $TglCair,
-			'NoBAP' 		=> $NoBAP,
-			'Uraian'		=> $Uraian,
+			'NoBAP' 			=> $NoBAP,
+			'Uraian'			=> $Uraian,
 			'BrutoBOQ'		=> $BrutoBOQ,
-			'UM'			=> $UM,
+			'UM'			   => $UM,
 			'Retensi'		=> $Retensi,
 			'TerminInduk'	=> $TerminInduk,
 			'UserEntry'		=> $UserEntry,
@@ -820,29 +820,36 @@ class Job extends CI_Controller
 		$this->M_job->UpdateDataProyek('Job', $data, $where);
 		Redirect('Job/tatakelola/' . $JobNo);
  	  }
-
 		
     public function rap($JobNo)
     {
         $this->load->model('m_job');
         $rap = $this->m_job->rap($JobNo);
         $data['rap'] = $rap;
-
-		//   $UserID			= $this->session->userdata('MIS_LOGGED_NAME');
 		  $AksesAlokasi = $this->m_job->GetAlokasi();
-		// $AksesAlokasi = $this->db->query("select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
-		// 						(select * from Login) as a
-		// 						left outer join
-		// 						(select * from Alokasi) as b
-		// 						on b.Alokasi = a.AksesAlokasi
-		// 						Where a.UserID=$UserID");
-		  $data['AksesAlokasi'] = $AksesAlokasi;
+
+		$alokasi = $this->input->get('alokasi');
+		$Versi = $this->input->get('Versi');
+		// $data['hasil'] = $this->M_job->pencarian_rap($alokasi, $Versi)->result_array();
+		$getRAP = $this->M_job->pencarian_rap($JobNo);
+		$data['pencarian_rap'] = $getRAP;
+
+		//   $data['pencarian_rap'] = $AksesAlokasi;
 
         $data['judul'] = 'RAP';
         $this->load->view('templates/header', $data);
         $this->load->view('templates/sidebar');
         $this->load->view("content/jobentry/rap", $data);
         $this->load->view('templates/footer');
+    }
+	 
+	 function pencarian()
+	 {
+	 $alokasi=$this->input->get('alokasi');
+	 $Versi=$this->input->get('Versi');
+    $this->M_job->pencarian_rap($alokasi, $Versi);
+	 //redirect(' Job/rap');
+    //$this->load->view("job/rap",$data); // ini view menampilkan hasil pencarian
     }
 
     public function pdpj($JobNo)
@@ -884,9 +891,6 @@ class Job extends CI_Controller
         // $config['first_tagl_close']  = '<span></span></li>';
         // $config['last_tag_open']  = '<li class="page-item "><span class="page-link">';
         // $config['last_tagl_close']  = '<span></span></li>';
-
-
-
 
         // $this->pagination->initialize($config);
         // $data['page'] = ($this->uri->segment(3)) ? $this->uri->segment(3) : 0;

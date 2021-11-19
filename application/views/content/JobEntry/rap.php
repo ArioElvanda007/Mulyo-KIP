@@ -38,12 +38,11 @@
 			</div>
 			<div class="box-body">
 				<div class="form-group">
-					<form class="form-horizontal">
+					<form class="form-horizontal" method="get" action="<?php echo base_url("job/rap") ?>">
 						<div class="form-group row">
-
 							<label for="inputName" class="col-sm-2 col-form-label">Alokasi</label>
 							<div class="col-sm-10">
-								<select class="form-control" name="alokasi" id="alokasi" style="width: 50%;">
+								<select class="form-control" name="alokasi" id="alokasi" style="width: 30%;">
 									<?php foreach ($AksesAlokasi as $al) : ?>
 										<option value="<?php echo $al->Alokasi  ?>"><?php echo $al->Alokasi  ?> - <?php echo $al->Keterangan ?></option>
 									<?php endforeach; ?>
@@ -53,7 +52,7 @@
 						<div class="form-group row">
 							<label for="inputEmail" class="col-sm-2 col-form-label">Versi</label>
 							<div class="col-sm-10">
-								<select class="form-control" name="Versi_rap" id="Versi_rap" style="width: 30%;">
+								<select class="form-control" name="Vers" id="Versi" style="width: 30%;">
 									<option value="disable diselected">0.0</option>
 								</select>
 							</div>
@@ -65,16 +64,22 @@
 							</div>
 						</div>
 					</form>
-					<p></p>
+
 					<p></p>
 					<a data-target="#modal-default-rap" data-toggle="modal" class="btn btn-warning"><i class="fa fa-plus"></i> TAMBAH DATA</a>
 					<a data-target="#modal-default-versirap" data-toggle="modal" class="btn btn-primary"><i class="fa fa-plus"></i> TAMBAH VERSI</a>
 					<a href="#save" data-toggle="modal" class="btn btn-success"><i class="fa fa-print"></i> PRINT</a>
+					<button type="submit" class="btn btn-microsoft pull-right"><i class="fa fa-search"> CARI</i></button>
+					&nbsp;&nbsp;
+					&nbsp; <input type="text" name="Cari" id="Cari" class="form-control pull-right" style="width: 30%;">
+
 					<p></p>
 
 					<div class="box-body table-responsive no-padding">
 						<table class="table table-hover" border="1" cellspacing="2" width="100%">
 							<tr>
+								<th hidden> Type</th>
+								<th hidden> No Urut</th>
 								<th style="background-color: darkcyan;">
 									<center> Kode RAP</center>
 								</th>
@@ -94,7 +99,7 @@
 									<center> RAP <p> Jumlah Harga (Rp)</center>
 								</th>
 								<th style="background-color: cyan;">
-									<center> RAP <p> Harga Satuan (Rp)</center>
+									<center> RAP <p> Bobot %</center>
 								</th>
 								<th style="background-color: greenyellow;">
 									<Center> RAB <p> Harga Satuan (Rp)</Center>
@@ -107,10 +112,55 @@
 								</th>
 								<th style="background-color: darkcyan;"></th>
 							</tr>
+							<?php foreach ($pencarian_rap as $rap) : ?>
+								<tbody>
+									<tr>
+										<td hidden><?php echo $rap->Tipe ?></td>
+										<td hidden><?php echo $rap->NoUrut ?></td>
+										<td><?php echo $rap->KdRAP ?></td>
+										<td><?php echo $rap->Uraian ?></td>
+										<td><?php echo $rap->Uom ?></td>
+										<td><?php echo number_format($rap->Vol)  ?></td>
+										<td><?php echo number_format($rap->HrgSatuan)  ?></td>
+										<td id="JmlHarga"><?php echo number_format($rap->Vol * $rap->HrgSatuan) ?></td>
+										<td></td>
+										<td><?php echo number_format($rap->HrgRAB) ?></td>
+										<td><?php echo number_format($rap->Vol * $rap->HrgRAB) ?></td>
+										<td></td>
+									</tr>
+								</tbody>
+
+							<?php endforeach; ?>
+
+							<script type="text/javascript">
+								$(function() {
+
+									var TotalValue = 0;
+
+									$("tr #JmlHarga").each(function(index, value) {
+										currentRow = parseFloat($(this).text());
+										TotalValue += currentRow
+									});
+									document.getElementById('ttlRAP').innerHTML = TotalValue;
+								});
+							</script>
+
+							<tr style="background-color:lightgray;">
+								<td colspan="5" rowspan="5">
+									<h5 style="float: right;">TOTAL RAP</h5>
+								</td>
+								<td id="ttlRAP"></td>
+								<td></td>
+								<td>
+									<h5 style="float: right;">TOTAL RAB</h5>
+								</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
 						</table>
 					</div>
 				</div>
-
 
 				<div class="modal fade" id="modal-default-rap">
 					<div class="modal-dialog">
@@ -125,7 +175,7 @@
 									<div class="form-group row">
 										<label for="inputName" class="col-sm-2 col-form-label">Tipe</label>
 										<div class="col-sm-10">
-											<select class="form-control" name="tipe_rap" id="Tipa_rap" onchange="tipe_rap()">
+											<select class="form-control" name="tipe_rap" id="Tipe_rap" onchange="tipe_rap()">
 												<option value="0">-- Pilih Salah Satu --</option>
 												<option value="Pelaksanaan">Header</option>
 												<option value="Pemeliharaan">Detail</option>
