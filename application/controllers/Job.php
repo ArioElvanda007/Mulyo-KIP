@@ -822,13 +822,12 @@ class Job extends CI_Controller
  	  }
 
 		
-    public function rap($JobNo, $UserID)
+    public function rap($JobNo)
     {
         $this->load->model('m_job');
         $rap = $this->m_job->rap($JobNo);
         $data['rap'] = $rap;
 
-		  $UserID			= $this->session->userdata('MIS_LOGGED_NAME');
 		  $AksesAlokasi = $this->m_job->GetAlokasi();
 		// $AksesAlokasi = $this->db->query("select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
 		// 						(select * from Login) as a

@@ -227,15 +227,26 @@ class M_job extends CI_Model
         return $query;
     }
 
-	public function GetAlokasi($UserID = Null)
+	public function GetAlokasi()
 	{
-		// $query = "select a.UserID, a.AksesAlokasi, b.Alokasi, b.Keterangan from
-		// 			(select * from Login) as a
-		// 			left outer join
-		// 			(select * from Alokasi) as b
-		// 			on b.Alokasi = a.AksesAlokasi
-		// 			Where a.UserID=$UserID ";
-		$query = "SELECT * FROM Alokasi";
+		// "SELECT * FROM Alokasi";
+
+		$UserID=$this->session->userdata('MIS_LOGGED_ID');
+		$query = "select ax.Alokasi, bx.Keterangan from
+					(select item as Alokasi 
+					from
+						dbo.SplitString (
+							(select top 1 a.AksesAlokasi from (select * from Login) as a
+							left outer join
+							(select * from Alokasi) as b
+							on b.Alokasi = a.AksesAlokasi
+							Where a.UserID= '$UserID')
+							, ',')
+					) as ax
+					left outer join 
+						Alokasi as bx
+					on bx.Alokasi = ax.Alokasi
+					group by ax.Alokasi, bx.Keterangan";
 		$eksekusi = $this->db->query($query);
 		return $eksekusi->result();
 	}
