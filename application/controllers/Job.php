@@ -826,6 +826,10 @@ class Job extends CI_Controller
         $this->load->model('m_job');
         $rap = $this->m_job->rap($JobNo);
         $data['rap'] = $rap;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d7eed371fdd9471837d08cce136a31e6546378b6
 		  $AksesAlokasi = $this->m_job->GetAlokasi();
 
 		$alokasi = $this->input->get('alokasi');
