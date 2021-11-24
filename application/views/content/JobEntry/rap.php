@@ -41,7 +41,7 @@
                     <form class="form-horizontal">
                         <div class="form-group row">
 
-							<!-- update code -->
+							<!-- update code 2-->
                             <label for="inputName" class="col-sm-2 col-form-label">Alokasi</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="alokasi" id="alokasi" style="width: 50%;">
