@@ -41,11 +41,12 @@
                     <form class="form-horizontal">
                         <div class="form-group row">
 
+							<!-- update code -->
                             <label for="inputName" class="col-sm-2 col-form-label">Alokasi</label>
                             <div class="col-sm-10">
                                 <select class="form-control" name="alokasi" id="alokasi" style="width: 50%;">
-								<?php foreach ($AksesAlokasi as $al) : ?>
-                                    <option value="<?php echo $al->Alokasi  ?>"><?php echo $al->Keterangan ?></option>
+								<?php foreach ($AksesAlokasi as $data) : ?>
+                                    <option value="<?php echo $data->Alokasi  ?>"><?php echo $data->Keterangan ?></option>
 									<?php endforeach; ?>
                                 </select>
                             </div>
